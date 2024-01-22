@@ -1,7 +1,7 @@
 NAME			=	minishell
 
 LIBFT_A			=	libft.a
-LIBFT_DIR		=	libft/
+LIBFT_DIR		=	include/libft/
 LIBFT			=	$(addprefix $(LIBFT_DIR), $(LIBFT_A))
 
 CC				=	gcc
