@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/22 14:27:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/01/22 15:15:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_find_word(char *input, int i)
 		i++;
 	}
 	j = i;
-	while(input[j] != ' ' && input[j] != '\0') //ascii
+	while(input[j] != '|' && input[j] != '\0')
 	{
 		write(1, &input[j], 1);
 		j++;
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	return (1);
 	// }
 	//get_env(envp);
-		input = ("ciao come stai\n");
+		input = ("ls -l | grep a > file\n");
 		// input = readline("shell>> ");
 		ft_find_word(input, i);
 		// if (input && input[0])
