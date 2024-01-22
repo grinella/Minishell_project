@@ -26,3 +26,4 @@ char	*find_path(t_mini *mini, char **env)
 	free(temp);
 	return (NULL);
 }
+sss
