@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/22 15:15:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/01/22 16:59:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,23 @@
 # include <readline/history.h>
 # include <sys/stat.h>
 
+char	*lexer()
+{
+	ft_find_word
+	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'
+	
+}
+
 char	*ft_find_word(char *input, int i)
 {
 	int j;
+	int n;
 	
 	while(input[i] == ' ')
 	{
 		i++;
 	}
+	n = i;
 	j = i;
 	while(input[j] != '|' && input[j] != '\0')
 	{
@@ -41,7 +50,7 @@ char	*ft_find_word(char *input, int i)
 		j++;
 	}
 	write(1, "\n", 1);
-	printf("j: %i\n", j);
+	printf("j: %i\n", j-n);
 	i++;
 	return (input);
 }
@@ -60,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	return (1);
 	// }
 	//get_env(envp);
-		input = ("ls -l | grep a > file\n");
+		input = ("             ls -l | grep a > file\n");
 		// input = readline("shell>> ");
 		ft_find_word(input, i);
 		// if (input && input[0])
