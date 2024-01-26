@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/01/26 18:06:27 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:49:53 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*clean_input(char *input, int i)
 	return (input);
 }
 
-void	lexer(t_mini *input) //o t_mini o t_lexer
+char	*lexer(t_mini *input) //o t_mini o t_lexer
 {
 	int i;
 
@@ -60,6 +60,7 @@ void	lexer(t_mini *input) //o t_mini o t_lexer
 	}
 	if (input) // se input ha qualcosa al suo interno
 	{
-		analize_readline();
+		clean_input();
 	}
+	return ();
 }

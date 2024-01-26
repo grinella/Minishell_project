@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/26 18:06:08 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:36:35 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 // 	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'
 	
 // }
-char *ft_output(input)
+char *routine()
 {
-	lexer(input);
+	lexer();
 	parser(lexer);
 	executor(parser);
 }
@@ -29,37 +29,41 @@ char *ft_output(input)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*input;
-	int i = 0;
-
+	char	*input;
+	char	*output;
+	int		i;
+	t_mini	mini;
+	
+	mini = (struct t_mini *)malloc(sizeof* (t_mini));
+	i = 0;
 	(void)argv;
-	if(argc == 2);
+	if(argc == 2)
 	{
-	// if (argc != 1)
-	// {
-	// 	printf("Error: too many arguments\n");
-	// 	return (1);
-	// }
-	//get_env(envp);
-	while(1)
-	{
-		input = readline("shell>> ");
-		//output // lexer, parser, executor
-		output = 
-		clean_input(input, i);
-		if (input && input[0])
-		{
-			add_history(input);
-		}
-		// if (input && input[0])
+		// if (argc != 1)
 		// {
-		// 	if (run_lexer(input, mini) && parse_input(mini))
-		// 	{
-		// 		is_builtin(mini);
-		// 	}
+		// 	printf("Error: too many arguments\n");
+		// 	return (1);
 		// }
-		// free_cmds(&mini, input);
-	}
+		//get_env(envp);
+		while(1)
+		{
+			mini->input = readline("shell>> ");
+			//output // lexer, parser, executor
+			output = routine(input);
+			clean_input(input, i);
+			if (input && input[0])
+			{
+				add_history(input);
+			}
+			// if (input && input[0])
+			// {
+			// 	if (run_lexer(input, mini) && parse_input(mini))
+			// 	{
+			// 		is_builtin(mini);
+			// 	}
+			// }
+			// free_cmds(&mini, input);
+		}
 	}
 	return (0);
 }

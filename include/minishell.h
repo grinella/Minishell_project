@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/26 18:07:05 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:29:30 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+ 
+ typedef struct s_list
+{
+	int				*token; // se "|" = 0, se ">" = 1, se ">>" = 2, se "<" = 3 
+	char			*word;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
 
-// typedef struct	s_mini
-// {
-// 	//variabile per token
-// 	variabile
-// 	variabile
-// 	variabile
-// 	variabile
-// 	variabile
-// 	variabile
-// }				t_mini
+typedef struct	s_mini
+{
+	char	*input;
+}				t_mini;
 
 # endif
