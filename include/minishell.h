@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/22 13:13:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/01/26 18:07:05 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/stat.h>
 
-typedef struct	s_mini
-{
-	//variabile per token
-	variabile
-	variabile
-	variabile
-	variabile
-	variabile
-	variabile
-}				t_mini
+// typedef struct	s_mini
+// {
+// 	//variabile per token
+// 	variabile
+// 	variabile
+// 	variabile
+// 	variabile
+// 	variabile
+// 	variabile
+// }				t_mini
 
 # endif
