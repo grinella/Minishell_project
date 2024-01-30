@@ -1,7 +1,7 @@
 NAME			=	minishell
 
 LIBFT_A			=	libft.a
-LIBFT_DIR		=	libft/
+LIBFT_DIR		=	include/libft/
 LIBFT			=	$(addprefix $(LIBFT_DIR), $(LIBFT_A))
 
 CC				=	gcc
@@ -9,13 +9,12 @@ INCLUDE			=	includes
 CFLAGS			=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM				=	rm -f
 
-EXECUTOR_DIR	=	src/executor
-PARSING_DIR		=	src/parser
-BUILTIN_DIR		=	src/builtins
-SIGNAL_DIR 		=	src/signals
-
 SRCS = 		minishell.c \
-			
+			lexer/*.c \
+			parser/*.c \
+			signals/*.c \
+			executor/*.c \
+			builtins/*.c
 
 OBJS		=	$(SRCS:%.c=%.o)
 
