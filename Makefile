@@ -10,11 +10,13 @@ CFLAGS			=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM				=	rm -f
 
 SRCS = 		minishell.c \
-			lexer/*.c \
+			mini_utils.c \
+			#lexer/*.c \
 			parser/*.c \
 			signals/*.c \
 			executor/*.c \
-			builtins/*.c
+			builtins/*.c \
+			mini_utils.c
 
 OBJS		=	$(SRCS:%.c=%.o)
 

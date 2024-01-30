@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/28 18:43:34 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/30 16:42:12 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_toks
 
 typedef struct	s_mini
 {
+	char	**env;  //allocata
 	char	*input;
 }				t_mini;
 
@@ -51,4 +52,7 @@ void	lexer(t_mini *mini);
 
 //executor
 
+//utils
+void	put_env(t_mini *mini,char **env);
+char	*ft_strcpy(char *str);
 # endif

@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 15:18:03 by eugenio           #+#    #+#             */
-/*   Updated: 2024/01/30 15:18:05 by eugenio          ###   ########.fr       */
+/*   Created: 2024/01/30 15:29:45 by eugenio           #+#    #+#             */
+/*   Updated: 2024/01/30 17:29:40 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*find_path(t_mini *mini, char **env)
+#include "include/minishell.h"
+
+//numero di stringhe in una matrice
+int	ft_count_matrix(char **matrix)
 {
-	struct stat	buff;
-	int			i;
-	char		**base;
-	char		*temp;
-	char		*path;
+	int	i;
 
 	i = 0;
-	while (ft_strncmp(env[i], "PATH=", 5))
+	while (matrix[i] != NULL)
 	{
 		i++;
 	}
-	base = ft_split((env[i] + 5), ':');
-	i = -1;
-	while (base && base[++i])
+	return (i);
+}
+//mette l'env nella struct
+void	put_env(t_mini *mini,char **env)
+{
+    int	i;
+	int	m_len;
+	
+	i = 0;
+	m_len = ft_count_matrix(env);
+	mini->env = malloc((sizeof(char **) * (m_len)));
+	while(env[i] != NULL)
 	{
-		temp = ft_strjoin(base[i], "/");
-		if (!lstat(ft_strjoin(temp, mini->toks[0]), &buff))
-		{
-			path = ft_strjoin(temp, mini->toks[0]);
-			free(temp);
-			return (path);
-		}
+		mini->env[i] = ft_strdup(env[i]);
+		i++;
 	}
-	free(temp);
-	return (NULL);
 }

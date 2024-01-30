@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/01/28 18:41:37 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/30 16:10:41 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	lexer(t_mini *mini) //o t_mini o t_lexer
 	}
 	if (mini->input) // se input ha qualcosa al suo interno
 	{
-		clean_input(&mini);
+		clean_input(mini->input, i);
 	}
 }
