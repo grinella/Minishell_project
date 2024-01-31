@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/30 17:32:28 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/01/31 16:37:41 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,17 @@
 // char	*lexer()
 // {
 // 	ft_find_word
-// 	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'	
+// 	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'
+	
 // }
+
+char *routine(t_mini *riga)
+{
+	//lexer(riga->input);
+	//parser(lexer);
+	//executor(parser);
+	return (riga->input);
+}
 
 //funzione da cancellare
 void	ft_print_matrix(char **matrix)
@@ -38,33 +47,32 @@ void	init_mini(t_mini *mini, char **env)
 	put_env(mini, env);
 }
 
-/*void	routine(t_mini *mini)
-{
-	lexer(mini);
-	//parser(lexer);
-	//executor(parser);
-}*/
+
 
 int	main(int argc, char **argv, char **env)
 {
-	//char	*output;
+	// char	*output;
 	t_mini	*mini;
-
+	
 	(void)argv;
-	if (argc == 1)
+	if (argc != 1)
 	{
-		mini = malloc(sizeof(t_mini));
-		init_mini(mini, env);
-		// if (argc != 1)
-		// {
-		// 	printf("Error: too many arguments\n");
-		// 	return (1);
-		// }
-		//get_env(envp);
+		printf("Error: too many arguments\n");
+		return (1);
+	}
+	if(argc == 1)
+	{
+		// get_env(env);
+		mini = (t_mini *)malloc(sizeof(t_mini));
+		(void)env;
 		while(1)
 		{
 			mini->input = readline("shell>> ");
 			//output // lexer, parser, executor
+			// output = routine(mini);
+			lexer(mini);
+			//clean_input(mini->input, i);
+			if (mini->input && mini->input[0])
 			{
 				add_history(mini->input);
 			}

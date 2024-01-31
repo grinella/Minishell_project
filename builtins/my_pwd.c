@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   my_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 16:59:26 by eugenio           #+#    #+#             */
-/*   Updated: 2024/01/31 13:27:15 by Gabriele         ###   ########.fr       */
+/*   Created: 2024/01/15 12:46:00 by grinella          #+#    #+#             */
+/*   Updated: 2024/01/29 18:44:12 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_ctrlc(int sign)
+// Stampa il percorso corrente (current working directory) sulla console.
+void	my_pwd(t_mini *p)
 {
-	if (sign == SIGINT)
+	char	*cwd;
+	(void)p;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 	{
-		g_exit_status = 130;
-		write(1, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
+		cont_error(NDIR, "", 1);
 	}
-}
-
-void	ft_ctrld(char *line, t_mini *mini)
-{
-	ft_free_array(mini->env);
-	if (line)
-		free(line);
-	exit(g_exit_status);
-}
-
-void	sig_ignore(void)
-{
-	signal(SIGINT, ft_ctrlc);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	ft_putendl_fd(cwd, 1);
+	// p->mini_prompt->envp = set_env("OLDPWD", cwd, p->mini_prompt->envp, 6);
+	// p->mini_prompt->envp = set_env("PWD", cwd, p->mini_prompt->envp, 3);
+	free(cwd);
 }
