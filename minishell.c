@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 16:07:37 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:37:41 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ void	init_mini(t_mini *mini, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	// char	*output;
-	int		i;
 	t_mini	*mini;
 	
-	i = 0;
 	(void)argv;
 	if (argc != 1)
 	{
@@ -73,7 +71,7 @@ int	main(int argc, char **argv, char **env)
 			//output // lexer, parser, executor
 			// output = routine(mini);
 			lexer(mini);
-			clean_input(mini->input, i);
+			//clean_input(mini->input, i);
 			if (mini->input && mini->input[0])
 			{
 				add_history(mini->input);

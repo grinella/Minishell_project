@@ -10,6 +10,7 @@ CFLAGS			=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM				=	rm -f
 
 SRCS = 		minishell.c \
+			mini_utils.c \
 			lexer/lexer.c \
 			# parser/*.c \
 			signals/*.c \

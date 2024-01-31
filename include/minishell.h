@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 16:06:20 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:08:49 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
  typedef struct s_toks
 {
 	int				*token; // se "|" = 0, se ">" = 1, se ">>" = 2, se "<" = 3 
-	// int				n_cmd; // numero del comando
 	char			*word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
@@ -43,11 +42,16 @@ typedef struct	s_mini
 {
 	char	**env; // allocata
 	char	*input;
+	char	*c_input;
+	// int				n_cmd; // numero del comando
 }	t_mini;
+
+// MINI FUNCTIONS
+void	put_env(t_mini *mini,char **env);
 
 // LEXER FUNCTIONS
 char	*lexer(t_mini *mini);
-char	*clean_input(char *input, int i);
+char	*clean_input(t_mini *mini, int i);
 
 // PARSER FUNCTIONS
 
