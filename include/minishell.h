@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 17:08:49 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:53:46 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	put_env(t_mini *mini,char **env);
 
 // LEXER FUNCTIONS
 char	*lexer(t_mini *mini);
-char	*clean_input(t_mini *mini, int i);
+void	clean_input_len(t_mini *mini);
 
 // PARSER FUNCTIONS
 

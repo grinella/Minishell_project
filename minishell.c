@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 16:37:41 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:15:25 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ int	main(int argc, char **argv, char **env)
 			mini->input = readline("shell>> ");
 			//output // lexer, parser, executor
 			// output = routine(mini);
-			lexer(mini);
 			//clean_input(mini->input, i);
 			if (mini->input && mini->input[0])
 			{
 				add_history(mini->input);
 			}
+			lexer(mini);
+			printf("input:%s\n", mini->input);
+			printf("input pulito:%s\n", mini->c_input);
 			// if (input && input[0])
 			// {
 			// 	if (run_lexer(input, mini) && parse_input(mini))
