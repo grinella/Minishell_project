@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/01/29 18:28:13 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:01:05 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 char	*clean_input(char *input, int i)
 {
-	t_list	*j;
+	int	j;
 	int n;
 	int	flag;
-	
+
 	flag = 0;
 	while(input[i] == ' ')
 	{
 		i++;
 	}
 	n = i;
-	j->n_cmd = i;
-	while(input[j->n_cmd] != '|' && input[j->n_cmd] != '\0')
+	j = i;
+	while(input[j] != '|' && input[j] != '\0')
 	{
-		while(input[j->n_cmd] == ' ')
+		while(input[j] == ' ')
 		{
 			if(flag == 0)
 			{
@@ -39,8 +39,8 @@ char	*clean_input(char *input, int i)
 			j++;
 			i++;
 		}
-		write(1, &input[j->n_cmd], 1);
-		j->n_cmd++;
+		write(1, &input[j], 1);
+		j++;
 		i++;
 		flag = 0;
 	}
@@ -49,20 +49,19 @@ char	*clean_input(char *input, int i)
 	return (input);
 }
 
-char	*lexer(t_mini *input) //o t_mini o t_lexer
+char	*lexer(t_mini *mini) //o t_mini o t_lexer
 {
-	t_list *j;
-	int 	i;
+	int j;
 
-	i = 0;
-	if (!input) // se input é vuoto
+	j = 0;
+	if (!mini->input) // se input é vuoto
 	{
 		printf("\n");
 	}
-	while (input) // se input ha qualcosa al suo interno // aggiornamento con while per iterare su tutta la stringa
+	if (mini->input) // se input ha qualcosa al suo interno // aggiornamento con while per iterare su tutta la stringa
 	{
-		clean_input(input, j->n_cmd);
-		j->n_cmd++;
+		clean_input(mini->input, j);
+		j++;
 	}
-	return (input);
+	return (mini->input);
 }

@@ -10,8 +10,8 @@ CFLAGS			=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM				=	rm -f
 
 SRCS = 		minishell.c \
-			lexer/*.c \
-			parser/*.c \
+			lexer/lexer.c \
+			# parser/*.c \
 			signals/*.c \
 			executor/*.c \
 			builtins/*.c
@@ -21,8 +21,12 @@ OBJS		=	$(SRCS:%.c=%.o)
 all:		$(NAME)
 
 $(NAME):	$(LIBFT) $(OBJS)
-			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L/Users/$(USER)/.brew/opt/readline/lib -lreadline -ltermcap
+			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L/usr/local/opt/readline/lib -lreadline -ltermcap
 			@echo "\nLinked into executable \033[0;32mminishell\033[0m."
+
+# $(NAME):	$(LIBFT) $(OBJS)
+# 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L/Users/$(USER)/.brew/opt/readline/lib -lreadline -ltermcap
+# 			@echo "\nLinked into executable \033[0;32mminishell\033[0m."
 
 $(LIBFT):
 			@echo "Compiling libft.a"
