@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 17:53:46 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/02/01 17:58:30 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@
  
  typedef struct s_toks
 {
-	int				*token; // se "|" = 0, se ">" = 1, se ">>" = 2, se "<" = 3 
-	char			*word;
+	char			**word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
 }	t_toks;
