@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/02/01 17:58:30 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/02/02 12:39:18 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
  
  typedef struct s_toks
 {
-	char			**word;
+	int				type;
+	char			*word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
 }	t_toks;
@@ -41,7 +42,7 @@ typedef struct	s_mini
 {
 	char	**env; // allocata
 	char	*input;
-	char	*c_input;
+	char	*c_input; //allocata
 	// int				n_cmd; // numero del comando
 }	t_mini;
 
@@ -49,8 +50,9 @@ typedef struct	s_mini
 void	put_env(t_mini *mini,char **env);
 
 // LEXER FUNCTIONS
-char	*lexer(t_mini *mini);
+char	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
+void	tokenizer(t_mini *mini, t_toks *toks);
 
 // PARSER FUNCTIONS
 
