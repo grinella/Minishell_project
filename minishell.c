@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 16:37:41 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:24:01 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *routine(t_mini *riga)
 	return (riga->input);
 }
 
-//funzione da cancellare
+//funzione da cancellare che printa la matrici
 void	ft_print_matrix(char **matrix)
 {
 	int	i;
@@ -51,8 +51,8 @@ void	init_mini(t_mini *mini, char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	// char	*output;
 	t_mini	*mini;
+	t_toks	*toks;
 	
 	(void)argv;
 	if (argc != 1)
@@ -62,20 +62,22 @@ int	main(int argc, char **argv, char **env)
 	}
 	if(argc == 1)
 	{
-		// get_env(env);
 		mini = (t_mini *)malloc(sizeof(t_mini));
-		(void)env;
+		toks = (t_toks *)malloc(sizeof(t_toks));
+		init_mini(mini, env);
 		while(1)
 		{
 			mini->input = readline("shell>> ");
 			//output // lexer, parser, executor
 			// output = routine(mini);
-			lexer(mini);
 			//clean_input(mini->input, i);
 			if (mini->input && mini->input[0])
 			{
 				add_history(mini->input);
 			}
+			lexer(mini, toks);
+			printf("input:%s\n", mini->input);
+			printf("input pulito:%s\n", mini->c_input);
 			// if (input && input[0])
 			// {
 			// 	if (run_lexer(input, mini) && parse_input(mini))

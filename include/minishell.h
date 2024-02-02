@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 17:08:49 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:40:35 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
  
  typedef struct s_toks
 {
-	int				*token; // se "|" = 0, se ">" = 1, se ">>" = 2, se "<" = 3 
-	char			*word;
+	int				type;
+	char			**word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
 }	t_toks;
@@ -42,7 +42,7 @@ typedef struct	s_mini
 {
 	char	**env; // allocata
 	char	*input;
-	char	*c_input;
+	char	*c_input; //allocata
 	// int				n_cmd; // numero del comando
 }	t_mini;
 
@@ -50,8 +50,10 @@ typedef struct	s_mini
 void	put_env(t_mini *mini,char **env);
 
 // LEXER FUNCTIONS
-char	*lexer(t_mini *mini);
-char	*clean_input(t_mini *mini, int i);
+char	*lexer(t_mini *mini, t_toks *toks);
+void	clean_input_len(t_mini *mini);
+void	splitter(t_mini *mini, t_toks *toks);
+void	tokenizer(t_mini *mini, t_toks *toks);
 
 // PARSER FUNCTIONS
 
@@ -61,5 +63,8 @@ char	*clean_input(t_mini *mini, int i);
 
 // BUILTINS FUNCTIONS
 
+// UTILS FUNCTIONS
+char	**mini_split(char const *s, char c);
+void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
 # endif

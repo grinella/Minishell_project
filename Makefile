@@ -11,7 +11,9 @@ RM				=	rm -f
 
 SRCS = 		minishell.c \
 			mini_utils.c \
+			mini_utils_1.c \
 			lexer/lexer.c \
+			lexer/tokenizer.c \
 			# parser/*.c \
 			signals/*.c \
 			executor/*.c \
