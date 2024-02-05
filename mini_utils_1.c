@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/05 15:58:56 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:10:02 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static int	mini_count_words(char const *s, char c)
 	{
 		if(s[i] == '"')
 		{
+			count++;
+			i++;
 			while (s[i] != '"' && s[i] != '\0')
 				i++;
 			if(s[i] == '"' || s[i] != '\0')
 				i++;
 		}
-		if (s[i] != c)
+		else if (s[i] != c)
 		{
 			count++;
 			while (s[i] != c && s[i] != '\0')
@@ -102,12 +104,17 @@ void	mini_fill_str(char **str, char const *s, char c)
 	{
 		if(s[i] == '"')
 		{
+			printf("mini_fill_str: %d\nlettera: %c\n", i, s[i]);
 			str[j] = (char *)malloc(sizeof(char) * (mini_len_quote(&s[i]) + 1));
 			if (!str[j])
 			{
 				mini_free(str, j);
 				return ;
 			}
+			k = 0;
+			while (s[i] != c && s[i] != '\0')
+				str[j][k++] = s[i++];
+			str[j++][k] = '\0';
 		}
 		else if (s[i] != c)
 		{
