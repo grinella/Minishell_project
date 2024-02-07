@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/06 14:04:40 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:40:28 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,38 +56,34 @@ static int	mini_len_word(char const *s, char c) // DA MODIFICARE AGGIUNGENDO UNA
 	return (i);
 }
 
-static int	mini_len_quote(char const *s, char c)
-{
-	int		i;
-
-	i = 0;
-	if (s[i] == '"' )
-		i++;
-	while (s[i] != '"' && s[i] != '\0')
-	{
-		i++;
-	}
-	// printf("mini_len_quote: %d\n", i);
-	// printf("stringa tra le quote: %s\n", &s[i]);
-	return (i);
-}
-
-// static int	mini_len_quote(char const *s)
+// static int	mini_len_quote(char const *s, char c)
 // {
 // 	int		i;
 
 // 	i = 0;
-// 	if(s[i] == '"')
+// 	if (s[i] == c )
+// 		i++;
+// 	while (s[i] != c && s[i] != '\0')
 // 	{
 // 		i++;
-// 		while (s[i] != '"' && s[i] != '\0')
-// 			i++;
-// 		if(s[i] == '"' || s[i] != '\0')
-// 			i++;
 // 	}
 // 	printf("mini_len_quote: %d\n", i);
-// 	sleep(1);
+// 	printf("stringa tra le quote: %s\n", &s[i]);
 // 	return (i);
+// }
+
+// void	alloc_quote(char **str, int i, int j, char const *s)
+// {
+// 	int len = mini_len_quote(&s[i], '"');
+// 	str[j] = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (!str[j])
+// 	{
+// 		// In caso di fallimento dell'allocazione della memoria, puoi gestire l'errore qui
+// 		fprintf(stderr, "Errore durante l'allocazione della memoria\n");
+// 		exit(EXIT_FAILURE); // O qualsiasi altra gestione dell'errore che preferisci
+// 	}
+// 	strncpy(str[j], &s[i], len); // Copia la porzione tra virgolette nella nuova stringa
+// 	str[j][len] = '\0'; // Assicura che la stringa sia terminata correttamente
 // }
 
 static void	mini_free(char **str, int i)
@@ -111,37 +107,34 @@ void	mini_fill_str(char **str, char const *s, char c)
 	while (s[i] != '\0')
 	{
 		k = 0;
+		// if (s[i] == '"')
+		// {
+		// 	str[j] = (char *)malloc(sizeof(char) * (mini_len_quote(&s[i], '"') + 1));
+		// 	// str[j] = (char *)malloc(sizeof(char) * (len + 1));
+		// 	if (!str[j])
+		// 	{
+		// 		// In caso di fallimento dell'allocazione della memoria, puoi gestire l'errore qui
+		// 		fprintf(stderr, "Errore durante l'allocazione della memoria\n");
+		// 		exit(EXIT_FAILURE); // O qualsiasi altra gestione dell'errore che preferisci
+		// 	}
+			
+		// 	// strncpy(str[j], &s[i], len); // Copia la porzione tra virgolette nella nuova stringa
+		// 	str[j][k++] = '\0'; // Assicura che la stringa sia terminata correttamente
+		// 	// alloc_quote(&str[j], i, j, s);
+		// 	i += mini_len_quote(&s[i], '"') + 1;
+		// 	j++;
+		// }
 		if (s[i] != c)
 		{
-			if (s[i] == '"')
+			str[j] = (char *)malloc(sizeof(char) * (mini_len_word(&s[i], c) + 1));
+			if (!str[j])
 			{
-				//richiamo funzione alloc_quote
-				//i += mini_len_quote(&s[i]);
+				mini_free(str, j);
+				return ;
 			}
-			// {
-			// 	str[j] = (char *)malloc(sizeof(char) * (mini_len_quote(&s[i], '"') + 1));
-			// 	if (!str[j])
-			// 	{
-			// 		mini_free(str, j);
-			// 		return ;
-			// 	}
-			// 	while (s[i] != '"' && s[i] != '\0')
-			// 		str[j][k++] = s[i++];
-			// 	str[j][k++] = s[i++];
-			// 	str[j++][k] = '\0';
-			// }
-			// else
-			// {
-				str[j] = (char *)malloc(sizeof(char) * (mini_len_word(&s[i], c) + 1));
-				if (!str[j])
-				{
-					mini_free(str, j);
-					return ;
-				}
-				while (s[i] != c && s[i] != '\0')
-					str[j][k++] = s[i++];
-				str[j++][k] = '\0';
-			// }
+			while (s[i] != c && s[i] != '\0')
+				str[j][k++] = s[i++];
+			str[j++][k] = '\0';
 		}
 		else
 			i++;
@@ -208,4 +201,22 @@ mini_len_word
 			if(s[i] == '"') //
 				i++;
 		} // aggiunto
+
 */
+// static int	mini_len_quote(char const *s)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if(s[i] == '"')
+// 	{
+// 		i++;
+// 		while (s[i] != '"' && s[i] != '\0')
+// 			i++;
+// 		if(s[i] == '"' || s[i] != '\0')
+// 			i++;
+// 	}
+// 	printf("mini_len_quote: %d\n", i);
+// 	sleep(1);
+// 	return (i);
+// }
