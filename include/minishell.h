@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 20:04:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/02/02 17:40:35 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:16:46 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
  typedef struct s_toks
 {
 	int				type;
-	char			**word;
+	int				*content; 0 = |, 1 = > --->(se .next = > ----> 2 = ">>"), 3 = < (--->(se .next = < ----> 4 = "<<")), 5 = " ", 6 = ' ';
 	struct s_toks	*prev;
 	struct s_toks	*next;
 }	t_toks;

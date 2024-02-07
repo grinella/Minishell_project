@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/07 18:37:02 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:01:58 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ static int	mini_len_word(char const *s, int *i, char c)
 	len = *i;
 	while (s[*i] != c && s[*i] != '\0')
 	{
+		if(s[*i] == '"')
+		{
+			return (*i - len);
+		}
 		(*i)++;
 	}
 	printf("mini_len_word: %d\n", (*i - len));
@@ -60,8 +64,8 @@ static int	mini_len_quotes(char const *s, int *i, char c)
 {
 	int		len;
 
-	*i += 1;
 	len = *i;
+	*i += 1;
 	while (s[*i] != c && s[*i] != '\0')
 	{
 		(*i)++;
@@ -110,9 +114,13 @@ void	mini_fill_str(char **str, char const *s, char c)
 	j = 0;
 	while (s[i] != '\0')
 	{
+		printf("s: %s\n", s);
 		if (s[i] == '"')
 		{
+			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '"'));
+			
+			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -120,14 +128,23 @@ void	mini_fill_str(char **str, char const *s, char c)
 			}
 			if (s[i] == '"')
 				i++;
+			j++;
 		}
 		else if (s[i] != c)
 		{
-			str[j] = ft_substr(s, i, mini_len_word(s, &i, c));
-			if (!str[j])
+			if (s[i] == '"')
 			{
-				mini_free(str, j);
-				return ;
+				j++;
+			}
+			else
+			{
+				str[j] = ft_substr(s, i, mini_len_word(s, &i, c));
+				if (!str[j])
+				{
+					mini_free(str, j);
+					return ;
+				}
+				j++;
 			}
 		}
 		else
@@ -135,7 +152,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 		while (s[i] == c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
 			i++;
 	}
-	ft_print_matrix(&str[j]);
 	str[j] = NULL;
 }
 
@@ -149,8 +165,6 @@ char	**mini_split(char const *s, char c)
 	if (!str)
 		return (NULL);
 	mini_fill_str(str, s, c);
-	printf("AAAAAAA\n");
-	printf("contenuto matrice:%s\n", str[0]);
-	// ft_print_matrix(str);
+	ft_print_matrix(str);
 	return (str);
 }
