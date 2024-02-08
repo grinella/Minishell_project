@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/08 19:17:44 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:54:43 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	clean_input(t_mini *mini, int len)
 			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
-				if (mini->input[i] == '$')
-				{
-					i++;
-				//	find_dollar_env(); ANCORA DA SCRIVERE
-				}
+				// if (mini->input[i] == '$')
+				// {
+				// 	i++;
+				// //	find_dollar_env(); ANCORA DA SCRIVERE
+				// }
 				mini->c_input[j] = mini->input[i];
 				j++;
 				i++;
