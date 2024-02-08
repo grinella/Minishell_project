@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/07 20:01:58 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/08 13:05:08 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 		{
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '"'));
-			
 			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
@@ -130,9 +129,23 @@ void	mini_fill_str(char **str, char const *s, char c)
 				i++;
 			j++;
 		}
+		if (s[i] == '\'')
+		{
+			i += 1;
+			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '\''));
+			printf("stringa tra le quote: %s\n", str[j]);
+			if (!str[j])
+			{
+				mini_free(str, j);
+				return ;
+			}
+			if (s[i] == '\'')
+				i++;
+			j++;
+		}
 		else if (s[i] != c)
 		{
-			if (s[i] == '"')
+			if (s[i] == '"' || s[i] == '\'')
 			{
 				j++;
 			}

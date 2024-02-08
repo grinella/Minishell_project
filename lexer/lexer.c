@@ -6,11 +6,40 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/02 17:41:48 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:26:13 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*find_dollar_env(t_toks *toks, char **env) // DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
+{
+	struct stat	buff;
+	int			i;
+	char		**base;
+	char		*temp;
+	char		*path;
+
+	i = 0;
+	while (ft_strncmp(env[i], "PATH=", 5))
+	{
+		i++;
+	}
+	base = ft_split((env[i] + 5), ':');
+	i = -1;
+	while (base && base[++i])
+	{
+		temp = ft_strjoin(base[i], "/");
+		if (!lstat(ft_strjoin(temp, toks->word[0]), &buff))
+		{
+			path = ft_strjoin(temp, toks->word[0]);
+			free(temp);
+			return (path);
+		}
+	}
+	free(temp);
+	return (NULL);
+}
 
 void	clean_input(t_mini *mini, int len)
 {
@@ -54,6 +83,21 @@ void	clean_input(t_mini *mini, int len)
 			j++;
 			i++;
 		}
+		else if(mini->input[i] == '\'')
+		{
+			mini->c_input[j] = mini->input[i];
+			j++;
+			i++;
+			while(mini->input[i] != '\'' && mini->input[i] != '\0')
+			{
+				mini->c_input[j] = mini->input[i];
+				j++;
+				i++;
+			}
+			mini->c_input[j] = mini->input[i];
+			j++;
+			i++;
+		}
 		mini->c_input[j] = mini->input[i];
 		j++;
 		i++;
@@ -75,7 +119,6 @@ void	clean_input_len(t_mini *mini)
 	j = 0;
 	while(mini->input[i] != '\0')
 	{
-		printf("j2:%i\n", j);
 		while(mini->input[i] == ' ')
 		{
 			if(flag == 0 && ++flag)
@@ -84,12 +127,22 @@ void	clean_input_len(t_mini *mini)
 		}
 		if(mini->input[i] == '"')
 		{
-			printf("j1:%i\n", j);
 			j++;
 			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
-				printf("j3:\n");
+				j++;
+				i++;
+			}
+			j++;
+			i++;
+		}
+		else if(mini->input[i] == '\'')
+		{
+			j++;
+			i++;
+			while(mini->input[i] != '\'' && mini->input[i] != '\0')
+			{
 				j++;
 				i++;
 			}
@@ -100,7 +153,6 @@ void	clean_input_len(t_mini *mini)
 		i++;
 		flag = 0;
 	}
-	printf("j:%i\n", j);
 	clean_input(mini, j);
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:16:46 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/01 16:25:34 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/02/08 14:49:28 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*find_path(t_mini *mini, char **env)
+char	*find_path(t_toks *toks, char **env)
 {
 	struct stat	buff;
 	int			i;
@@ -30,9 +30,9 @@ char	*find_path(t_mini *mini, char **env)
 	while (base && base[++i])
 	{
 		temp = ft_strjoin(base[i], "/");
-		if (!lstat(ft_strjoin(temp, mini->word[0]), &buff))
+		if (!lstat(ft_strjoin(temp, toks->word[0]), &buff))
 		{
-			path = ft_strjoin(temp, mini->[0]);
+			path = ft_strjoin(temp, toks->word[0]);
 			free(temp);
 			return (path);
 		}
