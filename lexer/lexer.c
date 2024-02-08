@@ -6,30 +6,32 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/08 15:40:52 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:17:44 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+/*
 //--------------------------------------------------------------------
-char	*find_dollar_env(t_toks *toks, char **env) // DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
+char	*find_dollar_env(t_toks *toks, char **env, int *i) // DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
 {
+	int			e;
 	struct stat	buff;
-	int			i;
 	char		**base;
 	char		*temp;
 	char		*path;
 
-	i = 0;
-	while (ft_strncmp(env[i], "PATH=", 5))
+	e = 0;
+	ft_strlen
+	while (ft_strncmp(env[e], , ))
 	{
-		i++;
+		e++;
 	}
-	base = ft_split((env[i] + 5), ':');
-	i = -1;
-	while (base && base[++i])
+	base = ft_split((env[e] + 5), ':');
+	e = -1;
+	while (base && base[++e])
 	{
-		temp = ft_strjoin(base[i], "/");
+		temp = ft_strjoin(base[e], "/");
 		if (!lstat(ft_strjoin(temp, toks->word[0]), &buff))
 		{
 			path = ft_strjoin(temp, toks->word[0]);
@@ -41,7 +43,18 @@ char	*find_dollar_env(t_toks *toks, char **env) // DA ADATTARE PER FAR TROVARE U
 	return (NULL);
 }
 
+//la funzione find_dollar_env_len dovrà calcolare la lunghezza della variabile
+// d'ambiente per aggiornre la j di clean_input_len da passare poi a clean_input
+// così avremo es:
+//	input		 -> echo "ciao $SSH_AUTH_SOCK"
+//	input_pulito -> echo ciao /private/tmp/com.apple.launchd.Or31a9lSsT/Listeners
+int	find_dollar_env_len(t_toks *toks, char **env, int *i, int	*j)
+{
+	
+	
+}
 //--------------------------------------------------------------------
+*/
 
 void	clean_input(t_mini *mini, int len)
 {
@@ -77,6 +90,11 @@ void	clean_input(t_mini *mini, int len)
 			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
+				if (mini->input[i] == '$')
+				{
+					i++;
+				//	find_dollar_env(); ANCORA DA SCRIVERE
+				}
 				mini->c_input[j] = mini->input[i];
 				j++;
 				i++;
@@ -129,6 +147,11 @@ void	clean_input_len(t_mini *mini)
 		}
 		if(mini->input[i] == '"')
 		{
+			// if (mini->input[i] == '$')
+			// {
+			// 	i++;
+			// 	j += //find_dollar_env_len(); DA SCRIVERE
+			// }
 			j++;
 			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
