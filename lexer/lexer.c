@@ -6,12 +6,12 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/08 15:26:13 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:40:52 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+//--------------------------------------------------------------------
 char	*find_dollar_env(t_toks *toks, char **env) // DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
 {
 	struct stat	buff;
@@ -40,6 +40,8 @@ char	*find_dollar_env(t_toks *toks, char **env) // DA ADATTARE PER FAR TROVARE U
 	free(temp);
 	return (NULL);
 }
+
+//--------------------------------------------------------------------
 
 void	clean_input(t_mini *mini, int len)
 {
