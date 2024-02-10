@@ -6,55 +6,60 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/08 19:54:43 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:54:24 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/*
-//--------------------------------------------------------------------
-char	*find_dollar_env(t_toks *toks, char **env, int *i) // DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
-{
-	int			e;
-	struct stat	buff;
-	char		**base;
-	char		*temp;
-	char		*path;
 
-	e = 0;
-	ft_strlen
-	while (ft_strncmp(env[e], , ))
-	{
-		e++;
-	}
-	base = ft_split((env[e] + 5), ':');
-	e = -1;
-	while (base && base[++e])
-	{
-		temp = ft_strjoin(base[e], "/");
-		if (!lstat(ft_strjoin(temp, toks->word[0]), &buff))
-		{
-			path = ft_strjoin(temp, toks->word[0]);
-			free(temp);
-			return (path);
-		}
-	}
-	free(temp);
-	return (NULL);
-}
+//--------------------------------------------------------------------
+// DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
+// int	*find_dollar_env(t_toks *toks, t_mini *mini, char **env, int *i, int *j)
+// {
+// 	int n;
+// 	*i++;
+// 	while(mini->input[*i] >= 'A' && mini->input[*i] <= 'Z'
+// 		|| mini->input[*i] >= 'a' && mini->input[*i] <= 'z' || mini->input[*i] == '_')
+// 	{
+// 		n++;
+// 	}
+// }
 
 //la funzione find_dollar_env_len dovrà calcolare la lunghezza della variabile
 // d'ambiente per aggiornre la j di clean_input_len da passare poi a clean_input
 // così avremo es:
 //	input		 -> echo "ciao $SSH_AUTH_SOCK"
 //	input_pulito -> echo ciao /private/tmp/com.apple.launchd.Or31a9lSsT/Listeners
-int	find_dollar_env_len(t_toks *toks, char **env, int *i, int	*j)
-{
-	
-	
-}
+// int find_dollar_env_len( t_mini *mini, int *i)
+// {
+// 	int x;
+// 	int y;
+// 	int len;
+
+// 	y = 0;
+// 	x = 0;
+// 	while(mini->input[*i] >= 'A' && mini->input[*i] <= 'Z'
+// 		|| mini->input[*i] >= 'a' && mini->input[*i] <= 'z' || mini->input[*i] == '_')
+// 	{
+// 		(*i)++;
+// 	}
+// 	while (ft_strncmp(mini->env[x][y], mini->input[*i], 5))
+// 	{
+// 		i++;
+// 	}
+// 	while(mini->env[x])
+// 	{
+// 		if(ft_strncmp(mini->env[x], &mini->input[*i], ft_strlen(&mini->input[*i])) == 0)
+// 		{
+// 			while(mini->env[x][y] != '=')
+// 				y++;
+// 			//printf("len = %i\n", ft_strlen(mini->env[x] + y));
+// 		return (ft_strlen(mini->env[x] + y));
+// 		}
+// 	}
+// 	return 0;
+// }
 //--------------------------------------------------------------------
-*/
 
 void	clean_input(t_mini *mini, int len)
 {
@@ -63,8 +68,8 @@ void	clean_input(t_mini *mini, int len)
 	int	flag;
 	
 	i = 0;
-	flag = 0;
 	j = 0;
+	flag = 0;
 	//ho creato questa condizione cosi se rientra in questa funzione piu di una volta non alloca la stessa variabile due volte però anche se la commento non da errore
 	if (mini->c_input)
 		free(mini->c_input);
@@ -83,6 +88,10 @@ void	clean_input(t_mini *mini, int len)
 			}
 			i++;
 		}
+		// if (mini->input[i] == '$')
+		// {
+		// 	find_dollar_env(mini, );
+		// }
 		if(mini->input[i] == '"')
 		{
 			mini->c_input[j] = mini->input[i];
@@ -92,8 +101,7 @@ void	clean_input(t_mini *mini, int len)
 			{
 				// if (mini->input[i] == '$')
 				// {
-				// 	i++;
-				// //	find_dollar_env(); ANCORA DA SCRIVERE
+				// 	find_dollar_env(mini, );
 				// }
 				mini->c_input[j] = mini->input[i];
 				j++;
@@ -145,22 +153,25 @@ void	clean_input_len(t_mini *mini)
 				j++;
 			i++;
 		}
+		// if (mini->input[i] == '$')
+		// 	{
+		// 		i++;
+		// 		j += find_dollar_env_len(mini, &i);
+		// 	}
 		if(mini->input[i] == '"')
 		{
+			i++;
 			// if (mini->input[i] == '$')
 			// {
 			// 	i++;
-			// 	j += //find_dollar_env_len(); DA SCRIVERE
+			// 	j += find_dollar_env_len(mini, &i);
 			// }
 			j++;
-			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
 				j++;
 				i++;
 			}
-			j++;
-			i++;
 		}
 		else if(mini->input[i] == '\'')
 		{
