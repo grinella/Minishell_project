@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/08 17:58:12 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:13:51 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	**mini_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	str = (char **)malloc(sizeof(char *) * (mini_count_words(s, c) + 1));
+	str = (char **)malloc(sizeof(char *) * (mini_count_words(s, c)));
 	if (!str)
 		return (NULL);
 	mini_fill_str(str, s, c);

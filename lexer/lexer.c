@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:48:40 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/10 18:54:24 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:00:21 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 // così avremo es:
 //	input		 -> echo "ciao $SSH_AUTH_SOCK"
 //	input_pulito -> echo ciao /private/tmp/com.apple.launchd.Or31a9lSsT/Listeners
+
 // int find_dollar_env_len( t_mini *mini, int *i)
 // {
 // 	int x;
@@ -43,13 +44,13 @@
 // 	{
 // 		(*i)++;
 // 	}
-// 	while (ft_strncmp(mini->env[x][y], mini->input[*i], 5))
+// 	while (ft_strncmp(mini->env[x], mini->input, 5))
 // 	{
 // 		i++;
 // 	}
 // 	while(mini->env[x])
 // 	{
-// 		if(ft_strncmp(mini->env[x], &mini->input[*i], ft_strlen(&mini->input[*i])) == 0)
+// 		if(ft_strncmp(mini->env[x][y], &mini->input[*i], ft_strlen(&mini->input[*i])) == 0)
 // 		{
 // 			while(mini->env[x][y] != '=')
 // 				y++;
@@ -78,31 +79,26 @@ void	clean_input(t_mini *mini, int len)
 		i++;
 	while(mini->input[i] != '\0')
 	{
-		while(mini->input[i] == ' ')
+		if(mini->input[i] == ' ')
 		{
-			if(flag == 0)
+			while(mini->input[i] == ' ')
 			{
-				mini->c_input[j] = mini->input[i];
-				flag = 1;
-				j++;
+				if(flag == 0)
+				{
+					mini->c_input[j] = mini->input[i];
+					flag = 1;
+					j++;
+				}
+				i++;
 			}
-			i++;
 		}
-		// if (mini->input[i] == '$')
-		// {
-		// 	find_dollar_env(mini, );
-		// }
-		if(mini->input[i] == '"')
+		else if(mini->input[i] == '"')
 		{
 			mini->c_input[j] = mini->input[i];
 			j++;
 			i++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
-				// if (mini->input[i] == '$')
-				// {
-				// 	find_dollar_env(mini, );
-				// }
 				mini->c_input[j] = mini->input[i];
 				j++;
 				i++;
@@ -126,9 +122,12 @@ void	clean_input(t_mini *mini, int len)
 			j++;
 			i++;
 		}
-		mini->c_input[j] = mini->input[i];
-		j++;
-		i++;
+		else
+		{
+			mini->c_input[j] = mini->input[i];
+			j++;
+			i++;
+		}
 		flag = 0;
 	}
 	mini->c_input[j] = '\0';
@@ -141,31 +140,24 @@ void	clean_input_len(t_mini *mini)
 	int	flag;
 
 	i = 0;
+	j = 0;
 	flag = 0;
 	while(mini->input[i] == ' ')
 		i++;
-	j = 0;
 	while(mini->input[i] != '\0')
 	{
-		while(mini->input[i] == ' ')
+		if (mini->input[i] == ' ')
 		{
-			if(flag == 0 && ++flag)
-				j++;
-			i++;
+			while(mini->input[i] == ' ')
+			{
+				if(flag == 0 && ++flag)
+					j++;
+				i++;
+			}
 		}
-		// if (mini->input[i] == '$')
-		// 	{
-		// 		i++;
-		// 		j += find_dollar_env_len(mini, &i);
-		// 	}
-		if(mini->input[i] == '"')
+		else if(mini->input[i] == '"')
 		{
 			i++;
-			// if (mini->input[i] == '$')
-			// {
-			// 	i++;
-			// 	j += find_dollar_env_len(mini, &i);
-			// }
 			j++;
 			while(mini->input[i] != '"' && mini->input[i] != '\0')
 			{
@@ -185,8 +177,11 @@ void	clean_input_len(t_mini *mini)
 			j++;
 			i++;
 		}
-		j++;
-		i++;
+		else
+		{
+			j++;
+			i++;
+		}
 		flag = 0;
 	}
 	clean_input(mini, j);
