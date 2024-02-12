@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/12 17:24:19 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:18:37 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	mini_len_quotes(char const *s, int *i, char c)
 	int		len;
 
 	len = *i;
-	*i += 1;
+	(*i)++;
 	while (s[*i] != c && s[*i] != '\0')
 	{
 		(*i)++;
@@ -118,7 +118,9 @@ void	mini_fill_str(char **str, char const *s, char c)
 		if (s[i] == '"')
 		{
 			i += 1;
+			printf("i value_1 = %d\n", i);
 			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '"'));
+			printf("i value_2 = %d\n", i);
 			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
@@ -127,6 +129,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 			}
 			if (s[i] == '"')
 				i++;
+			printf("i value_3 = %d\n", i);
 			j++;
 		}
 		else if (s[i] == '\'')
@@ -143,14 +146,14 @@ void	mini_fill_str(char **str, char const *s, char c)
 				i++;
 			j++;
 		}
-		else if (s[i] != c)
+		else if (s[i] != c && s[i] != '"')
 		{
-			if (s[i] == '"' || s[i] == '\'')
-			{
-				j++;
-			}
-			else
-			{
+			// if (s[i] == '"' || s[i] == '\'')
+			// {
+			// 	j++;
+			// }
+			// else
+			// {
 				printf("j value %d\n", j);
 				str[j] = ft_substr(s, i, mini_len_word(s, &i, c));
 				printf("stringa caratteri: %s\n", str[j]);
@@ -160,7 +163,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 					return ;
 				}
 				j++;
-			}
+			// }
 		}
 		i++;
 		while (s[i] == c || (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
@@ -175,8 +178,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 char	**mini_split(char const *s, char c)
 {
 	char	**str;
-	
-	printf("la stringona %s\n", s);
+
 	if (!s)
 		return (NULL);
 	str = (char **)malloc(sizeof(char *) * (mini_count_words(s, c)));
