@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/12 16:18:36 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:24:19 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ static int	mini_count_words(char const *s, char c)
 	return (count);
 }
 
-static int	mini_len_word(char const *s, int i, char c)
+static int	mini_len_word(char const *s, int *i, char c)
 {
 	int		len;
 
-	len = i;
-	while (s[i] != c && s[i] != '\0')
+	len = *i;
+	while (s[*i] != c && s[*i] != '\0')
 	{
-		if(s[i] == '"')
+		if(s[*i] == '"')
 		{
-			return (i - len);
+			return (*i - len);
 		}
-		(i)++;
+		(*i)++;
 	}
-	printf("mini_len_word: %d\n", (i - len));
-	return (i - len);
+	printf("mini_len_word: %d\n", (*i - len));
+	return (*i - len);
 }
 
 static int	mini_len_quotes(char const *s, int *i, char c)
@@ -129,7 +129,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 				i++;
 			j++;
 		}
-		if (s[i] == '\'')
+		else if (s[i] == '\'')
 		{
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '\''));
@@ -152,7 +152,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 			else
 			{
 				printf("j value %d\n", j);
-				str[j] = ft_substr(s, i, mini_len_word(s, i, c));
+				str[j] = ft_substr(s, i, mini_len_word(s, &i, c));
 				printf("stringa caratteri: %s\n", str[j]);
 				if (!str[j])
 				{
@@ -162,9 +162,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 				j++;
 			}
 		}
-		else
-			i++;
-		while (s[i] == c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
+		i++;
+		while (s[i] == c || (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
 			i++;
 	}
 	printf("meglio la j quanto vale %d  %s\n", j, str[0]);
@@ -184,6 +183,6 @@ char	**mini_split(char const *s, char c)
 	if (!str)
 		return (NULL);
 	mini_fill_str(str, s, c);
-	//ft_print_matrix(str);
+	ft_print_matrix(str);
 	return (str);
 }
