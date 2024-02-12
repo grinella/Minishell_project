@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 12:37:33 by eugenio           #+#    #+#             */
-/*   Updated: 2024/02/07 19:15:12 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:57:08 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	splitter(t_mini *mini, t_toks *toks)
 {
 	if (mini->c_input)
 		toks->word = mini_split(mini->c_input, ' ');
+	ft_print_matrix(toks->word);
+	printf("prova %s\n", toks->word[0]);
 	// tokenizer(mini, toks);
 }
 
