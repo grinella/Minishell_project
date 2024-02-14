@@ -26,4 +26,5 @@ void	put_env(t_mini *mini,char **env)
 		mini->env[i] = ft_strdup(env[i]);
 		i++;
 	}
+	mini->env[i] = NULL;
 }

@@ -1,12 +1,27 @@
 #include "include/minishell.h"
 
-// char	*lexer()
-// {
-// 	ft_find_word
-// 	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'
-	
-// }
 
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		// printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, matrix[i]);
+		free(matrix[i]);
+		i++;
+	}
+	if (matrix[i] == NULL)
+		return ;
+}
+
+void	free_all(t_mini *mini)
+{
+	free(mini->input);
+	free(mini->c_input);
+	free_matrix(mini->env);
+}
 char *routine(t_mini *riga)
 {
 	//lexer(riga->input);
@@ -73,8 +88,10 @@ int	main(int argc, char **argv, char **env)
 			// 		is_builtin(mini);
 			// 	}
 			// }
-			// free_cmds(&mini, input);
+			free_all(mini);//free_all(mini, toks);
 		}
+		free(mini);
+		free(toks);
 	}
 	return (0);
 }
