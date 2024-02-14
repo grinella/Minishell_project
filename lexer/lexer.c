@@ -59,9 +59,7 @@ void	clean_input(t_mini *mini, int len)
 	i = 0;
 	j = 0;
 	flag = 0;
-	//ho creato questa condizione cosi se rientra in questa funzione piu di una volta non alloca la stessa variabile due volte però anche se la commento non da errore
-	if (mini->c_input)
-		free(mini->c_input);
+
 	mini->c_input = malloc(sizeof(char *) * (len + 1));
 	while(mini->input[i] == ' ')
 		i++;

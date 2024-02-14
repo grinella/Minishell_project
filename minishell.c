@@ -8,19 +8,18 @@ void	free_matrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-		// printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, matrix[i]);
+		printf("check");
 		free(matrix[i]);
 		i++;
 	}
-	if (matrix[i] == NULL)
-		return ;
 }
 
 void	free_all(t_mini *mini)
 {
-	free(mini->input);
-	free(mini->c_input);
-	free_matrix(mini->env);
+	if(mini->input[0] != '\0')
+		free(mini->input);
+	if(mini->input[0] != '\0')
+		free(mini->c_input);
 }
 char *routine(t_mini *riga)
 {
@@ -88,8 +87,10 @@ int	main(int argc, char **argv, char **env)
 			// 		is_builtin(mini);
 			// 	}
 			// }
+			printf("check0\n");
 			free_all(mini);//free_all(mini, toks);
 		}
+		free_matrix(mini->env);
 		free(mini);
 		free(toks);
 	}
