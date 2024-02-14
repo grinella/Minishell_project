@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   my_export.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 20:45:00 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/29 18:44:09 by Gabriele         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
 // Stampa le variabili d'ambiente o imposta nuove variabili d'ambiente.
