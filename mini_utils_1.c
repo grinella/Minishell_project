@@ -6,7 +6,7 @@
 /*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:24:08 by Gabriele          #+#    #+#             */
-/*   Updated: 2024/02/12 18:18:37 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:27:46 by Gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,42 +43,42 @@ static int	mini_count_words(char const *s, char c)
 	return (count);
 }
 
-static int	mini_len_word(char const *s, int *i, char c)
+static int	mini_len_word(char const *s, int i, char c)
 {
 	int		len;
 
-	len = *i;
-	while (s[*i] != c && s[*i] != '\0')
+	len = i;
+	while (s[i] != c && s[i] != '\0')
 	{
-		if(s[*i] == '"')
+		if(s[i] == '"')
 		{
-			return (*i - len);
+			return (i - len);
 		}
-		(*i)++;
+		i++;
 	}
-	printf("mini_len_word: %d\n", (*i - len));
-	return (*i - len);
+	printf("mini_len_word: %d\n", (i - len));
+	return (i - len);
 }
 
-static int	mini_len_quotes(char const *s, int *i, char c)
+static int	mini_len_quotes(char const *s, int i, char c)
 {
 	int		len;
 
-	len = *i;
-	(*i)++;
-	while (s[*i] != c && s[*i] != '\0')
+	len = i;
+	i++;
+	while (s[i] != c && s[i] != '\0')
 	{
-		(*i)++;
+		i++;
 	}
-	if (s[*i] == '\0')
+	if (s[i] == '\0')
 	{
 		printf("Error: missing quote\n");
 		return (0);
 	}
-	printf("mini_len_quote: %d\n", (*i - len));
+	printf("mini_len_quote: %d\n", (i - len));
 	printf("stringa tra le quote: %s\n", &s[len]);
-	printf("lettera: %c\n", s[*i]);
-	return (*i - len);
+	printf("lettera: %c\n", s[i]);
+	return (i - len);
 }
 
 // void	alloc_quote(char **str, int i, int j, char const *s)
@@ -119,7 +119,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 		{
 			i += 1;
 			printf("i value_1 = %d\n", i);
-			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '"'));
+			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '"'));
+			i += mini_len_quotes(s, i, '"');
 			printf("i value_2 = %d\n", i);
 			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
@@ -135,7 +136,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 		else if (s[i] == '\'')
 		{
 			i += 1;
-			str[j] = ft_substr(s, i, mini_len_quotes(s, &i, '\''));
+			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '\''));
+			i += mini_len_quotes(s, i, '"');
 			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
@@ -146,16 +148,11 @@ void	mini_fill_str(char **str, char const *s, char c)
 				i++;
 			j++;
 		}
-		else if (s[i] != c && s[i] != '"')
+		else if (s[i] != c && s[i] != '"' && s[i] != '\'')
 		{
-			// if (s[i] == '"' || s[i] == '\'')
-			// {
-			// 	j++;
-			// }
-			// else
-			// {
 				printf("j value %d\n", j);
-				str[j] = ft_substr(s, i, mini_len_word(s, &i, c));
+				str[j] = ft_substr(s, i, mini_len_word(s, i, c));
+				i += mini_len_word(s, i, ' ');
 				printf("stringa caratteri: %s\n", str[j]);
 				if (!str[j])
 				{
@@ -163,10 +160,10 @@ void	mini_fill_str(char **str, char const *s, char c)
 					return ;
 				}
 				j++;
-			// }
 		}
-		i++;
-		while (s[i] == c || (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
+		else
+			i++;
+		while (s[i] == c && (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
 			i++;
 	}
 	printf("meglio la j quanto vale %d  %s\n", j, str[0]);
