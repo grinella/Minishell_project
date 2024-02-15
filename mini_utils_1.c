@@ -27,7 +27,6 @@ static int	mini_count_words(char const *s, char c)
 		else
 			i++;
 	}
-	printf("count = %d\n", count);
 	return (count);
 }
 
@@ -44,7 +43,7 @@ static int	mini_len_word(char const *s, int i, char c)
 		}
 		i++;
 	}
-	printf("mini_len_word: %d\n", (i - len));
+	printf("mini_len=%i\n", i - len);
 	return (i - len);
 }
 
@@ -63,9 +62,6 @@ static int	mini_len_quotes(char const *s, int i, char c)
 		printf("Error: missing quote\n");
 		return (0);
 	}
-	printf("mini_len_quote: %d\n", (i - len));
-	printf("stringa tra le quote: %s\n", &s[len]);
-	printf("lettera: %c\n", s[i]);
 	return (i - len);
 }
 
@@ -102,15 +98,11 @@ void	mini_fill_str(char **str, char const *s, char c)
 	j = 0;
 	while (s[i] != '\0')
 	{
-		printf("s: %s\n", s);
 		if (s[i] == '"')
 		{
 			i += 1;
-			printf("i value_1 = %d\n", i);
 			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '"'));
 			i += mini_len_quotes(s, i, '"');
-			printf("i value_2 = %d\n", i);
-			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -118,7 +110,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 			}
 			if (s[i] == '"')
 				i++;
-			printf("i value_3 = %d\n", i);
 			j++;
 		}
 		else if (s[i] == '\'')
@@ -126,7 +117,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '\''));
 			i += mini_len_quotes(s, i, '"');
-			printf("stringa tra le quote: %s\n", str[j]);
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -138,10 +128,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 		}
 		else if (s[i] != c && s[i] != '"' && s[i] != '\'')
 		{
-				printf("j value %d\n", j);
 				str[j] = ft_substr(s, i, mini_len_word(s, i, c));
 				i += mini_len_word(s, i, ' ');
-				printf("stringa caratteri: %s\n", str[j]);
 				if (!str[j])
 				{
 					mini_free(str, j);
@@ -154,10 +142,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 		while (s[i] == c && (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
 			i++;
 	}
-	printf("meglio la j quanto vale %d  %s\n", j, str[0]);
-	str[j] = NULL;
-	printf("ancora meglio %s\n", str[0]);
-	//ft_print_matrix(str);
+	str[j] = 0;
+	printf("facciamo un test %s\n", str[j - 1]);
 }
 
 char	**mini_split(char const *s, char c)
@@ -166,7 +152,8 @@ char	**mini_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	str = (char **)malloc(sizeof(char *) * (mini_count_words(s, c)));
+	//aggiunto un +1 a mini_count_words
+	str = (char **)calloc(sizeof(char *), (mini_count_words(s, c) + 1));
 	if (!str)
 		return (NULL);
 	mini_fill_str(str, s, c);

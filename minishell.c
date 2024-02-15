@@ -16,9 +16,9 @@ void	free_matrix(char **matrix)
 
 void	free_all(t_mini *mini)
 {
-	if(mini->input[0] != '\0')
+	if(mini->input)
 		free(mini->input);
-	if(mini->input[0] != '\0')
+	if(mini->c_input)
 		free(mini->c_input);
 }
 char *routine(t_mini *riga)
