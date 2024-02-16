@@ -146,15 +146,14 @@ void	mini_fill_str(char **str, char const *s, char c)
 
 char	**mini_split(char const *s, char c)
 {
-	char	**str;
+	char	**mtr;
 
 	if (!s)
 		return (NULL);
-	//aggiunto un +1 a mini_count_words
-	str = (char **)calloc(sizeof(char *), (mini_count_words(s, c) + 1));
-	if (!str)
+	mtr = (char **)calloc(sizeof(char *), (mini_count_words(s, c) + 1));
+	if (!mtr)
 		return (NULL);
-	mini_fill_str(str, s, c);
-	ft_print_matrix(str);
-	return (str);
+	mini_fill_str(mtr, s, c);
+	ft_print_matrix(mtr);
+	return (mtr);
 }

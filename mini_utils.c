@@ -12,16 +12,17 @@ int	ft_count_matrix(char **matrix)
 	}
 	return (i);
 }
+
 //mette l'env nella struct
-void	put_env(t_mini *mini,char **env)
+void	put_env(t_mini *mini, char **env)
 {
-    int	i;
+	int	i;
 	int	m_len;
-	
+
 	i = 0;
 	m_len = ft_count_matrix(env);
 	mini->env = malloc((sizeof(char **) * (m_len + 1)));
-	while(env[i] != NULL)
+	while (env[i] != NULL)
 	{
 		mini->env[i] = ft_strdup(env[i]);
 		i++;

@@ -17,17 +17,16 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
- 
- typedef struct s_toks
+
+typedef struct s_toks
 {
-	int				type;
+	int				*type; //0 = cmd; 1 = flag ; 2 = args ; 3 = | ; 4 = > ; 5 = >> ; 6 = < ; 7 = << .
 	char			**word;
-	int				*content; //0 = |, 1 = > --->(se .next = > ----> 2 = ">>"), 3 = < (--->(se .next = < ----> 4 = "<<")), 5 = " ", 6 = ' ';
 	struct s_toks	*prev;
 	struct s_toks	*next;
 }	t_toks;
 
-typedef struct	s_mini
+typedef struct s_mini
 {
 	char	**env; // allocata
 	char	*input;
@@ -36,7 +35,7 @@ typedef struct	s_mini
 }	t_mini;
 
 // MINI FUNCTIONS
-void	put_env(t_mini *mini,char **env);
+void	put_env(t_mini *mini, char **env);
 
 // LEXER FUNCTIONS
 char	*lexer(t_mini *mini, t_toks *toks);
@@ -56,4 +55,4 @@ void	tokenizer(t_mini *mini, t_toks *toks);
 char	**mini_split(char const *s, char c);
 void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
-# endif
+#endif

@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:29:54 by grinella          #+#    #+#             */
-/*   Updated: 2024/02/15 17:33:37 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/02/16 17:52:08 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!str)
 		return (NULL);
 	i = 0;
-	//cambiata condizione da start <= a start <
 	while (len > 0 && start < ft_strlen(s))
 	{
 		str[i] = s[start];

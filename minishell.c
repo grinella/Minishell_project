@@ -1,6 +1,5 @@
 #include "include/minishell.h"
 
-
 void	free_matrix(char **matrix)
 {
 	int	i;
@@ -17,11 +16,11 @@ void	free_matrix(char **matrix)
 void	free_all(t_mini *mini)
 {
 	if(mini->input)
-		free(mini->input);
+		free (mini->input);
 	if(mini->c_input)
-		free(mini->c_input);
+		free (mini->c_input);
 }
-char *routine(t_mini *riga)
+char	*routine(t_mini *riga)
 {
 	//lexer(riga->input);
 	//parser(lexer);
