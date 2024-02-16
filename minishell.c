@@ -70,25 +70,17 @@ int	main(int argc, char **argv, char **env)
 		while(1)
 		{
 			mini->input = readline("shell>> ");
-			//output // lexer, parser, executor
-			// output = routine(mini);
-			//clean_input(mini->input, i);
-			if (mini->input && mini->input[0])
+			if(mini->input[0] != '\0')
 			{
-				add_history(mini->input);
+				if (mini->input && mini->input[0])
+				{
+					add_history(mini->input);
+				}
+				lexer(mini, toks);
+				printf("input:%s\n", mini->input);
+				printf("input pulito:%s\n", mini->c_input);
+				free_all(mini);//free_all(mini, toks);
 			}
-			lexer(mini, toks);
-			printf("input:%s\n", mini->input);
-			printf("input pulito:%s\n", mini->c_input);
-			// if (input && input[0])
-			// {
-			// 	if (run_lexer(input, mini) && parse_input(mini))
-			// 	{
-			// 		is_builtin(mini);
-			// 	}
-			// }
-			printf("check0\n");
-			free_all(mini);//free_all(mini, toks);
 		}
 		free_matrix(mini->env);
 		free(mini);
