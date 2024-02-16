@@ -20,12 +20,19 @@ void	free_all(t_mini *mini)
 	if(mini->c_input)
 		free (mini->c_input);
 }
-char	*routine(t_mini *riga)
+
+int	only_space(char* str)
 {
-	//lexer(riga->input);
-	//parser(lexer);
-	//executor(parser);
-	return (riga->input);
+	int	i;
+
+	i = 0;
+	while(str[i] == ' ')
+	{
+		i++;
+		if(str[i] == '\0')
+			return (0);
+	}
+	return(1);
 }
 
 //funzione da cancellare che printa la matrici
@@ -48,18 +55,22 @@ void	init_mini(t_mini *mini, char **env)
 	put_env(mini, env);
 }
 
-int	only_space(char* str)
+void	mini_routine(t_mini *mini, t_toks *toks)
 {
-	int	i;
-
-	i = 0;
-	while(str[i] == ' ')
+	mini->input = readline("shell>> ");
+	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
-		i++;
-		if(str[i] == '\0')
-			return (0);
+		if (mini->input && mini->input[0])
+		{
+			add_history(mini->input);
+		}
+		lexer(mini, toks);
+		printf("input:%s\n", mini->input);
+		printf("input pulito:%s\n", mini->c_input);
+		free_all(mini);//free_all(mini, toks);
 	}
-	return(1);
+	else
+		free(mini->input);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -79,22 +90,7 @@ int	main(int argc, char **argv, char **env)
 		toks = (t_toks *)malloc(sizeof(t_toks));
 		init_mini(mini, env);
 		while(1)
-		{
-			mini->input = readline("shell>> ");
-			if(mini->input[0] != '\0' && only_space(mini->input) == 1)
-			{
-				if (mini->input && mini->input[0])
-				{
-					add_history(mini->input);
-				}
-				lexer(mini, toks);
-				printf("input:%s\n", mini->input);
-				printf("input pulito:%s\n", mini->c_input);
-				free_all(mini);//free_all(mini, toks);
-			}
-			else
-				free(mini->input);
-		}
+			mini_routine(mini, toks);
 		free_matrix(mini->env);
 		free(mini);
 		free(toks);
