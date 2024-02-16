@@ -116,7 +116,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 		{
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '\''));
-			i += mini_len_quotes(s, i, '"');
+			i += mini_len_quotes(s, i, '\'');
 			if (!str[j])
 			{
 				mini_free(str, j);
