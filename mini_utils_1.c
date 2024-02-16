@@ -43,7 +43,6 @@ static int	mini_len_word(char const *s, int i, char c)
 		}
 		i++;
 	}
-	printf("mini_len=%i\n", i - len);
 	return (i - len);
 }
 
@@ -143,7 +142,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 			i++;
 	}
 	str[j] = 0;
-	printf("facciamo un test %s\n", str[j - 1]);
 }
 
 char	**mini_split(char const *s, char c)
