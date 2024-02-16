@@ -49,7 +49,19 @@ void	init_mini(t_mini *mini, char **env)
 	put_env(mini, env);
 }
 
+int	only_space(char* str)
+{
+	int	i;
 
+	i = 0;
+	while(str[i] == ' ')
+	{
+		i++;
+		if(str[i] == '\0')
+			return (0);
+	}
+	return(1);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -70,7 +82,7 @@ int	main(int argc, char **argv, char **env)
 		while(1)
 		{
 			mini->input = readline("shell>> ");
-			if(mini->input[0] != '\0')
+			if(mini->input[0] != '\0' && only_space(mini->input) == 1)
 			{
 				if (mini->input && mini->input[0])
 				{
@@ -81,6 +93,8 @@ int	main(int argc, char **argv, char **env)
 				printf("input pulito:%s\n", mini->c_input);
 				free_all(mini);//free_all(mini, toks);
 			}
+			else
+				free(mini->input);
 		}
 		free_matrix(mini->env);
 		free(mini);
