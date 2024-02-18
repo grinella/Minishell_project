@@ -60,6 +60,7 @@ void	clean_input(t_mini *mini, int len)
 	j = 0;
 	flag = 0;
 
+	printf("len=%i\n", len);
 	mini->c_input = malloc(sizeof(char *) * (len + 1));
 	while(mini->input[i] == ' ')
 		i++;
@@ -119,6 +120,34 @@ void	clean_input(t_mini *mini, int len)
 	mini->c_input[j] = '\0';
 }
 
+void	quotes_len(int *i, int *j, char* input)
+{
+	if(input[*i] == '"')
+	{
+		(*i)++;
+		(*j)++;
+		while(input[*i] != '"' && input[*i] != '\0')
+		{
+			(*j)++;
+			(*i)++;
+		}
+		(*i)++;
+		(*j)++;
+	}
+	else if(input[*i] == '\'')
+	{
+		(*j)++;
+		(*i)++;
+		while(input[*i] != '\'' && input[*i] != '\0')
+		{
+			(*j)++;
+			(*i)++;
+		}
+		(*j)++;
+		(*i)++;
+	}
+}
+
 void	clean_input_len(t_mini *mini)
 {
 	int	i;
@@ -132,7 +161,7 @@ void	clean_input_len(t_mini *mini)
 		i++;
 	while(mini->input[i] != '\0')
 	{
-		if (mini->input[i] == ' ')
+		if(mini->input[i] == ' ')
 		{
 			while(mini->input[i] == ' ')
 			{
@@ -141,28 +170,8 @@ void	clean_input_len(t_mini *mini)
 				i++;
 			}
 		}
-		else if(mini->input[i] == '"')
-		{
-			i++;
-			j++;
-			while(mini->input[i] != '"' && mini->input[i] != '\0')
-			{
-				j++;
-				i++;
-			}
-		}
-		else if(mini->input[i] == '\'')
-		{
-			j++;
-			i++;
-			while(mini->input[i] != '\'' && mini->input[i] != '\0')
-			{
-				j++;
-				i++;
-			}
-			j++;
-			i++;
-		}
+		else if(mini->input[i] == '"' || mini->input[i] == '\'')
+			quotes_len(&i, &j, mini->input);
 		else
 		{
 			j++;
