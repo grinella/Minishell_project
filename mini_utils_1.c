@@ -60,6 +60,7 @@ static int	mini_len_quotes(char const *s, int i, char c)
 	{
 		printf("Error: missing quote\n");
 		return (0);
+		// exit (0);
 	}
 	return (i - len);
 }
@@ -102,6 +103,13 @@ void	mini_fill_str(char **str, char const *s, char c)
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '"'));
 			i += mini_len_quotes(s, i, '"');
+			if (mini_len_quotes(s, i, '"') == 0)
+			{
+				// mini_free(str, j);
+				return ;
+				// DEVE USCIRE DA QUI, TORNARE AL MAIN CON IL MESSAGGIO DI ERRORE
+				// PRONTO PER RICEVERE UN NUOVO INPUT
+			}
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -116,6 +124,13 @@ void	mini_fill_str(char **str, char const *s, char c)
 			i += 1;
 			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '\''));
 			i += mini_len_quotes(s, i, '\'');
+			if (mini_len_quotes(s, i, '\'') == 0)
+			{
+				// mini_free(str, j);
+				return ;
+				// DEVE USCIRE DA QUI, TORNARE AL MAIN CON IL MESSAGGIO DI ERRORE
+				// PRONTO PER RICEVERE UN NUOVO INPUT
+			}
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -154,6 +169,11 @@ char	**mini_split(char const *s, char c)
 	if (!mtr)
 		return (NULL);
 	mini_fill_str(mtr, s, c);
+	// if (mini_len_quotes(s, i, '\'') == 0 || mini_len_quotes(s, i, '"') == 0)
+	// {
+	// 	free_matrix(mtr);
+	// 	return ;
+	// }
 	ft_print_matrix(mtr);
 	return (mtr);
 }

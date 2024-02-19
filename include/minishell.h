@@ -55,4 +55,7 @@ void	tokenizer(t_mini *mini, t_toks *toks);
 char	**mini_split(char const *s, char c);
 void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
+// FREE FUNCTIONS
+void	free_matrix(char **matrix);
+
 #endif
