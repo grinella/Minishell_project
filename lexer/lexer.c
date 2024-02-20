@@ -70,8 +70,10 @@ void	clean_input(t_mini *mini, int len)
 			alloc_spaces(&i, &j, &flag, mini);
 		else if(mini->input[i] == '"' || mini->input[i]  == '\'')
 			alloc_quotes(&i, &j, mini);
+			// find_dollar
 		else
 		{
+			// find_dollar
 			mini->c_input[j] = mini->input[i++];
 			j++;
 		}
@@ -99,6 +101,7 @@ void	clean_input_len(t_mini *mini)
 			quotes_len(&i, &j, mini->input);
 		else
 		{
+			// find_dollar_env_len
 			j++;
 			i++;
 		}

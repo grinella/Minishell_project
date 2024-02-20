@@ -18,6 +18,7 @@ void	quotes_len(int *i, int *j, char* input)
 		(*j)++;
 		while(input[*i] != '"' && input[*i] != '\0')
 		{
+			//find_dollar_env_len();
 			(*j)++;
 			(*i)++;
 		}
