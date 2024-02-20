@@ -67,85 +67,17 @@ void	clean_input(t_mini *mini, int len)
 	while(mini->input[i] != '\0')
 	{
 		if(mini->input[i] == ' ')
-		{
-			while(mini->input[i] == ' ')
-			{
-				if(flag == 0)
-				{
-					mini->c_input[j] = mini->input[i];
-					flag = 1;
-					j++;
-				}
-				i++;
-			}
-		}
-		else if(mini->input[i] == '"')
-		{
-			mini->c_input[j] = mini->input[i];
-			j++;
-			i++;
-			while(mini->input[i] != '"' && mini->input[i] != '\0')
-			{
-				mini->c_input[j] = mini->input[i];
-				j++;
-				i++;
-			}
-			mini->c_input[j] = mini->input[i];
-			j++;
-			i++;
-		}
-		else if(mini->input[i] == '\'')
-		{
-			mini->c_input[j] = mini->input[i];
-			j++;
-			i++;
-			while(mini->input[i] != '\'' && mini->input[i] != '\0')
-			{
-				mini->c_input[j] = mini->input[i];
-				j++;
-				i++;
-			}
-			mini->c_input[j] = mini->input[i];
-			j++;
-			i++;
-		}
+			alloc_spaces(&i, &j, &flag, mini);
+		else if(mini->input[i] == '"' || mini->input[i]  == '\'')
+			alloc_quotes(&i, &j, mini);
 		else
 		{
-			mini->c_input[j] = mini->input[i];
+			mini->c_input[j] = mini->input[i++];
 			j++;
-			i++;
 		}
 		flag = 0;
 	}
 	mini->c_input[j] = '\0';
-}
-
-void	quotes_len(int *i, int *j, char* input)
-{
-	if(input[*i] == '"')
-	{
-		(*i)++;
-		(*j)++;
-		while(input[*i] != '"' && input[*i] != '\0')
-		{
-			(*j)++;
-			(*i)++;
-		}
-		(*i)++;
-		(*j)++;
-	}
-	else if(input[*i] == '\'')
-	{
-		(*j)++;
-		(*i)++;
-		while(input[*i] != '\'' && input[*i] != '\0')
-		{
-			(*j)++;
-			(*i)++;
-		}
-		(*j)++;
-		(*i)++;
-	}
 }
 
 void	clean_input_len(t_mini *mini)
@@ -162,14 +94,7 @@ void	clean_input_len(t_mini *mini)
 	while(mini->input[i] != '\0')
 	{
 		if(mini->input[i] == ' ')
-		{
-			while(mini->input[i] == ' ')
-			{
-				if(flag == 0 && ++flag)
-					j++;
-				i++;
-			}
-		}
+			space_len(&i, &j, &flag, mini->input);
 		else if(mini->input[i] == '"' || mini->input[i] == '\'')
 			quotes_len(&i, &j, mini->input);
 		else

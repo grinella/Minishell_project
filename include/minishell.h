@@ -42,6 +42,10 @@ char	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
 void	splitter(t_mini *mini, t_toks *toks);
 void	tokenizer(t_mini *mini, t_toks *toks);
+void	space_len(int *i, int *j, int *flag, char* input);
+void	quotes_len(int *i, int *j, char* input);
+void	alloc_spaces(int *i, int *j, int *flag, t_mini *mini);
+void	alloc_quotes(int *i, int *j, t_mini *mini);
 
 // PARSER FUNCTIONS
 

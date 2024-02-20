@@ -13,6 +13,7 @@ SRCS = 		minishell.c \
 			mini_utils.c \
 			mini_utils_1.c \
 			lexer/lexer.c \
+			lexer/lexer_utils.c \
 			lexer/tokenizer.c \
 			# parser/*.c \
 			signals/*.c \
