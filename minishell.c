@@ -7,10 +7,12 @@ void	free_matrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-		printf("check");
+		printf("check\n");
+		printf("freeato contenuto: %s\n", matrix[i]);
 		free(matrix[i]);
 		i++;
 	}
+	return ;
 }
 
 void	free_all(t_mini *mini)
@@ -91,6 +93,7 @@ int	main(int argc, char **argv, char **env)
 		init_mini(mini, env);
 		while(1)
 			mini_routine(mini, toks);
+		printf("finito\n");
 		free_matrix(mini->env);
 		free(mini);
 		free(toks);
