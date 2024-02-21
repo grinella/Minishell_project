@@ -20,13 +20,28 @@ static int	mini_count_words(char const *s, char c)
 		}
 		else if (s[i] != c)
 		{
-			count++;
+			//condione per le pipe
 			while (s[i] != c && s[i] != '\0')
+			{
+				count++;
+				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
+					i++;
+				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
+				{
+					if ((s[i] == '|' || s[i] == '<' || s[i] == '>') && s[i - 1] != ' ')
+					{
+						count++;
+						if (s[i + 1] == '<' || s[i + 1] == '>')
+							i++;
+					}
+				}
 				i++;
+			}	
 		}
 		else
 			i++;
 	}
+	printf("count=%i\n", count);
 	return (count);
 }
 
@@ -37,7 +52,7 @@ static int	mini_len_word(char const *s, int i, char c)
 	len = i;
 	while (s[i] != c && s[i] != '\0')
 	{
-		if(s[i] == '"')
+		if(s[i] == '"' || s[i] == '|' || s[i] == '>' || s[i] == '<')
 		{
 			return (i - len);
 		}
@@ -137,6 +152,7 @@ void	mini_fill_str(char **str, char const *s, char c)
 		{
 				str[j] = ft_substr(s, i, mini_len_word(s, i, c));
 				i += mini_len_word(s, i, ' ');
+				printf("cosa guardo: %c\n", s[i]);
 				if (!str[j])
 				{
 					mini_free(str, j);

@@ -1,55 +1,5 @@
 #include "../include/minishell.h"
 
-//--------------------------------------------------------------------
-// DA ADATTARE PER FAR TROVARE UNA RIGA SPIECIFICA NELL'ENV
-// int	*find_dollar_env(t_toks *toks, t_mini *mini, char **env, int *i, int *j)
-// {
-// 	int n;
-// 	*i++;
-// 	while(mini->input[*i] >= 'A' && mini->input[*i] <= 'Z'
-// 		|| mini->input[*i] >= 'a' && mini->input[*i] <= 'z' || mini->input[*i] == '_')
-// 	{
-// 		n++;
-// 	}
-// }
-
-//la funzione find_dollar_env_len dovrà calcolare la lunghezza della variabile
-// d'ambiente per aggiornre la j di clean_input_len da passare poi a clean_input
-// così avremo es:
-//	input		 -> echo "ciao $SSH_AUTH_SOCK"
-//	input_pulito -> echo ciao /private/tmp/com.apple.launchd.Or31a9lSsT/Listeners
-
-// int find_dollar_env_len( t_mini *mini, int *i)
-// {
-// 	int x;
-// 	int y;
-// 	int len;
-
-// 	y = 0;
-// 	x = 0;
-// 	while(mini->input[*i] >= 'A' && mini->input[*i] <= 'Z'
-// 		|| mini->input[*i] >= 'a' && mini->input[*i] <= 'z' || mini->input[*i] == '_')
-// 	{
-// 		(*i)++;
-// 	}
-// 	while (ft_strncmp(mini->env[x], mini->input, 5))
-// 	{
-// 		i++;
-// 	}
-// 	while(mini->env[x])
-// 	{
-// 		if(ft_strncmp(mini->env[x][y], &mini->input[*i], ft_strlen(&mini->input[*i])) == 0)
-// 		{
-// 			while(mini->env[x][y] != '=')
-// 				y++;
-// 			//printf("len = %i\n", ft_strlen(mini->env[x] + y));
-// 		return (ft_strlen(mini->env[x] + y));
-// 		}
-// 	}
-// 	return 0;
-// }
-//--------------------------------------------------------------------
-
 int	envlen(const char *str, int c)
 {
 	int	a;
@@ -75,11 +25,12 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 	if (mini->input[*i] == '$')
 	{
 		len++;
-		while ((mini->input[len] == mini->env[r++][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z') || (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
+		while ((mini->input[len] == mini->env[r++][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
+			|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
 		{
 			len++;
 			c++;
-			if (mini->env[r][c] == '=')
+			if (mini->env[r][c] == '=' && mini->input[len] )
 			{
 				c++;
 				*j += envlen(mini->env[r], c);
@@ -95,12 +46,9 @@ void	clean_input(t_mini *mini, int len)
 {
 	int	i;
 	int	j;
-	int	flag;
 	
 	i = 0;
 	j = 0;
-	flag = 0;
-
 	printf("len=%i\n", len);
 	mini->c_input = malloc(sizeof(char *) * (len + 1));
 	while(mini->input[i] == ' ')
@@ -108,17 +56,15 @@ void	clean_input(t_mini *mini, int len)
 	while(mini->input[i] != '\0')
 	{
 		if(mini->input[i] == ' ')
-			alloc_spaces(&i, &j, &flag, mini);
+			alloc_spaces(&i, &j, mini);
 		else if(mini->input[i] == '"' || mini->input[i]  == '\'')
-			alloc_quotes(&i, &j, mini);
-			// find_dollar
+			alloc_quotes(&i, &j, mini); // find dollar_env
 		else
 		{
 			// find_dollar
 			mini->c_input[j] = mini->input[i++];
 			j++;
 		}
-		flag = 0;
 	}
 	mini->c_input[j] = '\0';
 }

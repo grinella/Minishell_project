@@ -18,13 +18,13 @@ void	quotes_len(int *i, int *j, char* input)
 		(*j)++;
 		while(input[*i] != '"' && input[*i] != '\0')
 		{
-			if (input[*i] == '$')
-				find_dollar_env_len();
-			else
-			{
-				(*j)++;
-				(*i)++;
-			}
+			// if (input[*i] == '$')
+			// 	find_dollar_env_len();
+			// else
+			// {
+			(*j)++;
+			(*i)++;
+			// }
 		}
 		(*i)++;
 		(*j)++;
@@ -39,18 +39,22 @@ void	quotes_len(int *i, int *j, char* input)
 	}
 }
 
-void	alloc_spaces(int *i, int *j, int *flag, t_mini *mini)
+void	alloc_spaces(int *i, int *j, t_mini *mini)
 {
+	int flag;
+
+	flag = 0;
 	while(mini->input[*i] == ' ')
 	{
-		if((*flag) == 0)
+		if(flag == 0)
 		{
 			mini->c_input[*j] = mini->input[*i];
-			(*flag) = 1;
+			flag = 1;
 			(*j)++;
 		}
 		(*i)++;
 	}
+	flag = 0;
 }
 
 void	alloc_quotes(int *i, int *j, t_mini *mini)
