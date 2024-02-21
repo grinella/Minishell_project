@@ -75,10 +75,7 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 	if (mini->input[*i] == '$')
 	{
 		len++;
-		while (mini->input[len] == mini->env[r++][c] //va sostituito *i con len
-			&& mini->input[len] >= 'a' && mini->input[len] <= 'z'
-			|| mini->input[len] >= 'A' && mini->input[len] <= 'Z'
-			|| mini->input[len] == '_')
+		while ((mini->input[len] == mini->env[r++][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z') || (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
 		{
 			len++;
 			c++;
@@ -86,7 +83,7 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 			{
 				c++;
 				*j += envlen(mini->env[r], c);
-				*i == len;
+				*i = len;
 				return ;
 			}
 			len = *i;
@@ -145,9 +142,13 @@ void	clean_input_len(t_mini *mini)
 			quotes_len(&i, &j, mini->input);
 		else
 		{
-			// find_dollar_env_len
-			j++;
-			i++;
+			if (mini->input[i] == '$')
+				find_dollar_env_len(&i, &j, mini); // da controllare
+			else
+			{
+				j++;
+				i++;
+			}
 		}
 		flag = 0;
 	}
