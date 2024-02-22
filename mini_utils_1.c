@@ -9,59 +9,57 @@ static int	mini_count_words(char const *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		if(s[i] == '"')
+		if (s[i] != c)
 		{
-			count++;
-			i++;
-			while (s[i] != '"' && s[i] != '\0')
+			if(s[i] == '"' || s[i] == '\'')
+			{
+				printf("entra in double quote s[i]=%c\n", s[i]);
+				count++;
 				i++;
-			if(s[i] == '"' || s[i] != '\0')
-				i++;
-		}
-		else if (s[i] != c)
-		{
+				while (s[i] != '"' && s[i] != '\0' && s[i] != '\'')
+					i++;
+				if((s[i] == '"' || s[i] == '\'') && s[i] != '\0')
+					i++;
+			}
 			//condizione per le pipe
-			while (s[i] != c && s[i] != '\0')
+			if (s[i] != c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
 			{
 				count++;
 				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 					i++;
 				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 				{
-					if ((s[i] == '|' || s[i] == '<' || s[i] == '>') && s[i - 1] != ' ')
+					if (s[i] == '|' || s[i] == '<' || s[i] == '>') //&& s[i - 1] != ' ')
 					{
-						count++;
-						if (s[i + 1] == '<' || s[i + 1] == '>')
-							i++;
+						if (s[i + 1] == '<' || s[i + 1] == '>'){
+							count++;
+							i++;}
 					}
 				}
 				i++;
 			}	
+			printf("count=%i\n", count);
 		}
 		else
 			i++;
 	}
-	printf("count=%i\n", count);
 	return (count);
 }
 
 static int	mini_len_word(char const *s, int i, char c)
 {
 	int		len;
-
+	printf("char = %c\n", s[i]);
+	//&& s[i] != '|' && s[i] != '<' && s[i] != '>') parte aggiunta al while sotto
+	//da controllare tutte le funzioni che utilizzano questa funzione 
+	// if (s[i] == c)
+	// 	i++;
 	len = i;
 	while (s[i] != c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
-	//&& s[i] != '|' && s[i] != '<' && s[i] != '>') parte aggiunta al while sopra
-	//da controllare tutte le funzioni che utilizzano questa funzione 
 	{
 		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 		{
-			i++;
-			if ((s[i] == '|' || s[i] == '<' || s[i] == '>') && s[i - 1] != ' ')
-			{
-				if (s[i + 1] == '<' || s[i + 1] == '>')
-					i++;
-			}
+			return (i - len);
 		}
 		i++;
 		// if(s[i] == '"' || s[i] == '|' || s[i] == '>' || s[i] == '<')
@@ -99,13 +97,25 @@ static int	mini_len_quotes(char const *s, int i, char c)
 
 int	is_pipe_redir(char const *s, int i)//da controllare tutte le funzioni che utilizzano questa funzione
 {
+	// printf("is_pipe_redir parte dal carattere: %c\n", s[i]);
 	if (s[i] == '<' || s[i] == '>')
 	{
+		// printf("is_pipe_redir primo if\n");
 		if (s[i + 1] == '<' || s[i + 1] == '>')
+		{
+			// printf("is_pipe_redir secondo if return 2\n");
+			// printf("sto guardando questo simbolo: %c seguito da: %c", s[i], s[i + 1]);
 			return (2);
+		}
 	}
-	else if (s[i] == '|' || s[i] == '<' || s[i] == '>')
-		return (1);
+	else if (s[i] == '|')
+	{
+		if(s[i + 1] == '|')
+			return (2);
+		// printf("is_pipe_redir terzo if return 1\n");
+		// printf("sto guardando questo simbolo: %c\n", s[i]);
+	}
+	// printf("is_pipe_redir return finale 1\n");
 	return (1);
 }
 
@@ -180,28 +190,32 @@ void	mini_fill_str(char **str, char const *s, char c)
 		}
 		else if (s[i] != c && s[i] != '"' && s[i] != '\'')
 		{
-				str[j] = ft_substr(s, i, mini_len_word(s, i, c));
-				i += mini_len_word(s, i, c);
+				if (s[i]!= '|' && s[i] != '>' && s[i] != '<'){
+					str[j++] = ft_substr(s, i, mini_len_word(s, i, c));
+				// if (mini_len_word(s, i, c) != 0)
+				// 	j++;
+				i += mini_len_word(s, i, c);}
 				if (s[i] == '|' || s[i] == '>' || s[i] == '<')//attualmente il comando restituisce una stringa vuota se c'è uno spazio prima della pipe
 				{
-					j++;
-					str[j] = ft_substr(s, i, is_pipe_redir(s, i));
-					i += 1;
+					// printf("str[%d]=%s\n", j-1, str[j-1]);
+					str[j++] = ft_substr(s, i, is_pipe_redir(s, i));
+					// j++;
+					i += is_pipe_redir(s, i);
 				}
-				printf("cosa guardo: %c\n", s[i]);
-				if (!str[j])
-				{
-					mini_free(str, j);
-					return ;
-				}
-				j++;
+				printf("cosa guardo[%d]: %s\n",j -1, str[j-1]);
+				// if (!str[j])
+				// {
+				// 	mini_free(str, j);
+				// 	return ;
+				// }
+				// j++;
 		}
 		else
 			i++;
 		while (s[i] == c && (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
 			i++;
 	}
-	str[j] = 0;
+	str[j] = NULL;
 }
 
 char	**mini_split(char const *s, char c)
