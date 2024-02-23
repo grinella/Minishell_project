@@ -24,17 +24,18 @@ static int	mini_count_words(char const *s, char c)
 			//condizione per le pipe
 			if (s[i] != c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
 			{
+				printf("count++ char/pipe/redir mentre guardo il carattere %c\n", s[i]);
 				count++;
 				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 					i++;
-				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
+				if (s[i] == c)
+					i++;
+				if (s[i] == '|' || s[i] == '<' || s[i] == '>') //&& s[i - 1] != ' ')
 				{
-					if (s[i] == '|' || s[i] == '<' || s[i] == '>') //&& s[i - 1] != ' ')
-					{
-						if (s[i + 1] == '<' || s[i + 1] == '>'){
-							count++;
-							i++;}
-					}
+					printf("count++ doppio %c\n", s[i]);
+					count++;
+					if (s[i + 1] == '|' || s[i + 1] == '<' || s[i + 1] == '>')
+						i++;
 				}
 				i++;
 			}	
@@ -43,6 +44,7 @@ static int	mini_count_words(char const *s, char c)
 		else
 			i++;
 	}
+	printf("final count=%i\n", count);
 	return (count);
 }
 
@@ -202,6 +204,8 @@ void	mini_fill_str(char **str, char const *s, char c)
 					// j++;
 					i += is_pipe_redir(s, i);
 				}
+				//printf("cosa guardo[%d]:\n",j - 1);
+				printf("cosa guardo[0]: %s\n", str[0]);
 				printf("cosa guardo[%d]: %s\n",j -1, str[j-1]);
 				// if (!str[j])
 				// {
