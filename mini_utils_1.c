@@ -9,11 +9,11 @@ static int	mini_count_words(char const *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
+		printf("char mini_count = %c\n", s[i]);
 		if (s[i] != c)
 		{
 			if (s[i] == '"' || s[i] == '\'')
 			{
-				printf("entra in double quote s[i]=%c\n", s[i]);
 				count++;
 				i++;
 				while (s[i] != '"' && s[i] != '\0' && s[i] != '\'')
@@ -21,10 +21,9 @@ static int	mini_count_words(char const *s, char c)
 				if((s[i] == '"' || s[i] == '\'') && s[i] != '\0')
 					i++;
 			}
-			//condizione per le pipe
 			if (s[i] != c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
 			{
-				printf("count++ char/pipe/redir mentre guardo il carattere %c\n", s[i]);
+				printf("sto vedendo = %c\n", s[i]);
 				count++;
 				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 					i++;
@@ -32,19 +31,17 @@ static int	mini_count_words(char const *s, char c)
 					i++;
 				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 				{
-					printf("count++ doppio %c\n", s[i]);
 					count++;
 					if (s[i + 1] == '|' || s[i + 1] == '<' || s[i + 1] == '>')
 						i++;
 				}
 				i++;
-			}	
-			printf("count=%i\n", count);
+			}
 		}
 		else
 			i++;
 	}
-	printf("final count=%i\n", count);
+	printf("count = %i\n", count);
 	return (count);
 }
 
@@ -56,9 +53,7 @@ static int	mini_len_word(char const *s, int i, char c)
 	while (s[i] != c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 	{
 		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
-		{
 			return (i - len);
-		}
 		i++;
 	}
 	return (i - len);
@@ -75,10 +70,7 @@ static int	mini_len_quotes(char const *s, int i, char c)
 		i++;
 	}
 	if (s[i] == '\0')
-	{
 		return (0);
-		// exit (0);
-	}
 	return (i - len);
 }
 
@@ -162,8 +154,6 @@ void	mini_fill_str(char **str, char const *s, char c)
 				str[j++] = ft_substr(s, i, is_pipe_redir(s, i));
 				i += is_pipe_redir(s, i);
 			}
-			printf("cosa guardo[0]: %s\n", str[0]);
-			printf("cosa guardo[%d]: %s\n",j -1, str[j-1]);
 		}
 		else
 			i++;
