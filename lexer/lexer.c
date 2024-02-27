@@ -98,8 +98,13 @@ void	clean_input(t_mini *mini, int len)
 	{
 		if(mini->input[i] == ' ')
 			alloc_spaces(&i, &j, mini);
-		else if(mini->input[i] == '"' || mini->input[i]  == '\'')
-			alloc_quotes(&i, &j, mini); // find dollar_env
+		else if(mini->input[i] == '\'')
+			alloc_single_quotes(&i, &j, mini);
+		else if(mini->input[i] == '"')
+		{
+			alloc_double_quotes(&i, &j, mini);
+			printf("\n\nmini->input[i] double_quotes= %c\n\n", mini->input[i]);
+		}
 		else if (mini->input[i] == '$')
 		{
 			alloc_dollar_env(&i, &j, mini);
@@ -136,8 +141,8 @@ void	clean_input_len(t_mini *mini)
 			space_len(&i, &j, &flag, mini->input);
 		else if(mini->input[i] == '"' || mini->input[i] == '\'')
 			quotes_len(&i, &j, mini);
-		// else if (mini->input[i] == '$')
-		// 	find_dollar_env_len(&i, &j, mini); // da controllare
+		else if (mini->input[i] == '$')
+			find_dollar_env_len(&i, &j, mini); // da controllare
 		else
 		{
 			j++;

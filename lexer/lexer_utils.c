@@ -57,26 +57,7 @@ void	alloc_spaces(int *i, int *j, t_mini *mini)
 	flag = 0;
 }
 
-void	alloc_quotes(int *i, int *j, t_mini *mini)// single quotes
-{
-	if(mini->input[*i] == '"' || mini->input[*i] == '\'')
-	{
-		mini->c_input[*j] = mini->input[*i];
-		(*j)++;
-		(*i)++;
-		while(mini->input[*i] != '"' && mini->input[*i] != '\'' && mini->input[*i] != '\0')
-		{
-			mini->c_input[*j] = mini->input[*i];
-			(*j)++;
-			(*i)++;
-		}
-		mini->c_input[*j] = mini->input[*i];
-		(*j)++;
-		(*i)++;
-	}
-}
-
-void	alloc_d_quotes(int *i, int *j, t_mini *mini)//double quotes
+void	alloc_double_quotes(int *i, int *j, t_mini *mini)// single quotes
 {
 	if(mini->input[*i] == '"')
 	{
@@ -84,6 +65,30 @@ void	alloc_d_quotes(int *i, int *j, t_mini *mini)//double quotes
 		(*j)++;
 		(*i)++;
 		while(mini->input[*i] != '"' && mini->input[*i] != '\0')
+		{
+			if (mini->input[*i] == '$')
+				alloc_dollar_env(i, j, mini);
+			else
+			{
+				mini->c_input[*j] = mini->input[*i];
+				(*j)++;
+				(*i)++;
+			}
+		}
+		mini->c_input[*j] = mini->input[*i];
+		(*j)++;
+		(*i)++;
+	}
+}
+
+void	alloc_single_quotes(int *i, int *j, t_mini *mini)//single quotes
+{
+	if(mini->input[*i] == '\'')
+	{
+		mini->c_input[*j] = mini->input[*i];
+		(*j)++;
+		(*i)++;
+		while(mini->input[*i] != '\'' && mini->input[*i] != '\0')
 		{
 			mini->c_input[*j] = mini->input[*i];
 			(*j)++;
@@ -106,49 +111,36 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 	len = *i;
 	if (mini->input[*i] == '$')
 	{
-		printf("\nalloc primo if dollaro\n");
 		len++;
-		printf("alloc dopo il primo if sulla readline: %c\n", mini->input[len]);
 		while (mini->env[r]!= NULL)
 		{
-			printf("\nalloc primo while dollaro\n");
-			printf("cosa vede sulla readline: %c\n", mini->input[len]);
-			printf("cosa vede sulla env: %c\n", mini->env[r][c]);
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
 			{
-				printf("\nalloc becca la corrispondenza\n");
-				printf("cosa vede sulla readline: %c\n", mini->input[len]);
-				printf("cosa vede sulla env: %c\n\n", mini->env[r][c]);
 				c++;
 				len++;
 			}
-			printf("\nalloc dopo il secondo while dollaro\n");
-			printf("cosa vede sulla readline: %c\n", mini->input[len]);
-			printf("cosa vede sulla env: %c\n", mini->env[r][c]);
 			if (mini->env[r][c] == '=' && ((mini->input[len] < 'a' || mini->input[len] > 'z')
-				&& (mini->input[len] < 'A' || mini->input[len] > 'Z') && (mini->input[len] != '_')))
+				&& (mini->input[len] < 'A' || mini->input[len] > 'Z') && (mini->input[len] != '_' )))
 			{
-				printf("alloc uguale trovato\n");
 				c++;
-				(*j)++;
 				while(mini->env[r][c]!= '\0')
 				{
-					printf("sto allocando in c_input %c\n", mini->env[r][c]);
 					mini->c_input[*j] = mini->env[r][c];
 					c++;
-					printf("\n1: c_input %c\n\n", mini->c_input[*j]);
 					(*j)++;
 					if(mini->env[r][c] == '\0')
 					{
-						printf(" if mini->env[r][c] == '0' alloc adesso sto su %c\n", mini->env[r][c]);
-						printf("len nel $ = %i\n", len);
 						*i = len;
+						if (mini->input[len + 1] == '"' || mini->input[len + 1] == '\'')
+						{
+							mini->c_input[*j] = ' ';
+							(*j)++;
+						}
+						printf("la stringa c_input fino a mo è = %s\n", mini->c_input);
 						return ;
 					}
-					// sleep(1);
 				}
-				printf("\nadesso sto su %c\n", mini->env[r][c]);
 			}
 			else
 			{
