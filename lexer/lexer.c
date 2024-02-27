@@ -1,17 +1,18 @@
 #include "../include/minishell.h"
 
-int	envlen(const char *str, int c)
-{
-	int	a;
+// probabilmente andrà usata per diviere la funzione find_dollar_env_len
+// int	envlen(const char *str, int c)
+// {
+// 	int	a;
 
-	a = 0;
-	while (str[c])
-	{
-		a++;
-		c++;
-	}
-	return (a);
-}
+// 	a = 0;
+// 	while (str[c])
+// 	{
+// 		a++;
+// 		c++;
+// 	}
+// 	return (a);
+// }
 
 void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 {
@@ -32,14 +33,12 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 			printf("\nprimo while dollaro\n");
 			printf("cosa vede sulla readline: %c\n", mini->input[len]);
 			printf("cosa vede sulla env: %c\n", mini->env[r][c]);
-			// sleep(1);
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
 			{
 				printf("\nbecca la corrispondenza\n");
 				printf("cosa vede sulla readline: %c\n", mini->input[len]);
 				printf("cosa vede sulla env: %c\n\n", mini->env[r][c]);
-				// sleep(1);
 				c++;
 				len++;
 			}
@@ -101,16 +100,24 @@ void	clean_input(t_mini *mini, int len)
 			alloc_spaces(&i, &j, mini);
 		else if(mini->input[i] == '"' || mini->input[i]  == '\'')
 			alloc_quotes(&i, &j, mini); // find dollar_env
-		// else if (mini->input[i] == '$')
-		// 	alloc_dollar_env(&i, &j, mini);
+		else if (mini->input[i] == '$')
+		{
+			alloc_dollar_env(&i, &j, mini);
+			printf("dimme quant'è la i: %i\n", i);
+		}
 		else
 		{
 			mini->c_input[j] = mini->input[i++];
 			j++;
 		}
+		printf("mini->input[i] = %c\n", mini->input[i]);
 	}
 	mini->c_input[j] = '\0';
 }
+// ************************************************************************************** //
+// la situa migliora, va allocata effettivamente con get_env la stringa corrispondente,   //
+// va sfruttato get_env a parte tra le single quote										  //
+// ************************************************************************************** //
 
 void	clean_input_len(t_mini *mini)
 {
@@ -129,11 +136,8 @@ void	clean_input_len(t_mini *mini)
 			space_len(&i, &j, &flag, mini->input);
 		else if(mini->input[i] == '"' || mini->input[i] == '\'')
 			quotes_len(&i, &j, mini);
-		else if (mini->input[i] == '$')
-		{
-			find_dollar_env_len(&i, &j, mini); // da controllare
-			// sleep(1);
-		}
+		// else if (mini->input[i] == '$')
+		// 	find_dollar_env_len(&i, &j, mini); // da controllare
 		else
 		{
 			j++;

@@ -47,6 +47,7 @@ void	quotes_len(int *i, int *j, t_mini *mini);//char* input)
 void	find_dollar_env_len(int *i, int *j, t_mini *mini);
 void	alloc_spaces(int *i, int *j, t_mini *mini);
 void	alloc_quotes(int *i, int *j, t_mini *mini);
+void	alloc_dollar_env(int *i, int *j, t_mini *mini);
 
 // PARSER FUNCTIONS
 

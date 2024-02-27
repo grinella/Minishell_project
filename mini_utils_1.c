@@ -27,8 +27,6 @@ static int	mini_count_words(char const *s, char c)
 				count++;
 				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 					i++;
-				if (s[i] == c)
-					i++;
 				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 				{
 					count++;
