@@ -1,11 +1,11 @@
 #include "../include/minishell.h"
 
-void	my_cd(t_mini *p)
+void	my_cd(t_mini mini)
 {
 	char	*new_dir;
 	char	*cwd;
 
-	cwd = (char *)malloc(sizeof(char *) * p->prova);
+	cwd = (char *)malloc(sizeof(char *) * mini->prova);
 	new_dir = NULL;
 	if (p->args > 0)
 	{
@@ -14,7 +14,7 @@ void	my_cd(t_mini *p)
 	else
 	{
 		printf("entra env");	// Se l'utente non fornisce una directory, vai alla home
-		new_dir = get_env_char("HOME", p->env, ft_strlen("HOME"));
+		new_dir = get_env_char("HOME", mini->env, ft_strlen("HOME"));
 		printf("%s\n", new_dir);
 	}
 	if (new_dir)
@@ -51,3 +51,9 @@ void	my_cd(t_mini *p)
 // 	prompt.toks_count = argc;
 // 	return (my_cd(&prompt));
 // }
+
+
+void	my_cd(t_mini *mini, t_toks *toks, int i)
+{
+
+}

@@ -29,7 +29,7 @@ char	*find_path(t_toks *toks, char **env)
 	return (NULL);
 }
 
-void	execute_commands(t_mini *mini)
+void	execute_commands(t_mini *mini, t_toks *toks)
 {
 	int		status;
 	char	*path;
@@ -45,7 +45,7 @@ void	execute_commands(t_mini *mini)
 	}
 	else if (pid == 0)
 	{
-		execve(path, mini->toks, mini->env);
+		execve(path, toks->word->nodo, mini->env);
 		printf("K\n");
 		perror("Execve failed");
 		printf("L\n");

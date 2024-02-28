@@ -54,9 +54,10 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini);
 
 
 // EXECUTOR FUNCTIONS
-
+void	execute_commands(t_mini *mini, t_toks *toks);
 
 // BUILTINS FUNCTIONS
+void	is_builtin(t_mini *mini, t_toks *toks);
 
 // UTILS FUNCTIONS
 char	**mini_split(char const *s, char c);
