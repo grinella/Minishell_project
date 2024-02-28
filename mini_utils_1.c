@@ -171,6 +171,5 @@ char	**mini_split(char const *s, char c)
 	if (!mtr)
 		return (NULL);
 	mini_fill_str(mtr, s, c);
-	ft_print_matrix(mtr);
 	return (mtr);
 }

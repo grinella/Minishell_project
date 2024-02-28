@@ -36,6 +36,28 @@ int	only_space(char* str)
 	}
 	return(1);
 }
+//funzione da cancellare che printa i nodi
+void	ft_print_node(t_toks *toks)
+{
+	int	pos;
+	int	i;
+
+	i = 0;
+	pos = 0;
+	while (toks)
+	{
+		i = 0;
+		printf("\nPosizione nodo: %i\n", pos);
+		printf("Tipo di token: %i\n", toks->type);
+		while (toks->word[i])
+		{
+			printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, toks->word[i]);
+			i++;
+		}
+		toks = toks->next;
+		pos++;
+	}
+}
 
 //funzione da cancellare che printa la matrici
 void	ft_print_matrix(char **matrix)
@@ -89,7 +111,7 @@ int	main(int argc, char **argv, char **env)
 	if(argc == 1)
 	{
 		mini = (t_mini *)malloc(sizeof(t_mini));
-		toks = (t_toks *)malloc(sizeof(t_toks));
+		toks = NULL;
 		init_mini(mini, env);
 		while(1)
 			mini_routine(mini, toks);

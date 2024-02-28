@@ -20,7 +20,7 @@
 
 typedef struct s_toks
 {
-	int				*type; //0 = cmd; 1 = flag ; 2 = args ; 3 = | ; 4 = > ; 5 = >> ; 6 = < ; 7 = << .
+	int				type; //0 = cmd; 1 = | ; 2 = > ; 3 = >> ; 4 = < ; 5 = << .
 	char			**word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
@@ -41,7 +41,6 @@ void	put_env(t_mini *mini, char **env);
 char	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
 void	splitter(t_mini *mini, t_toks *toks);
-void	tokenizer(t_mini *mini, t_toks *toks);
 void	space_len(int *i, int *j, int *flag, char* input);
 void	quotes_len(int *i, int *j, t_mini *mini);//char* input)
 void	find_dollar_env_len(int *i, int *j, t_mini *mini);
@@ -61,6 +60,7 @@ void	is_builtin(t_mini *mini, t_toks *toks);
 
 // UTILS FUNCTIONS
 char	**mini_split(char const *s, char c);
+void	ft_print_node(t_toks *toks); // TESTING (DA CANCELLARE)
 void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
 // FREE FUNCTIONS
