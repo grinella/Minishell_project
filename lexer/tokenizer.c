@@ -105,6 +105,7 @@ void	splitter(t_mini *mini, t_toks *toks)
 {
 	char	**tokens;
 
+	tokens = NULL;
 	if (mini->c_input)
 		tokens = mini_split(mini->c_input, ' ');
 	tokenizer(tokens, &toks);
