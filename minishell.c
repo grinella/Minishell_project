@@ -1,5 +1,25 @@
 #include "include/minishell.h"
 
+int	g_exit_status;
+
+void	free_node(t_toks **toks)
+{
+	t_toks	*tmp;
+	t_toks	*current;
+
+	if (toks == NULL)
+		return ;
+	current = *toks;
+	while (current)
+	{
+		tmp = current->next;
+		free_matrix(current->word);
+		current = tmp;
+	}
+	free(current);
+	*toks = NULL;
+}
+
 void	free_matrix(char **matrix)
 {
 	int	i;
@@ -7,19 +27,20 @@ void	free_matrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-		printf("check\n");
-		printf("freeato contenuto: %s\n", matrix[i]);
+		//printf("check\n");
+		//printf("freeato contenuto: %s\n", matrix[i]);
 		free(matrix[i]);
 		i++;
 	}
+	free(matrix);
 	return ;
 }
 
 void	free_all(t_mini *mini)
 {
-	if(mini->input)
+	if(mini->input != NULL)
 		free (mini->input);
-	if(mini->c_input)
+	if(mini->c_input != NULL)
 		free (mini->c_input);
 }
 
@@ -81,7 +102,14 @@ void	init_mini(t_mini *mini, char **env)
 
 void	mini_routine(t_mini *mini, t_toks *toks)
 {
+	signal(SIGINT, ft_ctrlc);
+	signal(SIGQUIT, SIG_IGN);
 	mini->input = readline("shell>> ");
+	if(mini->input == NULL)
+	{
+		//free_node(&toks);
+		ft_ctrld(mini);
+	}
 	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
 		if (mini->input && mini->input[0])
@@ -103,6 +131,7 @@ int	main(int argc, char **argv, char **env)
 	t_toks	*toks;
 	
 	(void)argv;
+	g_exit_status = 0;
 	if (argc != 1)
 	{
 		printf("Error: too many arguments\n");
@@ -115,10 +144,9 @@ int	main(int argc, char **argv, char **env)
 		init_mini(mini, env);
 		while(1)
 			mini_routine(mini, toks);
-		printf("finito\n");
 		free_matrix(mini->env);
 		free(mini);
-		free(toks);
+		//free_node(&toks);
 	}
 	return (0);
 }

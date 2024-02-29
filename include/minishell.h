@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+extern int	g_exit_status;
+
 # include "libft/libft.h"
 # include <stdio.h>
 # include <stdint.h>
@@ -57,6 +59,10 @@ void	execute_commands(t_mini *mini, t_toks *toks);
 
 // BUILTINS FUNCTIONS
 void	is_builtin(t_mini *mini, t_toks *toks);
+
+// SIGNALS FUNCTIONS
+void	ft_ctrlc(int sign);
+void	ft_ctrld(t_mini *mini);
 
 // UTILS FUNCTIONS
 char	**mini_split(char const *s, char c);

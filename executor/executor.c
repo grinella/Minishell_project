@@ -36,7 +36,6 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 	pid_t	pid;
 
 	path = find_path(mini, mini->env);
-	printf("J\n");
 	pid = fork();
 	if (pid == -1)
 	{
@@ -45,16 +44,13 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 	}
 	else if (pid == 0)
 	{
-		execve(path, toks->word->nodo, mini->env);
-		printf("K\n");
+		execve(path, toks->word, mini->env);
 		perror("Execve failed");
-		printf("L\n");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		printf("M\n");
 		if (WIFEXITED(status))
 			printf("%d\n", WEXITSTATUS(status));
 		else

@@ -90,7 +90,7 @@ void	clean_input(t_mini *mini, int len)
 	
 	i = 0;
 	j = 0;
-	printf("len=%i\n", len);
+	mini->c_input = NULL;
 	mini->c_input = malloc(sizeof(char *) * (len + 1));
 	while(mini->input[i] == ' ')
 		i++;

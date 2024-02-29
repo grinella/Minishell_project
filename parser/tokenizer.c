@@ -20,7 +20,8 @@ int	toks_len(char **tokens)
 	}
 	while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '<' && tokens[i][0] != '>')
 		i++;
-	i++;
+	if(tokens[i + 1] == NULL)
+		i++;
 	printf("node_matrix_len: %i\n", i);
 	return(i);
 }
@@ -53,7 +54,7 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i)
 	t_toks	*node;
 	t_toks	*last_node;
 
-	node = malloc(sizeof(t_toks));
+	node = (t_toks *)malloc(sizeof(t_toks));
 	if (node == NULL)
 		return ;
 	node->next = NULL;
@@ -98,6 +99,8 @@ void	tokenizer(char **tokens, t_toks **toks)
 		else
 			append_node(tokens, toks, 0, &i);
 	}
+	if (tokens != NULL)
+		free_matrix(tokens);
 }
 
 //QUALCOSINA FUNZIONA ED é PURE CORRETTO
@@ -109,5 +112,5 @@ void	splitter(t_mini *mini, t_toks *toks)
 	if (mini->c_input)
 		tokens = mini_split(mini->c_input, ' ');
 	tokenizer(tokens, &toks);
-	ft_print_node(toks);
+	//ft_print_node(toks);
 }

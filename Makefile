@@ -12,12 +12,11 @@ RM				=	rm -f
 SRCS = 		minishell.c \
 			mini_utils.c \
 			mini_utils_1.c \
-			lexer/lexer.c \
-			lexer/lexer_utils.c \
-			lexer/tokenizer.c \
-			# parser/*.c \
-			signals/*.c \
-			executor/*.c \
+			parser/lexer.c \
+			parser/lexer_utils.c \
+			parser/tokenizer.c \
+			signals/signals.c \
+			# executor/*.c \
 			builtins/*.c
 
 OBJS		=	$(SRCS:%.c=%.o)
