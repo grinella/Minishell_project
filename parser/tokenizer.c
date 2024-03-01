@@ -112,5 +112,5 @@ void	splitter(t_mini *mini, t_toks *toks)
 	if (mini->c_input)
 		tokens = mini_split(mini->c_input, ' ');
 	tokenizer(tokens, &toks);
-	//ft_print_node(toks);
+	ft_print_node(toks);
 }
