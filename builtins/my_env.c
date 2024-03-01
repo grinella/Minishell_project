@@ -56,7 +56,7 @@ char	**set_env(char *var, char *value, char **envp, int n)
 		n = strlen(var);
 	}
 	// Create auxiliary strings by joining the variable name and value with '='
-	new_entry = malloc(strlen(var) + strlen(value) + 2);
+	new_entry = ft_calloc(strlen(var) + strlen(value) + 2);
 	strcpy(new_entry, var);
 	strcat(new_entry, "=");
 	strcat(new_entry, value);
@@ -66,7 +66,7 @@ char	**set_env(char *var, char *value, char **envp, int n)
 		count++;
 	}
 	// Create a new environment variable array with one additional entry
-	new_envp = malloc((count + 2) * sizeof(char *));
+	new_envp = ft_calloc((count + 2) * sizeof(char *));
 	if (new_envp == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed\n");

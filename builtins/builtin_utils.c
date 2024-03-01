@@ -105,7 +105,7 @@ char	**extend_matrix(char **in, char *newstr)
 	if (!newstr)
 		return (in);
 	len = ft_matrixlen(in);
-	out = malloc(sizeof(char *) * (len + 2));
+	out = ft_calloc(sizeof(char *) * (len + 2));
 	out[len + 1] = NULL;
 	if (!out)
 		return (in);

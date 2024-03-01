@@ -32,7 +32,7 @@ char	**remove_env(char *var, char **envp)
 	// Calcola la lunghezza della lista delle variabili d'ambiente.
 	env_len = ft_matrixlen(envp);
 	// Alloca memoria per la nuova lista senza la variabile d'ambiente specificata.
-	new_envp = malloc(sizeof(char *) * (env_len));
+	new_envp = ft_calloc(sizeof(char *) * (env_len));
 	if (!new_envp)
 		return (cont_error(MEM, NULL, 1));
 	i = -1;

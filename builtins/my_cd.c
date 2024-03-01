@@ -5,7 +5,7 @@ void	my_cd(t_mini mini)
 	char	*new_dir;
 	char	*cwd;
 
-	cwd = (char *)malloc(sizeof(char *) * mini->prova);
+	cwd = (char *)ft_calloc(sizeof(char *) * mini->prova);
 	new_dir = NULL;
 	if (p->args > 0)
 	{

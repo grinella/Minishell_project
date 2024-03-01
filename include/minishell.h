@@ -65,7 +65,7 @@ void	ft_ctrlc(int sign);
 void	ft_ctrld(t_mini *mini);
 
 // UTILS FUNCTIONS
-char	**mini_split(char const *s, char c);
+char	**mini_split(t_mini *mini, char c);
 void	ft_print_node(t_toks *toks); // TESTING (DA CANCELLARE)
 void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 

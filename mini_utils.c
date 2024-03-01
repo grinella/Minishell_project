@@ -21,7 +21,7 @@ void	put_env(t_mini *mini, char **env)
 
 	i = 0;
 	m_len = ft_count_matrix(env);
-	mini->env = malloc((sizeof(char **) * (m_len + 1)));
+	mini->env = ft_calloc(m_len + 1 , sizeof(char **));
 	while (env[i] != NULL)
 	{
 		mini->env[i] = ft_strdup(env[i]);

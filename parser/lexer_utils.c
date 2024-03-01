@@ -137,14 +137,12 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 							mini->c_input[*j] = ' ';
 							(*j)++;
 						}
-						printf("la stringa c_input fino a mo è = %s\n", mini->c_input);
 						return ;
 					}
 				}
 			}
 			else
 			{
-				printf("arriva all'else\n");
 				r++;
 				if (mini->env[r] == NULL)
 				{

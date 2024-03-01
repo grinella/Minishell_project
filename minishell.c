@@ -27,12 +27,10 @@ void	free_matrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-		//printf("check\n");
-		//printf("freeato contenuto: %s\n", matrix[i]);
 		free(matrix[i]);
 		i++;
 	}
-	free(matrix);
+	//free(matrix);
 	return ;
 }
 
@@ -139,7 +137,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	if(argc == 1)
 	{
-		mini = (t_mini *)malloc(sizeof(t_mini));
+		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
 		init_mini(mini, env);
 		while(1)

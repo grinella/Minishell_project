@@ -35,7 +35,7 @@ void	my_echo(t_mini *p)
 		//ft_putstr_fd("\n", 1);
 	return ;
 }
-	// parser = (t_parse *)malloc(sizeof(t_parse));
+	// parser = (t_parse *)ft_calloc(sizeof(t_parse));
 	// printf("%d\n", n);
 	// if (p->toks_count > 0)
 	// {

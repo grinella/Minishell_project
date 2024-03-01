@@ -78,7 +78,7 @@ void	my_exit(t_mini *p)
 		.outfile = 1
 	};
 
-	t_list *sample_node = malloc(sizeof(t_list));
+	t_list *sample_node = ft_calloc(sizeof(t_list));
 	sample_node->next = NULL;
 	sample_node->content = &sample_build;
 

@@ -25,30 +25,18 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 	len = *i;
 	if (mini->input[*i] == '$')
 	{
-		printf("\nprimo if dollaro\n");
 		len++;
-		printf("dopo il primo if sulla readline: %c\n", mini->input[len]);
 		while (mini->env[r]!= NULL)
 		{
-			printf("\nprimo while dollaro\n");
-			printf("cosa vede sulla readline: %c\n", mini->input[len]);
-			printf("cosa vede sulla env: %c\n", mini->env[r][c]);
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
 			{
-				printf("\nbecca la corrispondenza\n");
-				printf("cosa vede sulla readline: %c\n", mini->input[len]);
-				printf("cosa vede sulla env: %c\n\n", mini->env[r][c]);
 				c++;
 				len++;
 			}
-			printf("\ndopo il secondo while dollaro\n");
-			printf("cosa vede sulla readline: %c\n", mini->input[len]);
-			printf("cosa vede sulla env: %c\n", mini->env[r][c]);
 			if (mini->env[r][c] == '=' && ((mini->input[len] < 'a' || mini->input[len] > 'z')
 				&& (mini->input[len] < 'A' || mini->input[len] > 'Z') && (mini->input[len] != '_')))
 			{
-				printf("uguale trovato\n");
 				c++;
 				(*j)++;
 				while(mini->env[r][c]!= '\0')
@@ -59,14 +47,11 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 				if(mini->env[r][c] == '\0')
 				{
 					*i = len;
-					printf ("\nlen dollaro = %i\n", *i);
-					printf ("la j ora e' %i\n", *j);
 					return ;
 				}
 			}
 			else
 			{
-				printf("arriva all'else\n");
 				r++;
 				if (mini->env[r] == NULL)
 				{
@@ -90,8 +75,7 @@ void	clean_input(t_mini *mini, int len)
 	
 	i = 0;
 	j = 0;
-	mini->c_input = NULL;
-	mini->c_input = malloc(sizeof(char *) * (len + 1));
+	mini->c_input = ft_calloc(sizeof(char *) , (len + 1));
 	while(mini->input[i] == ' ')
 		i++;
 	while(mini->input[i] != '\0')
@@ -101,21 +85,14 @@ void	clean_input(t_mini *mini, int len)
 		else if(mini->input[i] == '\'')
 			alloc_single_quotes(&i, &j, mini);
 		else if(mini->input[i] == '"')
-		{
 			alloc_double_quotes(&i, &j, mini);
-			printf("\n\nmini->input[i] double_quotes= %c\n\n", mini->input[i]);
-		}
 		else if (mini->input[i] == '$')
-		{
 			alloc_dollar_env(&i, &j, mini);
-			printf("dimme quant'è la i: %i\n", i);
-		}
 		else
 		{
 			mini->c_input[j] = mini->input[i++];
 			j++;
 		}
-		printf("mini->input[i] = %c\n", mini->input[i]);
 	}
 	mini->c_input[j] = '\0';
 }

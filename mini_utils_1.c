@@ -1,36 +1,34 @@
 #include "include/minishell.h"
 
-static int	mini_count_words(char const *s, char c)
+static int	mini_count_words(t_mini *mini, char c)
 {
 	int		i;
 	int		count;
 
 	i = 0;
 	count = 0;
-	while (s[i] != '\0')
+	while (mini->c_input[i] != '\0')
 	{
-		printf("char mini_count = %c\n", s[i]);
-		if (s[i] != c)
+		if (mini->c_input[i] != c)
 		{
-			if (s[i] == '"' || s[i] == '\'')
+			if (mini->c_input[i] == '"' || mini->c_input[i] == '\'')
 			{
 				count++;
 				i++;
-				while (s[i] != '"' && s[i] != '\0' && s[i] != '\'')
+				while (mini->c_input[i] != '"' && mini->c_input[i] != '\0' && mini->c_input[i] != '\'')
 					i++;
-				if((s[i] == '"' || s[i] == '\'') && s[i] != '\0')
+				if((mini->c_input[i] == '"' || mini->c_input[i] == '\'') && mini->c_input[i] != '\0')
 					i++;
 			}
-			if (s[i] != c && s[i] != '\0' && s[i] != '"' && s[i] != '\'')
+			if (mini->c_input[i] != c && mini->c_input[i] != '\0' && mini->c_input[i] != '"' && mini->c_input[i] != '\'')
 			{
-				printf("sto vedendo = %c\n", s[i]);
 				count++;
-				while (s[i]!= c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
+				while (mini->c_input[i]!= c && mini->c_input[i] != '\0' && mini->c_input[i] != '|' && mini->c_input[i] != '<' && mini->c_input[i] != '>')
 					i++;
-				if (s[i] == '|' || s[i] == '<' || s[i] == '>')
+				if (mini->c_input[i] == '|' || mini->c_input[i] == '<' || mini->c_input[i] == '>')
 				{
 					count++;
-					if (s[i + 1] == '|' || s[i + 1] == '<' || s[i + 1] == '>')
+					if (mini->c_input[i + 1] == '|' || mini->c_input[i + 1] == '<' || mini->c_input[i + 1] == '>')
 						i++;
 				}
 				i++;
@@ -39,14 +37,12 @@ static int	mini_count_words(char const *s, char c)
 		else
 			i++;
 	}
-	printf("count = %i\n", count);
 	return (count);
 }
 
 static int	mini_len_word(char const *s, int i, char c)
 {
 	int		len;
-	printf("char = %c\n", s[i]);
 	len = i;
 	while (s[i] != c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>')
 	{
@@ -97,79 +93,79 @@ static void	mini_free(char **str, int i)
 	free(str);
 }
 
-void	mini_fill_str(char **str, char const *s, char c)
+void	mini_fill_str(char **str, t_mini *mini, char c)
 {
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0')
+	while (mini->c_input[i] != '\0')
 	{
-		if (s[i] == '"')
+		if (mini->c_input[i] == '"')
 		{
 			i += 1;
-			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '"'));
-			if (mini_len_quotes(s, i, '"') == 0)
+			str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
+			if (mini_len_quotes(mini->c_input, i, '"') == 0)
 			{
 				printf("Error: missing quote\n");
 				free_matrix(str);
 				return ;
 			}
-			i += mini_len_quotes(s, i, '"');
+			i += mini_len_quotes(mini->c_input, i, '"');
 			if (!str[j])
 			{
 				mini_free(str, j);
 				return ;
 			}
-			if (s[i] == '"')
+			if (mini->c_input[i] == '"')
 				i++;
 			j++;
 		}
-		else if (s[i] == '\'')
+		else if (mini->c_input[i] == '\'')
 		{
 			i += 1;
-			str[j] = ft_substr(s, i, mini_len_quotes(s, i, '\''));
-			i += mini_len_quotes(s, i, '\'');
+			str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '\''));
+			i += mini_len_quotes(mini->c_input, i, '\'');
 			if (!str[j])
 			{
 				mini_free(str, j);
 				return ;
 			}
-			if (s[i] == '\'')
+			if (mini->c_input[i] == '\'')
 				i++;
 			j++;
 		}
-		else if (s[i] != c && s[i] != '"' && s[i] != '\'')
+		else if (mini->c_input[i] != c && mini->c_input[i] != '"' && mini->c_input[i] != '\'')
 		{
-			if (s[i]!= '|' && s[i] != '>' && s[i] != '<')
+			if (mini->c_input[i]!= '|' && mini->c_input[i] != '>' && mini->c_input[i] != '<')
 			{
-				str[j++] = ft_substr(s, i, mini_len_word(s, i, c));
-				i += mini_len_word(s, i, c);
+				str[j++] = ft_substr(mini->c_input, i, mini_len_word(mini->c_input, i, c));
+				i += mini_len_word(mini->c_input, i, c);
 			}
-			if (s[i] == '|' || s[i] == '>' || s[i] == '<')
+			if (mini->c_input[i] == '|' || mini->c_input[i] == '>' || mini->c_input[i] == '<')
 			{
-				str[j++] = ft_substr(s, i, is_pipe_redir(s, i));
-				i += is_pipe_redir(s, i);
+				str[j++] = ft_substr(mini->c_input, i, is_pipe_redir(mini->c_input, i));
+				i += is_pipe_redir(mini->c_input, i);
 			}
 		}
 		else
 			i++;
-		while (s[i] == c && (s[i] != '\0' && s[i] != '"' && s[i] != '\''))
+		while (mini->c_input[i] == c && (mini->c_input[i] != '\0' && mini->c_input[i] != '"' && mini->c_input[i] != '\''))
 			i++;
 	}
 	str[j] = NULL;
 }
 
-char	**mini_split(char const *s, char c)
+char	**mini_split(t_mini *mini, char c)
 {
 	char	**mtr;
 
-	if (!s)
+	if (!mini->c_input)
 		return (NULL);
-	mtr = (char **)calloc(sizeof(char *), (mini_count_words(s, c) + 1));
+	mtr = (char **)ft_calloc(sizeof(char *), (mini_count_words(mini, c) + 1));
 	if (!mtr)
 		return (NULL);
-	mini_fill_str(mtr, s, c);
+	mini_fill_str(mtr, mini, c);
 	return (mtr);
 }
