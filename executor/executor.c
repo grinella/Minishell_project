@@ -57,3 +57,17 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 			printf("\n");
 	}
 }
+
+void	executor(t_mini *mini, t_toks *toks)
+{
+	// serve un modo per passare i nodi a questa funzione
+	int i; // questa i serve per iterare i nodi
+	
+	i = 0;
+	while (/*nodo[i]*/)
+	{
+		is_builtin(mini, toks, i);
+
+		i++;
+	}
+}

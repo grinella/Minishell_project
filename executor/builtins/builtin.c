@@ -93,24 +93,24 @@ int	builtin_3(t_mini *mini, int i)
 
 void	is_builtin(t_mini *mini, t_toks *toks, int i)
 {
-	if (!ft_strncmp(toks->word[i], "exit", 4))
+	// LE FUNZIONI DEVONO ESSERE ESEGUITE QUANDO NEL NODO[i][0] C'E' UNA BUILTIN
+	// NODO[i][0] sarebbe la prima stringa di un nodo x che ha come prima parola una possibile builtin
+	if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "exit", 4))
 		my_exit(mini);
-	else if (!ft_strncmp(toks->word[i], "cd", 2))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "cd", 2))
 		my_cd(mini);
-	else if (!ft_strncmp(toks->word[i], "export", 6))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "export", 6))
 		my_export(mini);
-	else if (!ft_strncmp(toks->word[i], "unset", 5))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "unset", 5))
 		my_unset(mini);
-	else if (!ft_strncmp(toks->word[i], "pwd", 3))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "pwd", 3))
 		my_pwd(mini);
-	else if (!ft_strncmp(toks->word[i], "env", 3))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "env", 3))
 		my_env(mini->env);
-	else if (!ft_strncmp(toks->word[i], "echo", 4))
+	else if (!ft_strncmp(toks->word[i] /*nodo[i][0]*/, "echo", 4))
 		my_echo(mini);
-	else if (1)
-	{
+	else
 		execute_commands(mini, toks);
-	}
 	// else
 	// {
 	// 	signal(SIGINT, SIG_IGN);

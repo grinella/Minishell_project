@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdbool.h>
 
 t_toks	*find_last_node(t_toks *head)
 {
@@ -82,7 +83,7 @@ void	tokenizer(char **tokens, t_toks **toks)
 		{
 			printf("Error: double pipe\n");
 			//richiamo funzione free;
-			//exit_free;
+			return ;
 		}
 		else if (tokens[i][0] == '|')
 			append_node(tokens, toks, 1, &i);
@@ -97,8 +98,6 @@ void	tokenizer(char **tokens, t_toks **toks)
 		else
 			append_node(tokens, toks, 0, &i);
 	}
-	//if (tokens != NULL)
-		//free_matrix(tokens);
 }
 
 //QUALCOSINA FUNZIONA ED é PURE CORRETTO
@@ -113,4 +112,5 @@ void	splitter(t_mini *mini, t_toks *toks)
 	}
 	tokenizer(tokens, &toks);
 	ft_print_node(toks);
+	//executor(mini, toks); SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
 }
