@@ -112,5 +112,5 @@ void	splitter(t_mini *mini, t_toks *toks)
 	}
 	tokenizer(tokens, &toks);
 	ft_print_node(toks);
-	//executor(mini, toks); SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
+	executor(mini, toks); //SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
 }

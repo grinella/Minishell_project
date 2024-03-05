@@ -26,7 +26,7 @@ typedef struct s_toks
 	char			**word;
 	struct s_toks	*prev;
 	struct s_toks	*next;
-}	t_toks;
+}	t_toks; // serve un current??
 
 typedef struct s_mini
 {

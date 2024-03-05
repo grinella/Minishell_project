@@ -66,8 +66,19 @@ void	executor(t_mini *mini, t_toks *toks)
 	i = 0;
 	while (/*nodo[i]*/)
 	{
-		is_builtin(mini, toks, i);
+		// if ()//se c'è exit)
+		// 	my_exit(mini);
+		// if (nodo.next != NULL && nodo.next->type == 1)
+		// 	//is pipe = true
+		// is_builtin(mini, toks, &i);
 
+		//if (is pipe == true)
+		//fork
+		//se '|' continui
+		//else wait 
+		// child
+			//check builtin
+			//exec	
 		i++;
 	}
 }

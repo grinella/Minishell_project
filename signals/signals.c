@@ -4,7 +4,7 @@ void	ft_ctrlc(int sign)
 {
 		(void)sign;
 		write(1, "\n", 1);
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		g_exit_status = 130;
