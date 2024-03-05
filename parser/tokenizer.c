@@ -10,19 +10,25 @@ t_toks	*find_last_node(t_toks *head)
 	return (head);
 }
 
-int	toks_len(char **tokens)
+int	toks_len(char **tokens, int *i)
 {
-	int	i;
+	int	j;
+	int	x;
 
-	i = 0;
-	if (tokens[i][0] == '|' || tokens[i][0] == '<' || tokens[i][0] == '>')
+	j = *i;
+	x = 0;
+	if (tokens[j][0] == '|' || tokens[j][0] == '<' || tokens[j][0] == '>')
 	{
 		return(2);
 	}
-	while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '<' && tokens[i][0] != '>')
-		i++;
-	i++;
-	return(i);
+	while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '<' && tokens[j][0] != '>')
+	{
+		x++;
+		j++;
+	}
+	x++;
+	printf("toks_len = %i\n", x);
+	return(x);
 }
 
 void	fill_node(char **tokens, t_toks *node, int *i)
@@ -30,7 +36,7 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 	int	j;
 
 	j = 0;
-	node->word = (char **)ft_calloc(sizeof(char *) , (toks_len(tokens)));
+	node->word = (char **)ft_calloc(sizeof(char *) , (toks_len(tokens, i)));
 	if (tokens[*i][0] == '|' || tokens[*i][0] == '<' || tokens[*i][0] == '>')
 	{
 		node->word[j] = ft_strdup(tokens[*i]);
@@ -112,5 +118,5 @@ void	splitter(t_mini *mini, t_toks *toks)
 	}
 	tokenizer(tokens, &toks);
 	ft_print_node(toks);
-	executor(mini, toks); //SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
+	//executor(mini, toks); //SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
 }

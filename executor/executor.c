@@ -58,12 +58,12 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 	}
 }
 
-void	executor(t_mini *mini, t_toks *toks)
-{
+//void	executor(t_mini *mini, t_toks *toks)
+//{
 	// serve un modo per passare i nodi a questa funzione
-	int i; // questa i serve per iterare i nodi
+	//int i; // questa i serve per iterare i nodi
 	
-	i = 0;
+	//i = 0;
 	// while (/*nodo[i]*/)
 	// {
 		// if ()//se c'è exit)
@@ -78,7 +78,7 @@ void	executor(t_mini *mini, t_toks *toks)
 		//else wait 
 		// child
 			//check builtin
-			//exec	
+			//exec
 	// 	i++;
 	// }
-}
+//}
