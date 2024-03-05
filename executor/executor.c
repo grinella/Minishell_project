@@ -64,8 +64,8 @@ void	executor(t_mini *mini, t_toks *toks)
 	int i; // questa i serve per iterare i nodi
 	
 	i = 0;
-	while (/*nodo[i]*/)
-	{
+	// while (/*nodo[i]*/)
+	// {
 		// if ()//se c'è exit)
 		// 	my_exit(mini);
 		// if (nodo.next != NULL && nodo.next->type == 1)
@@ -79,6 +79,6 @@ void	executor(t_mini *mini, t_toks *toks)
 		// child
 			//check builtin
 			//exec	
-		i++;
-	}
+	// 	i++;
+	// }
 }

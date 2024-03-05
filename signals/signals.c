@@ -13,6 +13,9 @@ void	ft_ctrlc(int sign)
 void	ft_ctrld(t_mini *mini)
 {
 	g_exit_status = 0;
+	// rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 	free_matrix(mini->env);
 	if (mini->input != NULL)
 		free(mini->input);
