@@ -104,6 +104,7 @@ void	tokenizer(char **tokens, t_toks **toks)
 		else
 			append_node(tokens, toks, 0, &i);
 	}
+	free_matrix(tokens);//NON SO SE FUNZIONA
 }
 
 //QUALCOSINA FUNZIONA ED é PURE CORRETTO

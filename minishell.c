@@ -2,14 +2,14 @@
 
 int	g_exit_status;
 
-void	free_node(t_toks **toks)
+void	free_node(t_toks *toks)
 {
 	t_toks	*tmp;
 	t_toks	*current;
 
 	if (toks == NULL)
 		return ;
-	current = *toks;
+	current = toks;
 	while (current)
 	{
 		tmp = current->next;
@@ -17,7 +17,7 @@ void	free_node(t_toks **toks)
 		current = tmp;
 	}
 	free(current);
-	*toks = NULL;
+	toks = NULL;
 }
 
 void	free_matrix(char **matrix)
@@ -105,7 +105,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	mini->input = readline("shell>> ");
 	if(mini->input == NULL)
 	{
-		//free_node(&toks);
+		//free_node(toks);
 		ft_ctrld(mini);
 	}
 	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
@@ -117,7 +117,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 		lexer(mini, toks);
 		printf("input:%s\n", mini->input);
 		printf("input pulito:%s\n", mini->c_input);
-		free_all(mini);//free_all(mini, toks);
+		free_all(mini);
 	}
 	else
 		free(mini->input);
@@ -144,7 +144,6 @@ int	main(int argc, char **argv, char **env)
 			mini_routine(mini, toks);
 		free_matrix(mini->env);
 		free(mini);
-		//free_node(&toks);
 	}
 	return (0);
 }
