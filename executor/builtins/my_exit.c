@@ -28,21 +28,31 @@ void	my_exit(t_toks *toks)
 	if (toks->word[2] != NULL)
 	{
 		printf("exit\nminishell: exit: too many arguments\n");
+		g_exit_status = 1;
 		return ;
 	}
-	else if (toks->word[1])
+	else if (ft_isdigit_mini(toks->word[1]) == 0) // se l'argomento non è numerico stampa l'errore
 	{
-		// Error: numeric argument required
-		// se l'argomento non è numerico stampa l'errore
-		if (ft_isdigit_mini(toks->word[1]) == 0)
+		if (toks->next == NULL)
 		{
 			printf("exit\nminishell: exit %s: numeric argument required\n", toks->word[1]);
-			// return ;
-			exit (1);
+			g_exit_status = 255;
+			exit (g_exit_status);
+		}
+		else if (toks->next != NULL)
+		{
+			printf("exit\nminishell: exit %s: numeric argument required\n", toks->word[1]);
+			g_exit_status = 0;
+			return ;
 		}
 	}
-	else
+	else if (toks->word[1] == NULL && toks->next != NULL)
+	{
+		printf("exit\n");
+		exit (g_exit_status);
+	}
 	// if (!ft_strncmp (toks->word[0], "exit", 5))
+	else if (toks->word[1] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
 		exit (ft_atoi(toks->word[1]));
