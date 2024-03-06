@@ -68,8 +68,7 @@ void	executor(t_mini *mini, t_toks *toks)
 			//is pipe = true
 		if(toks->type == 0)
 		{
-			if(is_builtin)
-				execute_commands(mini, toks->word);
+			execute_commands(mini, toks->word);
 		}
 		toks = toks->next;
 	}
