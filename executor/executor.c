@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	*find_path(t_toks *toks, char **env)
+char	*find_path(char **cmd, char **env)
 {
 	struct stat	buff;
 	int			i;
@@ -18,9 +18,9 @@ char	*find_path(t_toks *toks, char **env)
 	while (base && base[++i])
 	{
 		temp = ft_strjoin(base[i], "/");
-		if (!lstat(ft_strjoin(temp, toks->word[0]), &buff))
+		if (!lstat(ft_strjoin(temp, cmd[0]), &buff))
 		{
-			path = ft_strjoin(temp, toks->word[0]);
+			path = ft_strjoin(temp, cmd[0]);
 			free(temp);
 			return (path);
 		}
@@ -29,13 +29,13 @@ char	*find_path(t_toks *toks, char **env)
 	return (NULL);
 }
 
-void	execute_commands(t_mini *mini, t_toks *toks)
+void	execute_commands(t_mini *mini, char **cmd)
 {
 	int		status;
 	char	*path;
 	pid_t	pid;
 
-	path = find_path(mini, mini->env);
+	path = find_path(cmd, mini->env);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -44,7 +44,7 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 	}
 	else if (pid == 0)
 	{
-		execve(path, toks->word, mini->env);
+		execve(path, cmd, mini->env);
 		perror("Execve failed");
 		exit(EXIT_FAILURE);
 	}
@@ -62,20 +62,13 @@ void	executor(t_mini *mini, t_toks *toks)
 {
 	while (toks)
 	{
-		if (!ft_strncomp (toks->word[0]))//se c'è exit)
-			my_exit(mini);
-		if (toks->next->word[0] != NULL && toks->next->type == 1)
+		//if (!ft_strncomp (toks->word[0]))//se c'è exit)
+		//	my_exit(mini);
+		//if (toks->next->word[0] != NULL && toks->next->type == 1)
 			//is pipe = true
-		is_builtin(mini, toks, &i);
-
-		if (is pipe == true)
-		fork
-		se '|' continui
-		else wait 
-		child
-			check builtin
-			exec
+		//is_builtin(mini, toks, &i);
+		if(toks->type == 0)
+			execute_commands(mini, toks->word);
 		toks = toks->next;
 	}
 }
-*/
