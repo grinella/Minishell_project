@@ -60,7 +60,7 @@ void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
 
 // BUILTINS FUNCTIONS
-void	is_builtin(t_mini *mini, t_toks *toks, int *i);
+int		is_builtin(t_mini *mini, t_toks *toks, int *i);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

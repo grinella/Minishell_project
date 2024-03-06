@@ -66,9 +66,11 @@ void	executor(t_mini *mini, t_toks *toks)
 		//	my_exit(mini);
 		//if (toks->next->word[0] != NULL && toks->next->type == 1)
 			//is pipe = true
-		//is_builtin(mini, toks, &i);
 		if(toks->type == 0)
-			execute_commands(mini, toks->word);
+		{
+			if(is_builtin)
+				execute_commands(mini, toks->word);
+		}
 		toks = toks->next;
 	}
 }
