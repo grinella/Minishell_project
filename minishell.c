@@ -1,33 +1,84 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/20 19:56:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/31 16:37:41 by Gabriele         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "include/minishell.h"
 
-// char	*lexer()
-// {
-// 	ft_find_word
-// 	ft_find_redir // input[j] != '>' && input[j] != '>>' && input[j] != '<'
-	
-// }
+int	g_exit_status;
 
-char *routine(t_mini *riga)
+void	free_node(t_toks *toks)
 {
-	//lexer(riga->input);
-	//parser(lexer);
-	//executor(parser);
-	return (riga->input);
+	t_toks	*tmp;
+	t_toks	*current;
+
+	if (toks == NULL)
+		return ;
+	current = toks;
+	while (current)
+	{
+		tmp = current->next;
+		free_matrix(current->word);
+		current = tmp;
+	}
+	free(current);
+	toks = NULL;
 }
 
-//funzione da cancellare
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	//free(matrix);
+	return ;
+}
+
+void	free_all(t_mini *mini)
+{
+	if(mini->input != NULL)
+		free (mini->input);
+	if(mini->c_input != NULL)
+		free (mini->c_input);
+}
+
+int	only_space(char* str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i] == ' ')
+	{
+		i++;
+		if(str[i] == '\0')
+			return (0);
+	}
+	return(1);
+}
+//funzione da cancellare che printa i nodi
+void	ft_print_node(t_toks *toks)
+{
+	int	pos;
+	int	i;
+
+	i = 0;
+	pos = 0;
+	while (toks)
+	{
+		i = 0;
+		printf("\nPosizione nodo: %i\n", pos);
+		printf("Tipo di token: %i\n", toks->type);
+		while (toks->word[i])
+		{
+			printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, toks->word[i]);
+			i++;
+		}
+		toks = toks->next;
+		pos++;
+	}
+}
+
+//funzione da cancellare che printa la matrici
 void	ft_print_matrix(char **matrix)
 {
 	int	i;
@@ -47,14 +98,38 @@ void	init_mini(t_mini *mini, char **env)
 	put_env(mini, env);
 }
 
-
+void	mini_routine(t_mini *mini, t_toks *toks)
+{
+	signal(SIGINT, ft_ctrlc);
+	signal(SIGQUIT, SIG_IGN);
+	mini->input = readline("shell>> ");
+	if(mini->input == NULL)
+	{
+		//free_node(toks);
+		ft_ctrld(mini);
+	}
+	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
+	{
+		if (mini->input && mini->input[0])
+		{
+			add_history(mini->input);
+		}
+		lexer(mini, toks);
+		printf("input:%s\n", mini->input);
+		printf("input pulito:%s\n", mini->c_input);
+		free_all(mini);
+	}
+	else
+		free(mini->input);
+}
 
 int	main(int argc, char **argv, char **env)
 {
-	// char	*output;
 	t_mini	*mini;
+	t_toks	*toks;
 	
 	(void)argv;
+	g_exit_status = 0;
 	if (argc != 1)
 	{
 		printf("Error: too many arguments\n");
@@ -62,29 +137,13 @@ int	main(int argc, char **argv, char **env)
 	}
 	if(argc == 1)
 	{
-		// get_env(env);
-		mini = (t_mini *)malloc(sizeof(t_mini));
-		(void)env;
+		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
+		toks = NULL;
+		init_mini(mini, env);
 		while(1)
-		{
-			mini->input = readline("shell>> ");
-			//output // lexer, parser, executor
-			// output = routine(mini);
-			lexer(mini);
-			//clean_input(mini->input, i);
-			if (mini->input && mini->input[0])
-			{
-				add_history(mini->input);
-			}
-			// if (input && input[0])
-			// {
-			// 	if (run_lexer(input, mini) && parse_input(mini))
-			// 	{
-			// 		is_builtin(mini);
-			// 	}
-			// }
-			// free_cmds(&mini, input);
-		}
+			mini_routine(mini, toks);
+		free_matrix(mini->env);
+		free(mini);
 	}
 	return (0);
 }

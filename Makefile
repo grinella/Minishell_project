@@ -4,17 +4,19 @@ LIBFT_A			=	libft.a
 LIBFT_DIR		=	include/libft/
 LIBFT			=	$(addprefix $(LIBFT_DIR), $(LIBFT_A))
 
-CC				=	gcc
+CC				=	gcc -g
 INCLUDE			=	includes
 CFLAGS			=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM				=	rm -f
 
 SRCS = 		minishell.c \
 			mini_utils.c \
-			lexer/lexer.c \
-			# parser/*.c \
-			signals/*.c \
-			executor/*.c \
+			mini_utils_1.c \
+			parser/lexer.c \
+			parser/lexer_utils.c \
+			parser/tokenizer.c \
+			signals/signals.c \
+			# executor/*.c \
 			builtins/*.c
 
 OBJS		=	$(SRCS:%.c=%.o)
