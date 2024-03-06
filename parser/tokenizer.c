@@ -45,7 +45,7 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 		node->word[j] = NULL;
 		return ;
 	}
-	while (tokens[*i] && tokens[*i][0] != '|' && tokens[*i][0] != '<' && tokens[*i][0] != '>')
+	while (tokens[*i] && tokens[*i][0] != '|'&& tokens[*i][0] != '<' && tokens[*i][0] != '>')
 	{
 			node->word[j] = ft_strdup(tokens[*i]);
 			(*i)++;

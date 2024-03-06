@@ -57,18 +57,14 @@ void	execute_commands(t_mini *mini, t_toks *toks)
 			printf("\n");
 	}
 }
-/*
+
 void	executor(t_mini *mini, t_toks *toks)
 {
-	serve un modo per passare i nodi a questa funzione
-	int i; // questa i serve per iterare i nodi
-	
-	i = 0;
-	while (nodo[i])
+	while (toks)
 	{
-		if ()//se c'è exit)
+		if (!ft_strncomp (toks->word[0]))//se c'è exit)
 			my_exit(mini);
-		if (nodo.next != NULL && nodo.next->type == 1)
+		if (toks->next->word[0] != NULL && toks->next->type == 1)
 			//is pipe = true
 		is_builtin(mini, toks, &i);
 
@@ -79,7 +75,7 @@ void	executor(t_mini *mini, t_toks *toks)
 		child
 			check builtin
 			exec
-		i++;
+		toks = toks->next;
 	}
 }
 */
