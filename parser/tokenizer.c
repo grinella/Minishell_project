@@ -19,6 +19,8 @@ int	toks_len(char **tokens, int *i)
 	x = 0;
 	if (tokens[j][0] == '|' || tokens[j][0] == '<' || tokens[j][0] == '>')
 	{
+		if(tokens[j][0] == '<' || tokens[j][0] == '>')
+			return(3);
 		return(2);
 	}
 	while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '<' && tokens[j][0] != '>')
@@ -42,6 +44,12 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 		node->word[j] = ft_strdup(tokens[*i]);
 		(*i)++;
 		j++;
+		if (tokens[*i - 1][0] == '<' || tokens[*i - 1][0] == '>')
+		{
+			node->word[j] = ft_strdup(tokens[*i]);
+			(*i)++;
+			j++;
+		}
 		node->word[j] = NULL;
 		return ;
 	}
@@ -117,6 +125,7 @@ void	splitter(t_mini *mini, t_toks *toks)
 	{
 		tokens = mini_split(mini, ' ');
 	}
+	ft_print_matrix(tokens);
 	tokenizer(tokens, &toks);
 	ft_print_node(toks);
 	//executor(mini, toks); //SBLOCCARE PER BUILTIN E EXECUTE_COMMANDS
