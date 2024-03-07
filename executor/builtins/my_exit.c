@@ -49,10 +49,10 @@ void	my_exit(t_toks *toks)
 	else if (toks->word[1] == NULL && toks->next != NULL)
 	{
 		printf("exit\n");
-		exit (g_exit_status);
+		g_exit_status = 0;
 	}
 	// if (!ft_strncmp (toks->word[0], "exit", 5))
-	else if (toks->word[1] == NULL && toks->next == NULL)
+	else if (toks->word[1] != NULL && toks->next == NULL)
 	{
 		printf("exit\n");
 		exit (ft_atoi(toks->word[1]));

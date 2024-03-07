@@ -1,19 +1,5 @@
 #include "../include/minishell.h"
 
-// probabilmente andrà usata per diviere la funzione find_dollar_env_len
-// int	envlen(const char *str, int c)
-// {
-// 	int	a;
-
-// 	a = 0;
-// 	while (str[c])
-// 	{
-// 		a++;
-// 		c++;
-// 	}
-// 	return (a);
-// }
-
 void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 {
 	int r;//riga
@@ -26,6 +12,28 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 	if (mini->input[*i] == '$')
 	{
 		len++;
+		if (mini->input[len] == '?')
+		{
+			len++;
+			if (mini->input[len] == '\0' || mini->input[len] == ' ')
+			{
+				*i = len;
+				printf("LA J PRIMA [%i]\n", *j);
+				*j += ft_strlen(mini->str_exit_status);
+				printf("LA J DOPO [%i]\n", *j);
+				return ;
+			}
+			while (mini->input[len] != ' ')
+			{
+				len++;
+				(*j)++; 
+				if (mini->input[len] != ' ')
+				{
+					*i = len;
+					return ;
+				}
+			}
+		}
 		while (mini->env[r]!= NULL)
 		{
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
