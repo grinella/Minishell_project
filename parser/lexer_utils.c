@@ -104,14 +104,38 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 {
 	int r;//riga
 	int c;//colonna
+	int	q;//? str_exit_status
 	int	len;
 
 	r = 0;
 	c = 0;
+	q = -1;
 	len = *i;
 	if (mini->input[*i] == '$')
 	{
 		len++;
+		if (mini->input[len] == '?')
+		{
+			while(mini->str_exit_status[++q])
+					mini->c_input[(*j)++] = mini->str_exit_status[q];
+			len++;
+			if (mini->input[len] == '\0' || mini->input[len] == ' ')
+			{
+				*i = len;
+				return ;
+			}
+			while (mini->input[len] != ' ')
+			{
+				mini->c_input[*j] = mini->input[len];
+				(len)++;
+				(*j)++;
+				if (mini->input[len] == ' ' || mini->input[len] == '\0')
+				{
+					*i = len;
+					return ;
+				}
+			}
+		}
 		while (mini->env[r]!= NULL)
 		{
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')

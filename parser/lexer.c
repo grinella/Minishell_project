@@ -19,7 +19,7 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 			{
 				*i = len;
 				printf("LA J PRIMA [%i]\n", *j);
-				*j += strlen(ft_itoa(g_exit_status));
+				*j += ft_strlen(mini->str_exit_status);
 				printf("LA J DOPO [%i]\n", *j);
 				return ;
 			}

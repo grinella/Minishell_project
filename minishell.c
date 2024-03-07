@@ -102,6 +102,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 {
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
+	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
 	mini->input = readline("shell>> ");
 	if(mini->input == NULL)
 	{
@@ -121,6 +122,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	}
 	else
 		free(mini->input);
+	free(mini->str_exit_status);// freeo la variabile str_exit_status per aggiornarla al prossimo giro senza sovrascriere
 }
 
 int	main(int argc, char **argv, char **env)

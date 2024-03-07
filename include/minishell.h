@@ -34,7 +34,7 @@ typedef struct s_mini
 	char	**env; // allocata
 	char	*input;
 	char	*c_input; //allocata
-	// int				n_cmd; // numero del comando
+	char 	*str_exit_status; //allocata
 }	t_mini;
 
 // MINI FUNCTIONS
