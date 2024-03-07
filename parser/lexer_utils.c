@@ -111,6 +111,7 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 	c = 0;
 	q = -1;
 	len = *i;
+	printf("posizione[%i] e carattere[%c]\n", len, mini->input[*i]);
 	if (mini->input[*i] == '$')
 	{
 		len++;
@@ -156,10 +157,15 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 					if(mini->env[r][c] == '\0')
 					{
 						*i = len;
-						if (mini->input[len + 1] == '"' || mini->input[len + 1] == '\'')
+						if (mini->input[len] == '"')
 						{
-							mini->c_input[*j] = ' ';
-							(*j)++;
+							printf("d quote\n");
+							alloc_double_quotes(i, j, mini);
+						}
+						else if (mini->input[len] == '\'')
+						{
+							printf("s quote\n");
+							alloc_single_quotes(i, j, mini);
 						}
 						return ;
 					}

@@ -18,9 +18,7 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 			if (mini->input[len] == '\0' || mini->input[len] == ' ')
 			{
 				*i = len;
-				printf("LA J PRIMA [%i]\n", *j);
 				*j += ft_strlen(mini->str_exit_status);
-				printf("LA J DOPO [%i]\n", *j);
 				return ;
 			}
 			while (mini->input[len] != ' ')
