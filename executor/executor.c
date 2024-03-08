@@ -68,6 +68,8 @@ void	executor(t_mini *mini, t_toks *toks)
 			//is pipe = true
 		if(toks->type == 0)
 		{
+			//if(toks->next->type == 2)
+				//redir_out(toks->next->word);
 			execute_commands(mini, toks->word);
 		}
 		toks = toks->next;

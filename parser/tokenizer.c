@@ -62,17 +62,77 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 	node->word[j] = NULL;
 }
 
+int	complex_toks_len(char **tokens, int *i)
+{
+	int	j;
+	int	count;
+
+	count = 0;
+	j = *i;
+	while(tokens[j] && tokens[j][0] != '|')
+	{
+		if (tokens[j][0] == '<' || tokens[j][0] == '>')
+			j += 2;
+		else
+		{
+			j++;
+			count++;
+		}
+	}
+	count++;
+	return (count);
+}
+
+void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
+{
+	int	flag;
+	int	j;
+	int	x;
+
+	x = *i;
+	j = 0;
+	flag = 0;
+	node->word = (char **)ft_calloc(sizeof(char *) , (complex_toks_len(tokens, i)));
+	while(tokens[*i] && tokens[*i][0] != '|')
+	{
+		if (tokens[*i][0] == '<' || tokens[*i][0] == '>')
+		{
+			flag = 1;
+			*i += 2;
+		}
+		else
+		{
+			node->word[j] = ft_strdup(tokens[*i]);
+			j++;
+			(*i)++;
+		}
+	}
+	while(tokens[x] && tokens[x][0] != '|' && flag == 1)
+	{
+		if (tokens[x][0] == '>' && tokens[x][1] == '>')
+			append_node(tokens, toks, 3, &x);
+		else if (tokens[x][0] == '>')
+			append_node(tokens, toks, 2, &x);
+		else if (tokens[x][0] == '<' && tokens[x][1] == '<')
+			append_node(tokens, toks, 5, &x);
+		else if (tokens[x][0] == '<')
+			append_node(tokens, toks, 4, &x);
+		else
+			x++;
+	}
+	if (x > *i)
+		*i = x;
+}
 void	append_node(char **tokens, t_toks **toks, int type, int *i)
 {
 	t_toks	*node;
 	t_toks	*last_node;
 
-	node = (t_toks *)ft_calloc(1 , sizeof(t_toks));
+	node = (t_toks *)ft_calloc(1 ,sizeof(t_toks));
 	if (node == NULL)
 		return ;
 	node->next = NULL;
 	node->type = type;
-	fill_node(tokens, node, i);
 	if (*toks == NULL)
 	{
 		*toks = node;
@@ -84,6 +144,10 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i)
 		last_node->next = node;
 		node->prev = last_node;
 	}
+	if (type != 0)
+		fill_node(tokens, node, i);
+	else
+		fill_complex_node(tokens, toks, node, i);
 }
 
 void	tokenizer(char **tokens, t_toks **toks)
@@ -125,7 +189,6 @@ void	splitter(t_mini *mini, t_toks *toks)
 	{
 		tokens = mini_split(mini, ' ');
 	}
-	ft_print_matrix(tokens);
 	tokenizer(tokens, &toks);
 	ft_print_node(toks);
 	executor(mini, toks);

@@ -53,7 +53,7 @@ void	alloc_single_quotes(int *i, int *j, t_mini *mini);
 void	alloc_dollar_env(int *i, int *j, t_mini *mini);
 
 // PARSER FUNCTIONS
-
+void	append_node(char **tokens, t_toks **toks, int type, int *i);
 
 // EXECUTOR FUNCTIONS
 void	executor(t_mini *mini, t_toks *toks);
