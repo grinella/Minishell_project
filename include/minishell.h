@@ -59,7 +59,8 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini);
 void	execute_commands(t_mini *mini, t_toks *toks);
 
 // BUILTINS FUNCTIONS
-void	is_builtin(t_mini *mini, t_toks *toks, int *i);
+void	is_builtin(t_toks *toks);//(t_mini *mini, t_toks *toks);
+void	my_exit(t_toks *toks);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

@@ -1,10 +1,8 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	*cont_error(int err_type, char *param, int err)
 {
-	int	g_status;
-
-	g_status = err;
+	g_exit_status = err;
 	if (err_type == 0)
 		ft_putstr_fd("minishell: error while looking for matching quote\n", 2);
 	else if (err_type == 1)

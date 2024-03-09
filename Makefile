@@ -16,8 +16,10 @@ SRCS = 		minishell.c \
 			parser/lexer_utils.c \
 			parser/tokenizer.c \
 			signals/signals.c \
+			executor/builtins/builtin.c \
+			executor/builtins/my_exit.c \
 			# executor/*.c \
-			builtins/*.c
+			executor/builtins/builtin_utils.c \
 
 OBJS		=	$(SRCS:%.c=%.o)
 
