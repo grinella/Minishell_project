@@ -20,6 +20,8 @@ SRCS = 		minishell.c \
 			executor/builtins/my_exit.c \
 			# executor/*.c \
 			executor/builtins/builtin_utils.c \
+			executor/executor.c \
+			# builtins/*.c
 
 OBJS		=	$(SRCS:%.c=%.o)
 

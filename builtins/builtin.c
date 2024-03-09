@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gabriele <Gabriele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:55:58 by grinella          #+#    #+#             */
-/*   Updated: 2024/01/29 18:43:21 by Gabriele         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:22:04 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	builtin_3(t_mini *mini, int i)
 // 	char	*pwd;
 // }	t_prompt;
 
-void	is_builtin(t_mini *mini)
+int	is_builtin(t_mini *mini)
 {
 	if (!ft_strncmp(mini->toks[0], "exit", 4))
 		my_exit(mini);
@@ -119,17 +119,15 @@ void	is_builtin(t_mini *mini)
 		my_env(mini->env);
 	else if (!ft_strncmp(mini->toks[0], "echo", 4))
 		my_echo(mini);
-	else if (1)
-	{
-		execute_commands(mini);
-	}
+	else
+		return (0);
 	// else
 	// {
 	// 	signal(SIGINT, SIG_IGN);
 	// 	signal(SIGQUIT, SIG_IGN);
 	// 	//exec_cmd(prompt, cmd);
 	// }
-	return ;
+	return (1);
 }
 
 /*
