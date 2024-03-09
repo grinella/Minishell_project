@@ -14,7 +14,7 @@ int	ft_isdigit_mini(char *str)
 	{
 		i++;
 		printf("str[%i] = %c\n", i, str[i]);
-		if (str[i] != '\0')
+		if (str[i] < '0' && str[i] > '9')
 			return (1);
 	}
 	return (0);
@@ -58,7 +58,7 @@ void	my_exit(t_toks *toks)
 		g_exit_status = 0;
 	}
 	// if (!ft_strncmp (toks->word[0], "exit", 5))
-	else if (ft_isdigit_mini(toks->word[1]) == 1 && toks->word[1] != NULL && toks->next == NULL)
+	else if (ft_isdigit_mini(toks->word[1]) == 1 && toks->word[1] != NULL && toks->word[2] == NULL && toks->next == NULL)
 	{
 		printf("6check\n");
 		printf("exit\n");
