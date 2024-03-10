@@ -35,6 +35,8 @@ typedef struct s_mini
 	char	*input;
 	char	*c_input; //allocata
 	char 	*str_exit_status; //allocata
+	int		std_out;
+	int		std_in;
 }	t_mini;
 
 // MINI FUNCTIONS
@@ -58,6 +60,7 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i);
 // EXECUTOR FUNCTIONS
 void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
+void	redir_out(char	**word);
 
 // BUILTINS FUNCTIONS
 void	is_builtin(t_toks *toks);//(t_mini *mini, t_toks *toks);

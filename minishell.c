@@ -96,6 +96,8 @@ void	ft_print_matrix(char **matrix)
 void	init_mini(t_mini *mini, char **env)
 {
 	put_env(mini, env);
+	mini->std_out = dup(STDOUT_FILENO);
+	mini->std_in = dup(STDIN_FILENO);
 }
 
 void	mini_routine(t_mini *mini, t_toks *toks)

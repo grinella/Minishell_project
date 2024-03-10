@@ -60,18 +60,31 @@ void	execute_commands(t_mini *mini, char **cmd)
 
 void	executor(t_mini *mini, t_toks *toks)
 {
-	while (toks)
-	{
-		//if (!ft_strncomp (toks->word[0]))//se c'è exit)
-		//	my_exit(mini);
-		//if (toks->next->word[0] != NULL && toks->next->type == 1)
-			//is pipe = true
-		if(toks->type == 0)
-		{
-			//if(toks->next->type == 2)
-				//redir_out(toks->next->word);
+	t_toks	*tmp;
+	int		flag;
+
+	flag = 0;
+	tmp = toks;
+	if(toks->type == 0 && toks->next == NULL && toks->prev == NULL)
 			execute_commands(mini, toks->word);
+	while (tmp && tmp->type != 1)
+	{
+		if (tmp->type == 2)
+		{
+			flag = 1;
+			redir_out(tmp->word);
 		}
-		toks = toks->next;
+		tmp = tmp->next;
+	}
+	if (flag == 1)
+	{
+		while(toks && toks->type != 1)
+		{
+			if(toks->type == 0)
+				execute_commands(mini, toks->word);
+			toks = toks->next;
+		}
+		dup2(mini->std_out, STDOUT_FILENO);
+		close(mini->std_out);
 	}
 }
