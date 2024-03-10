@@ -191,6 +191,6 @@ void	splitter(t_mini *mini, t_toks *toks)
 	}
 	tokenizer(tokens, &toks);
 	is_builtin(toks); // per testare builtins, poi dovrà essere implementata probabilmente nell'executor
-	ft_print_node(toks);
+	//ft_print_node(toks);
 	executor(mini, toks);
 }

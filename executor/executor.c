@@ -69,6 +69,11 @@ void	executor(t_mini *mini, t_toks *toks)
 			execute_commands(mini, toks->word);
 	while (tmp && tmp->type != 1)
 	{
+		if (tmp->type == 4)
+		{
+			flag = 1;
+			redir_in(tmp->word);
+		}
 		if (tmp->type == 2)
 		{
 			flag = 1;
@@ -89,6 +94,8 @@ void	executor(t_mini *mini, t_toks *toks)
 				execute_commands(mini, toks->word);
 			toks = toks->next;
 		}
+		dup2(mini->std_in, STDIN_FILENO);
+		close(mini->std_in);
 		dup2(mini->std_out, STDOUT_FILENO);
 		close(mini->std_out);
 	}

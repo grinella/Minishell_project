@@ -120,8 +120,8 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 			add_history(mini->input);
 		}
 		lexer(mini, toks);
-		printf("input:%s\n", mini->input);
-		printf("input pulito:%s\n", mini->c_input);
+		//printf("input:%s\n", mini->input);
+		//printf("input pulito:%s\n", mini->c_input);
 		free_all(mini);
 	}
 	else

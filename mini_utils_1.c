@@ -47,7 +47,6 @@ static int	mini_count_words(t_mini *mini, char c)
 		else
 			i++;
 	}
-	printf("count = %i\n", count);
 	return (count);
 }
 
