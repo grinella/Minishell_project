@@ -61,6 +61,7 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i);
 void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
 void	redir_out(char	**word);
+void	append_out(char	**word);
 
 // BUILTINS FUNCTIONS
 void	is_builtin(t_toks *toks);//(t_mini *mini, t_toks *toks);

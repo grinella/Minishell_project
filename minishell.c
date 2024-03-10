@@ -96,14 +96,16 @@ void	ft_print_matrix(char **matrix)
 void	init_mini(t_mini *mini, char **env)
 {
 	put_env(mini, env);
-	mini->std_out = dup(STDOUT_FILENO);
-	mini->std_in = dup(STDIN_FILENO);
+	//mini->std_out = dup(STDOUT_FILENO);
+	//mini->std_in = dup(STDIN_FILENO);
 }
 
 void	mini_routine(t_mini *mini, t_toks *toks)
 {
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
+	mini->std_out = dup(STDOUT_FILENO);
+	mini->std_in = dup(STDIN_FILENO);
 	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
 	mini->input = readline("shell>> ");
 	if(mini->input == NULL)

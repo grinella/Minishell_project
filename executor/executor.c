@@ -74,6 +74,11 @@ void	executor(t_mini *mini, t_toks *toks)
 			flag = 1;
 			redir_out(tmp->word);
 		}
+		if (tmp->type == 3)
+		{
+			flag = 1;
+			append_out(tmp->word);
+		}
 		tmp = tmp->next;
 	}
 	if (flag == 1)
