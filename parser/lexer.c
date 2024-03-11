@@ -35,13 +35,15 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 		while (mini->env[r]!= NULL)
 		{
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_')))
+				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
+				|| (mini->input[len] >= '0' && mini->input[len] <= '9') || (mini->input[len] == '_')))
 			{
 				c++;
 				len++;
 			}
 			if (mini->env[r][c] == '=' && ((mini->input[len] < 'a' || mini->input[len] > 'z')
-				&& (mini->input[len] < 'A' || mini->input[len] > 'Z') && (mini->input[len] != '_')))
+				&& (mini->input[len] < 'A' || mini->input[len] > 'Z')
+				&& (mini->input[len] < '0' || mini->input[len] > '9') && (mini->input[len] != '_')))
 			{
 				c++;
 				(*j)++;
@@ -62,7 +64,8 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 				if (mini->env[r] == NULL)
 				{
 					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-						|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z') || (mini->input[len] == '_'))
+						|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
+						|| (mini->input[len] >= '0' && mini->input[len] <= '9') || (mini->input[len] == '_'))
 						len++;
 					*i = len;
 					return ;

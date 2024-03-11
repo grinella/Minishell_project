@@ -60,8 +60,10 @@ void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
 
 // BUILTINS FUNCTIONS
-void	is_builtin(t_toks *toks);//(t_mini *mini, t_toks *toks);
+void	is_builtin(t_mini *mini, t_toks *toks);
+void	my_env(char **env);
 void	my_exit(t_toks *toks);
+void	my_echo(t_toks *toks);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

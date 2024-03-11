@@ -41,7 +41,7 @@ static int	mini_count_words(t_mini *mini, char c)
 					if (mini->c_input[i + 1] == '|' || mini->c_input[i + 1] == '<' || mini->c_input[i + 1] == '>')
 						i++;
 				}
-				i++;
+				// i++;
 			}
 		}
 		else
@@ -69,7 +69,6 @@ static int	mini_len_quotes(char const *s, int i, char c)
 	int		len;
 
 	len = i;
-	i++;
 	while (s[i] != c && s[i] != '\0')
 		i++;
 	if (s[i] == '\0')
@@ -114,27 +113,38 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 		if (mini->c_input[i] == '"')
 		{
 			i++;
-			str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
-			if (mini_len_quotes(mini->c_input, i, '"') == 0)
+			if (mini->c_input[i] != '"') // serve per evitare l'allocazione di due quote consecutive
 			{
-				printf("Error: missing quote\n");
-				free_matrix(str);
-				return ;
+				str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
+				printf("str[j] ====== %s\n", str[j]);
+				if (mini_len_quotes(mini->c_input, i, '"') == 0)
+				{
+					printf("Error: missing quote\n");
+					free_matrix(str);
+					return ;
+				}
+				i += mini_len_quotes(mini->c_input, i, '"');
+				if (!str[j])
+				{
+					mini_free(str, j);
+					return ;
+				}
+				if (mini->c_input[i] == '"')
+					i++;
+				j++;
 			}
-			i += mini_len_quotes(mini->c_input, i, '"');
-			if (!str[j])
-			{
-				mini_free(str, j);
-				return ;
-			}
-			if (mini->c_input[i] == '"')
-				i++;
-			j++;
+			i++;
 		}
 		else if (mini->c_input[i] == '\'')
 		{
 			i += 1;
 			str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '\''));
+			if (mini_len_quotes(mini->c_input, i, '\'') == 0)
+			{
+				printf("Error: missing quote\n");
+				free_matrix(str);
+				return ;
+			}
 			i += mini_len_quotes(mini->c_input, i, '\'');
 			if (!str[j])
 			{

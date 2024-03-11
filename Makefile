@@ -18,6 +18,8 @@ SRCS = 		minishell.c \
 			signals/signals.c \
 			executor/builtins/builtin.c \
 			executor/builtins/my_exit.c \
+			executor/builtins/my_echo.c \
+			executor/builtins/my_env.c \
 			executor/executor.c \
 			# builtins/*.c \
 			executor/builtins/builtin_utils.c \
