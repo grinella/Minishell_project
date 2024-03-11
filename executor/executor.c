@@ -67,6 +67,9 @@ void	executor(t_mini *mini, t_toks *toks)
 	tmp = toks;
 	if(toks->type == 0 && toks->next == NULL && toks->prev == NULL)
 			execute_commands(mini, toks->word);
+	else
+		while(toks && toks->type != 0)
+			toks = toks->next;
 	while (tmp && tmp->type != 1)
 	{
 		if (tmp->type == 4)
@@ -74,29 +77,15 @@ void	executor(t_mini *mini, t_toks *toks)
 			flag = 1;
 			redir_in(tmp->word);
 		}
-		if (tmp->type == 2)
+		else if (tmp->type == 2 || tmp->type == 3)
 		{
 			flag = 1;
-			redir_out(tmp->word);
+			redir_out(tmp->word, tmp->type);
 		}
-		if (tmp->type == 3)
-		{
-			flag = 1;
-			append_out(tmp->word);
-		}
+		if (flag == 1)
+			execute_commands(mini, toks->word);
+		flag = 0;
 		tmp = tmp->next;
 	}
-	if (flag == 1)
-	{
-		while(toks && toks->type != 1)
-		{
-			if(toks->type == 0)
-				execute_commands(mini, toks->word);
-			toks = toks->next;
-		}
-		dup2(mini->std_in, STDIN_FILENO);
-		close(mini->std_in);
-		dup2(mini->std_out, STDOUT_FILENO);
-		close(mini->std_out);
-	}
+	reset_redir(mini);
 }
