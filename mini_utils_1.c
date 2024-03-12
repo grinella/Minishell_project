@@ -47,7 +47,7 @@ static int	mini_count_words(t_mini *mini, char c)
 		else
 			i++;
 	}
-	printf("count = %i\n", count);
+	// printf("count = %i\n", count);
 	return (count);
 }
 
@@ -116,7 +116,6 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 			if (mini->c_input[i] != '"') // serve per evitare l'allocazione di due quote consecutive
 			{
 				str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
-				printf("str[j] ====== %s\n", str[j]);
 				if (mini_len_quotes(mini->c_input, i, '"') == 0)
 				{
 					printf("Error: missing quote\n");
