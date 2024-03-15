@@ -144,6 +144,8 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
 				|| (mini->input[len] >= '0' && mini->input[len] <= '9') || (mini->input[len] == '_')))
 			{
+				printf("numero [%i] carattere INPUT %c\n", len, mini->input[len]);
+				printf("numero [%i][%i] carattere ENV %c\n\n", r, c, mini->env[r][c]);
 				c++;
 				len++;
 			}
@@ -155,28 +157,26 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 				while(mini->env[r][c]!= '\0')
 				{
 					mini->c_input[*j] = mini->env[r][c];
+					printf("carattere copiato: %c\n", mini->env[r][c]);
 					c++;
 					(*j)++;
 					if(mini->env[r][c] == '\0')
 					{
 						*i = len;
 						if (mini->input[len] == '"')
-						{
-							printf("d quote\n");
 							alloc_double_quotes(i, j, mini);
-						}
 						else if (mini->input[len] == '\'')
-						{
-							printf("s quote\n");
 							alloc_single_quotes(i, j, mini);
-						}
 						return ;
 					}
 				}
 			}
 			else
 			{
+				printf("--numero [%i] carattere INPUT %c\n", len, mini->input[len]);
+				printf("--numero [%i][%i] carattere ENV %c\n\n", r, c, mini->env[r][c]);
 				r++;
+				c = 0;
 				if (mini->env[r] == NULL)
 				{
 					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')

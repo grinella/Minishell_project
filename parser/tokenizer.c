@@ -191,6 +191,28 @@ void	splitter(t_mini *mini, t_toks *toks)
 	}
 	tokenizer(tokens, &toks);
 	is_builtin(mini, toks); // per testare builtins, poi dovrà essere implementata probabilmente nell'executor
-	ft_print_node(toks);
+	// ft_print_node(toks);
 	//executor(mini, toks);
 }
+
+// non vengono stampati con l'expander
+// SHELL
+// __CF_USER_TEXT_ENCODING
+// SSH_AUTH_SOCK
+// XPC_FLAGS
+// LOGNAME
+// OLDPWD
+// PAGER
+// LESS
+// LSCOLORS
+// LS_COLORS
+// TERM_PROGRAM
+// LANG
+// COLORTERM
+// VSCODE_GIT_ASKPASS_MAIN
+// VSCODE_GIT_IPC_HANDLE
+// VSCODE_INJECTION
+// ZDOTDIR
+// USER_ZDOTDIR
+// TERM
+// _

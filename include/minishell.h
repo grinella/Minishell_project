@@ -65,6 +65,10 @@ void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_toks *toks);
 void	my_echo(t_toks *toks);
 void	my_cd(t_mini *mini, t_toks *toks);
+void	my_pwd(t_mini *mini);
+
+// BUILTINS UTILS FUNCTIONS
+char	*get_env(char *search, t_mini *mini);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

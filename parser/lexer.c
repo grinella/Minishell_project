@@ -61,6 +61,7 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini)
 			else
 			{
 				r++;
+				c = 0;
 				if (mini->env[r] == NULL)
 				{
 					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')

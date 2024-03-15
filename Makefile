@@ -21,6 +21,7 @@ SRCS = 		minishell.c \
 			executor/builtins/my_echo.c \
 			executor/builtins/my_env.c \
 			executor/builtins/my_cd.c \
+			executor/builtins/my_pwd.c \
 			executor/executor.c \
 			# builtins/*.c \
 			executor/builtins/builtin_utils.c \
