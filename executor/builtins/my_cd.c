@@ -2,7 +2,7 @@
 
 char	*get_env(char *search, t_mini *mini)
 {
-	int i;
+	int	i;
 	int	search_len;
 
 	search_len = ft_strlen(search);
@@ -26,7 +26,7 @@ char	**ft_realloc(char **mtr_old, char *str, int size)
 	while (i < size)
 	{
 		printf("realloc\n");
-		if(mtr_old[i])
+		if (mtr_old[i])
 		{
 			mtr_new[i] = mtr_old[i];
 			free(mtr_old[i]);
@@ -42,7 +42,7 @@ char	**ft_realloc(char **mtr_old, char *str, int size)
 
 void	set_pwd(char *old, char *new, t_mini *mini)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (mini->env[i])

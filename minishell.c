@@ -36,24 +36,24 @@ void	free_matrix(char **matrix)
 
 void	free_all(t_mini *mini)
 {
-	if(mini->input != NULL)
+	if (mini->input != NULL)
 		free (mini->input);
-	if(mini->c_input != NULL)
+	if (mini->c_input != NULL)
 		free (mini->c_input);
 }
 
-int	only_space(char* str)
+int	only_space(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i] == ' ')
+	while (str[i] == ' ')
 	{
 		i++;
-		if(str[i] == '\0')
+		if (str[i] == '\0')
 			return (0);
 	}
-	return(1);
+	return (1);
 }
 //funzione da cancellare che printa i nodi
 void	ft_print_node(t_toks *toks)
@@ -104,12 +104,12 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	signal(SIGQUIT, SIG_IGN);
 	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
 	mini->input = readline("shell>> ");
-	if(mini->input == NULL)
+	if (mini->input == NULL)
 	{
 		//free_node(toks);
 		ft_ctrld(mini);
 	}
-	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
+	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
 		if (mini->input && mini->input[0])
 		{
@@ -129,7 +129,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
 	t_toks	*toks;
-	
+
 	(void)argv;
 	g_exit_status = 0;
 	if (argc != 1)
@@ -137,7 +137,7 @@ int	main(int argc, char **argv, char **env)
 		printf("Error: too many arguments\n");
 		return (1);
 	}
-	if(argc == 1)
+	if (argc == 1)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;

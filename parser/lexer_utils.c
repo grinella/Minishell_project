@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/18 15:42:43 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/18 15:46:56 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void	space_len(int *i, int *j, int *flag, char* input)
+void	space_len(int *i, int *j, int *flag, char *input)
 {
-	while(input[*i] == ' ')
+	while (input[*i] == ' ')
 	{
-		if((*flag) == 0 && ++(*flag))
+		if ((*flag) == 0 && ++(*flag))
 			(*j)++;
 		(*i)++;
 	}
@@ -12,11 +24,11 @@ void	space_len(int *i, int *j, int *flag, char* input)
 
 void	quotes_len(int *i, int *j, t_mini *mini)//char* input)
 {
-	if(mini->input[*i] == '"')
+	if (mini->input[*i] == '"')
 	{
 		(*i)++;
 		(*j)++;
-		while(mini->input[*i] != '"' && mini->input[*i] != '\0')
+		while (mini->input[*i] != '"' && mini->input[*i] != '\0')
 		{
 			printf("posizione numero: %i\ncarattere analizzando: %c\n", *i, mini->input[*i]);
 			if (mini->input[*i] == '$')
@@ -30,10 +42,10 @@ void	quotes_len(int *i, int *j, t_mini *mini)//char* input)
 		(*i)++;
 		(*j)++;
 	}
-	else if(mini->input[*i] == '\'' && ++(*i))
+	else if (mini->input[*i] == '\'' && ++(*i))
 	{
 		(*j)++;
-		while(mini->input[*i] != '\'' && mini->input[*i] != '\0' && ++(*j))
+		while (mini->input[*i] != '\'' && mini->input[*i] != '\0' && ++(*j))
 			(*i)++;
 		(*j)++;
 		(*i)++;
@@ -42,12 +54,12 @@ void	quotes_len(int *i, int *j, t_mini *mini)//char* input)
 
 void	alloc_spaces(int *i, int *j, t_mini *mini)
 {
-	int flag;
+	int	flag;
 
 	flag = 0;
-	while(mini->input[*i] == ' ')
+	while (mini->input[*i] == ' ')
 	{
-		if(flag == 0)
+		if (flag == 0)
 		{
 			mini->c_input[*j] = mini->input[*i];
 			flag = 1;
@@ -60,12 +72,12 @@ void	alloc_spaces(int *i, int *j, t_mini *mini)
 
 void	alloc_double_quotes(int *i, int *j, t_mini *mini)// single quotes
 {
-	if(mini->input[*i] == '"')
+	if (mini->input[*i] == '"')
 	{
 		mini->c_input[*j] = mini->input[*i];
 		(*j)++;
 		(*i)++;
-		while(mini->input[*i] != '"' && mini->input[*i] != '\0')
+		while (mini->input[*i] != '"' && mini->input[*i] != '\0')
 		{
 			if (mini->input[*i] == '$')
 				alloc_dollar_env(i, j, mini);
@@ -84,12 +96,12 @@ void	alloc_double_quotes(int *i, int *j, t_mini *mini)// single quotes
 
 void	alloc_single_quotes(int *i, int *j, t_mini *mini)//single quotes
 {
-	if(mini->input[*i] == '\'')
+	if (mini->input[*i] == '\'')
 	{
 		mini->c_input[*j] = mini->input[*i];
 		(*j)++;
 		(*i)++;
-		while(mini->input[*i] != '\'' && mini->input[*i] != '\0')
+		while (mini->input[*i] != '\'' && mini->input[*i] != '\0')
 		{
 			mini->c_input[*j] = mini->input[*i];
 			(*j)++;
@@ -103,9 +115,9 @@ void	alloc_single_quotes(int *i, int *j, t_mini *mini)//single quotes
 
 void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 {
-	int r;//riga
-	int c;//colonna
-	int	q;//? str_exit_status
+	int	r;
+	int	c;
+	int	q;
 	int	len;
 
 	r = 0;
@@ -118,8 +130,8 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 		len++;
 		if (mini->input[len] == '?')
 		{
-			while(mini->str_exit_status[++q])
-					mini->c_input[(*j)++] = mini->str_exit_status[q];
+			while (mini->str_exit_status[++q])
+				mini->c_input[(*j)++] = mini->str_exit_status[q];
 			len++;
 			if (mini->input[len] == '\0' || mini->input[len] == ' ')
 			{
@@ -138,7 +150,7 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 				}
 			}
 		}
-		while (mini->env[r]!= NULL)
+		while (mini->env[r] != NULL)
 		{
 			while ((mini->input[len] == mini->env[r][c]) && ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
@@ -173,8 +185,6 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 			}
 			else
 			{
-				printf("--numero [%i] carattere INPUT %c\n", len, mini->input[len]);
-				printf("--numero [%i][%i] carattere ENV %c\n\n", r, c, mini->env[r][c]);
 				r++;
 				c = 0;
 				if (mini->env[r] == NULL)
@@ -189,7 +199,5 @@ void	alloc_dollar_env(int *i, int *j, t_mini *mini)
 				len = *i + 1;
 			}
 		}
-
 	}
-	
 }

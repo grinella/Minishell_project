@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_utils_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/18 16:46:09 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/19 00:57:51 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/minishell.h"
 
 static int	mini_count_words(t_mini *mini, char c)
@@ -11,13 +23,13 @@ static int	mini_count_words(t_mini *mini, char c)
 	{
 		if (mini->c_input[i] != c)
 		{
-			if (mini->c_input[i] == '"') // if originale è con mini->c_input[i] == '\''
+			if (mini->c_input[i] == '"')
 			{
 				count++;
 				i++;
-				while (mini->c_input[i] != '"' && mini->c_input[i] != '\0') //&& mini->c_input[i] != '\'')
+				while (mini->c_input[i] != '"' && mini->c_input[i] != '\0')
 					i++;
-				if(mini->c_input[i] == '"') //|| mini->c_input[i] == '\'') && mini->c_input[i] != '\0')
+				if (mini->c_input[i] == '"')
 					i++;
 			}
 			if (mini->c_input[i] == '\'')
@@ -26,36 +38,42 @@ static int	mini_count_words(t_mini *mini, char c)
 				i++;
 				while (mini->c_input[i] != '\0' && mini->c_input[i] != '\'')
 					i++;
-				if(mini->c_input[i] == '\'')
+				if (mini->c_input[i] == '\'')
 					i++;
 			}
-			if (mini->c_input[i] != c && mini->c_input[i] != '\0' && mini->c_input[i] != '"' && mini->c_input[i] != '\'')
+			if (mini->c_input[i] != c && mini->c_input[i] != '\0'
+				&& mini->c_input[i] != '"' && mini->c_input[i] != '\'')
 			{
 				count++;
-				while (mini->c_input[i]!= c && mini->c_input[i] != '\0' && mini->c_input[i] != '|' && mini->c_input[i] != '<' && mini->c_input[i] != '>'
-						&& mini->c_input[i] != '"' && mini->c_input[i] != '\'')
+				while (mini->c_input[i] != c && mini->c_input[i] != '\0'
+					&& mini->c_input[i] != '|' && mini->c_input[i] != '<'
+					&& mini->c_input[i] != '>' && mini->c_input[i] != '"'
+					&& mini->c_input[i] != '\'')
 					i++;
-				if (mini->c_input[i] == '|' || mini->c_input[i] == '<' || mini->c_input[i] == '>')
+				if (mini->c_input[i] == '|' || mini->c_input[i] == '<'
+					|| mini->c_input[i] == '>')
 				{
 					count++;
-					if (mini->c_input[i + 1] == '|' || mini->c_input[i + 1] == '<' || mini->c_input[i + 1] == '>')
+					if (mini->c_input[i + 1] == '|' || mini->c_input[i + 1]
+						== '<' || mini->c_input[i + 1] == '>')
 						i++;
 				}
-				// i++;
 			}
 		}
 		else
 			i++;
 	}
-	// printf("count = %i\n", count);
+	printf("count: %d\n", count);
 	return (count);
 }
 
 static int	mini_len_word(char const *s, int i, char c)
 {
 	int		len;
+
 	len = i;
-	while (s[i] != c && s[i] != '\0' && s[i] != '|' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != '\'')
+	while (s[i] != c && s[i] != '\0' && s[i]
+		!= '|' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != '\'')
 	{
 		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 			return (i - len);
@@ -69,6 +87,12 @@ static int	mini_len_quotes(char const *s, int i, char c)
 	int		len;
 
 	len = i;
+	printf("s = %s\n", s);
+	printf("s[%i] = %c\ns[%i] = %c\n", (i - 1), s[i - 1], (i - 2), s[i - 2]);
+	if (s[i - 1] == c && s[i - 2] == c)
+	{
+		return (1);
+	}
 	while (s[i] != c && s[i] != '\0')
 		i++;
 	if (s[i] == '\0')
@@ -85,7 +109,7 @@ int	is_pipe_redir(char const *s, int i)
 	}
 	else if (s[i] == '|')
 	{
-		if(s[i + 1] == '|')
+		if (s[i + 1] == '|')
 			return (2);
 	}
 	return (1);
@@ -116,13 +140,17 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 			if (mini->c_input[i] != '"') // serve per evitare l'allocazione di due quote consecutive
 			{
 				str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
+				if (mini->c_input[i - 1] == '"' && mini->c_input[i] == '"')
+				{
+					mini->c_input[i] = '\0';
+					i += (mini_len_quotes(mini->c_input, i, '"') + 1);
+				}
 				if (mini_len_quotes(mini->c_input, i, '"') == 0)
 				{
 					printf("Error: missing quote\n");
 					free_matrix(str);
 					return ;
 				}
-				i += mini_len_quotes(mini->c_input, i, '"');
 				if (!str[j])
 				{
 					mini_free(str, j);
@@ -132,7 +160,6 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 					i++;
 				j++;
 			}
-			i++;
 		}
 		else if (mini->c_input[i] == '\'')
 		{
@@ -167,9 +194,8 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 				i += is_pipe_redir(mini->c_input, i);
 			}
 		}
-		// else
-		// 	i++;
-		while (mini->c_input[i] == c && (mini->c_input[i] != '\0' && mini->c_input[i] != '"' && mini->c_input[i] != '\''))
+		while (mini->c_input[i] == c && (mini->c_input[i] != '\0'
+				&& mini->c_input[i] != '"' && mini->c_input[i] != '\''))
 			i++;
 	}
 	str[j] = NULL;
@@ -185,5 +211,6 @@ char	**mini_split(t_mini *mini, char c)
 	if (!mtr)
 		return (NULL);
 	mini_fill_str(mtr, mini, c);
+	ft_print_matrix(mtr);
 	return (mtr);
 }
