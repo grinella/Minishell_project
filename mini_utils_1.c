@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:46:09 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 00:57:51 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:28:52 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,15 @@ static int	mini_len_quotes(char const *s, int i, char c)
 	int		len;
 
 	len = i;
-	printf("s = %s\n", s);
-	printf("s[%i] = %c\ns[%i] = %c\n", (i - 1), s[i - 1], (i - 2), s[i - 2]);
-	if (s[i - 1] == c && s[i - 2] == c)
-	{
-		return (1);
-	}
 	while (s[i] != c && s[i] != '\0')
+	{
+		printf("carattere visto: [%c]\n", s[i]);
 		i++;
+	}
+	printf("carattere visto dopo while: [%c]\n", s[i]);
 	if (s[i] == '\0')
 		return (0);
+	printf("return: %i\n", (i - len));
 	return (i - len);
 }
 
@@ -136,30 +135,28 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 	{
 		if (mini->c_input[i] == '"')
 		{
+			printf("carattere[%c] e posizione[%i]\n", mini->c_input[i], i);
 			i++;
-			if (mini->c_input[i] != '"') // serve per evitare l'allocazione di due quote consecutive
+			if (mini->c_input[i] != '"')
 			{
+				printf("dentro al primo if: carattere[%c] e posizione[%i]\n", mini->c_input[i], i);
 				str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
-				if (mini->c_input[i - 1] == '"' && mini->c_input[i] == '"')
-				{
-					mini->c_input[i] = '\0';
-					i += (mini_len_quotes(mini->c_input, i, '"') + 1);
-				}
 				if (mini_len_quotes(mini->c_input, i, '"') == 0)
 				{
 					printf("Error: missing quote\n");
 					free_matrix(str);
 					return ;
 				}
+				i += mini_len_quotes(mini->c_input, i, '"');
 				if (!str[j])
 				{
 					mini_free(str, j);
 					return ;
 				}
-				if (mini->c_input[i] == '"')
-					i++;
 				j++;
 			}
+			if (mini->c_input[i] == '"')
+				i++;
 		}
 		else if (mini->c_input[i] == '\'')
 		{
@@ -181,7 +178,7 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 				i++;
 			j++;
 		}
-		else if (mini->c_input[i] != c && mini->c_input[i] != '"' && mini->c_input[i] != '\'')
+		else if (mini->c_input[i] != c && mini->c_input[i] != '"' && mini->c_input[i] != '\'' && mini->c_input[i] != '\0')
 		{
 			if (mini->c_input[i]!= '|' && mini->c_input[i] != '>' && mini->c_input[i] != '<')
 			{

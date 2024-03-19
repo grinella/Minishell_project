@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 20:58:46 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/19 20:58:47 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	ft_isdigit_mini(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] >= '0' && str[i] <= '9')
@@ -15,35 +27,42 @@ int	ft_isdigit_mini(char *str)
 	return (0);
 }
 
+// se l'argomento non è numerico stampa l'errore
+void	error_numeric(t_toks *toks)
+{
+	if (toks->next == NULL)
+	{
+		printf("exit\n");
+		printf("minishell: exit %s: ", toks->word[1]);
+		printf("numeric argument required\n");
+		g_exit_status = 255;
+		exit (g_exit_status);
+	}
+	else if (toks->next != NULL)
+	{
+		printf("exit\nminishell: exit %s: ", toks->word[1]);
+		printf("numeric argument required\n");
+		g_exit_status = 0;
+		return ;
+	}
+}
+
 void	my_exit(t_toks *toks)
 {
 	if (toks->word[1] == NULL && toks->next == NULL)
 	{
-		printf("1check\n");
 		printf("exit\n");
 		exit (g_exit_status);
 	}
-	else if (ft_isdigit_mini(toks->word[1]) == 0 && toks->word[2] == NULL) // se l'argomento non è numerico stampa l'errore
-	{
-		if (toks->next == NULL)
-		{
-			printf("exit\nminishell: exit %s: numeric argument required\n", toks->word[1]);
-			g_exit_status = 255;
-			exit (g_exit_status);
-		}
-		else if (toks->next != NULL)
-		{
-			printf("exit\nminishell: exit %s: numeric argument required\n", toks->word[1]);
-			g_exit_status = 0;
-			return ;
-		}
-	}
+	else if (ft_isdigit_mini(toks->word[1]) == 0 && toks->word[2] == NULL)
+		error_numeric(toks);
 	else if (toks->word[1] == NULL && toks->next != NULL)
 	{
 		printf("exit\n");
 		g_exit_status = 0;
 	}
-	else if (ft_isdigit_mini(toks->word[1]) == 1 && toks->word[1] != NULL && toks->word[2] == NULL && toks->next == NULL)
+	else if (ft_isdigit_mini(toks->word[1]) == 1 && toks->word[1] != NULL
+		&& toks->word[2] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
 		exit (ft_atoi(toks->word[1]));

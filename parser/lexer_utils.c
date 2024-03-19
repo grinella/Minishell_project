@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:42:43 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/18 15:46:56 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:15:37 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	quotes_len(int *i, int *j, t_mini *mini)//char* input)
 		{
 			printf("posizione numero: %i\ncarattere analizzando: %c\n", *i, mini->input[*i]);
 			if (mini->input[*i] == '$')
-				find_dollar_env_len(i, j, mini);
+				find_dollar_env_len(i, j, mini, *i);
 			else
 			{
 				(*j)++;

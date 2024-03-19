@@ -6,92 +6,136 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/18 15:35:42 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:01:09 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	find_dollar_env_len(int *i, int *j, t_mini *mini)
-{
-	int	r;
-	int	c;
-	int	len;
+// void	find_dollar_env_len(int *i, int *j, t_mini *mini)
+// {
+// 	int	r;
+// 	int	c;
+// 	int	len;
 
-	r = 0;
-	c = 0;
-	len = *i;
-	if (mini->input[*i] == '$')
+// 	r = 0;
+// 	c = 0;
+// 	len = *i;
+// 	if (mini->input[*i] == '$')
+// 	{
+// 		len++;
+// 		if (mini->input[len] == '?')
+// 		{
+// 			len++;
+// 			if (mini->input[len] == '\0' || mini->input[len] == ' ')
+// 			{
+// 				*i = len;
+// 				*j += ft_strlen(mini->str_exit_status);
+// 				return ;
+// 			}
+// 			while (mini->input[len] != ' ')
+// 			{
+// 				len++;
+// 				(*j)++;
+// 				if (mini->input[len] != ' ')
+// 				{
+// 					*i = len;
+// 					return ;
+// 				}
+// 			}
+// 		}
+// 		while (mini->env[r] != NULL)
+// 		{
+// 			while ((mini->input[len] == mini->env[r][c])
+// 				&& ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
+// 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
+// 				|| (mini->input[len] >= '0' && mini->input[len] <= '9')
+// 				|| (mini->input[len] == '_')))
+// 			{
+// 				c++;
+// 				len++;
+// 			}
+// 			if (mini->env[r][c] == '='
+// 				&& ((mini->input[len] < 'a' || mini->input[len] > 'z')
+// 				&& (mini->input[len] < 'A' || mini->input[len] > 'Z')
+// 				&& (mini->input[len] < '0' || mini->input[len] > '9')
+// 				&& (mini->input[len] != '_')))
+// 			{
+// 				c++;
+// 				(*j)++;
+// 				while (mini->env[r][c] != '\0')
+// 				{
+// 					c++;
+// 					(*j)++;
+// 				}
+// 				if (mini->env[r][c] == '\0')
+// 				{
+// 					*i = len;
+// 					return ;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				r++;
+// 				c = 0;
+// 				if (mini->env[r] == NULL)
+// 				{
+// 					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
+// 						|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
+// 						|| (mini->input[len] >= '0' && mini->input[len] <= '9')
+// 						|| (mini->input[len] == '_'))
+// 						len++;
+// 					*i = len;
+// 					return ;
+// 				}
+// 				len = *i + 1;
+// 			}
+// 		}
+// 	}
+// }
+int	question_mark(int *len, int *i, int *j, t_mini *mini)
+{
+	*len += 1;
+	*j += ft_strlen(mini->str_exit_status);
+	while (mini->input[*len] != ' ' && mini->input[*len] != '\0')
 	{
-		len++;
-		if (mini->input[len] == '?')
+		*len += 1;
+		(*j)++;
+		if (mini->input[*len] == ' ' || mini->input[*len] == '\0')
 		{
-			len++;
-			if (mini->input[len] == '\0' || mini->input[len] == ' ')
-			{
-				*i = len;
-				*j += ft_strlen(mini->str_exit_status);
-				return ;
-			}
-			while (mini->input[len] != ' ')
-			{
-				len++;
-				(*j)++;
-				if (mini->input[len] != ' ')
-				{
-					*i = len;
-					return ;
-				}
-			}
-		}
-		while (mini->env[r] != NULL)
-		{
-			while ((mini->input[len] == mini->env[r][c])
-				&& ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
-				|| (mini->input[len] >= '0' && mini->input[len] <= '9')
-				|| (mini->input[len] == '_')))
-			{
-				c++;
-				len++;
-			}
-			if (mini->env[r][c] == '='
-				&& ((mini->input[len] < 'a' || mini->input[len] > 'z')
-				&& (mini->input[len] < 'A' || mini->input[len] > 'Z')
-				&& (mini->input[len] < '0' || mini->input[len] > '9')
-				&& (mini->input[len] != '_')))
-			{
-				c++;
-				(*j)++;
-				while (mini->env[r][c] != '\0')
-				{
-					c++;
-					(*j)++;
-				}
-				if (mini->env[r][c] == '\0')
-				{
-					*i = len;
-					return ;
-				}
-			}
-			else
-			{
-				r++;
-				c = 0;
-				if (mini->env[r] == NULL)
-				{
-					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-						|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
-						|| (mini->input[len] >= '0' && mini->input[len] <= '9')
-						|| (mini->input[len] == '_'))
-						len++;
-					*i = len;
-					return ;
-				}
-				len = *i + 1;
-			}
+			*i = *len;
+			return (1);
 		}
 	}
+	return (0);
+}
+
+void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len)
+{
+	char	*tmp;
+	char	*fine;
+
+	len++;
+	while (mini->input[len])
+	{
+		if (mini->input[len] == '?')
+			if (question_mark(&len, i, j, mini) == 1)
+				return ;
+		if (ft_isalnum(mini->input[len]) || ft_isalpha(mini->input[len])
+			|| mini->input[len] == '_')
+			len++;
+		else
+			break ;
+	}
+	tmp = ft_substr(mini->input, *i + 1, len - *i);
+	fine = get_env(tmp, mini);
+	if (fine == NULL)
+	{
+		*i = len;
+		return ;
+	}
+	*i = len;
+	*j += ft_strlen(fine);
 }
 
 void	clean_input(t_mini *mini, int len)
@@ -141,7 +185,7 @@ void	clean_input_len(t_mini *mini)
 		else if (mini->input[i] == '"' || mini->input[i] == '\'')
 			quotes_len(&i, &j, mini);
 		else if (mini->input[i] == '$')
-			find_dollar_env_len(&i, &j, mini);
+			find_dollar_env_len(&i, &j, mini, i); // find_dollar_env_len(&i, &j, mini);
 		else
 		{
 			j++;

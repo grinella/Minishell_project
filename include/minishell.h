@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/19 20:40:54 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -34,7 +46,7 @@ typedef struct s_mini
 	char	**env; // allocata
 	char	*input;
 	char	*c_input; //allocata
-	char 	*str_exit_status; //allocata
+	char	*str_exit_status; //allocata
 }	t_mini;
 
 // MINI FUNCTIONS
@@ -44,9 +56,9 @@ void	put_env(t_mini *mini, char **env);
 char	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
 void	splitter(t_mini *mini, t_toks *toks);
-void	space_len(int *i, int *j, int *flag, char* input);
+void	space_len(int *i, int *j, int *flag, char *input);
 void	quotes_len(int *i, int *j, t_mini *mini);//char* input)
-void	find_dollar_env_len(int *i, int *j, t_mini *mini);
+void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len);
 void	alloc_spaces(int *i, int *j, t_mini *mini);
 void	alloc_double_quotes(int *i, int *j, t_mini *mini);
 void	alloc_single_quotes(int *i, int *j, t_mini *mini);
@@ -63,7 +75,7 @@ void	execute_commands(t_mini *mini, char **cmd);
 void	is_builtin(t_mini *mini, t_toks *toks);
 void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_toks *toks);
-void	my_echo(t_toks *toks);
+void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
 void	my_pwd(t_mini *mini);
 

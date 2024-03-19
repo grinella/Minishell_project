@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:48:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/18 15:48:41 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:40:28 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	is_builtin(t_mini *mini, t_toks *toks)
 	else if (!ft_strncmp(toks->word[i], "env", 4))
 		my_env(mini, toks);
 	else if (!ft_strncmp(toks->word[i], "echo", 5))
-		my_echo(toks);
+		my_echo(toks, 0);
 	else
 		executor(mini, toks);
 	// else
