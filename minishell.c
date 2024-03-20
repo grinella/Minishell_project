@@ -68,6 +68,7 @@ void	ft_print_node(t_toks *toks)
 		i = 0;
 		printf("\nPosizione nodo: %i\n", pos);
 		printf("Tipo di token: %i\n", toks->type);
+		printf("Cmd_pos: %i\n", toks->cmd_pos);
 		while (toks->word[i])
 		{
 			printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, toks->word[i]);
@@ -104,8 +105,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 {
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
-	mini->std_out = dup(STDOUT_FILENO);
-	mini->std_in = dup(STDIN_FILENO);
+	mini->cmd_count = 0;
 	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
 	mini->input = readline("shell>> ");
 	if(mini->input == NULL)

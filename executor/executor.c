@@ -44,48 +44,59 @@ void	execute_commands(t_mini *mini, char **cmd)
 	}
 	else if (pid == 0)
 	{
+		close(mini->std_in);
+		close(mini->std_out);
 		execve(path, cmd, mini->env);
 		perror("Execve failed");
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
+	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
-			printf("%d\n", WEXITSTATUS(status));
-		else
-			printf("\n");
-	}
+			g_exit_status = status;
 }
 
 void	executor(t_mini *mini, t_toks *toks)
 {
 	t_toks	*tmp;
-	int		flag;
+	int		fdin;
+	int		fdout;
 
-	flag = 0;
+
+	fdin = dup(0);
+	fdout = dup(1);
 	tmp = toks;
 	if(toks->type == 0 && toks->next == NULL && toks->prev == NULL)
-			execute_commands(mini, toks->word);
+		execute_commands(mini, toks->word);
 	else
-		while(toks && toks->type != 0)
-			toks = toks->next;
-	while (tmp && tmp->type != 1)
 	{
-		if (tmp->type == 4)
+		while(tmp)
 		{
-			flag = 1;
-			redir_in(tmp->word);
-		}
-		else if (tmp->type == 2 || tmp->type == 3)
-		{
-			flag = 1;
-			redir_out(tmp->word, tmp->type);
-		}
-		if (flag == 1)
+			while(toks && toks->type != 0)
+				toks = toks->next;
+			if (toks->cmd_pos == mini->cmd_count)
+				set_redir(mini, toks, &fdout);
+			if (mini->cmd_count > 1)
+				create_pipes(mini);
+			while (tmp && tmp->type != 1)
+			{
+				if (tmp->type == 4)
+				{
+					redir_in(tmp->word, mini);
+				}
+				else if (tmp->type == 2 || tmp->type == 3)
+				{
+					redir_out(tmp->word, tmp->type, mini);
+				}
+				tmp = tmp->next;
+			}
+			if (toks->cmd_pos < mini->cmd_count)
+				set_redir(mini, toks, &fdout);
 			execute_commands(mini, toks->word);
-		flag = 0;
-		tmp = tmp->next;
+			if (tmp)
+				tmp = tmp->next;
+			if (toks)
+				toks = toks->next;
+		}
+		reset_redir(fdin, fdout);
 	}
-	reset_redir(mini);
 }
