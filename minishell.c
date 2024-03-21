@@ -1,46 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/21 12:59:15 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/minishell.h"
 
 int	g_exit_status;
-
-void	free_node(t_toks *toks)
-{
-	t_toks	*tmp;
-	t_toks	*current;
-
-	if (toks == NULL)
-		return ;
-	current = toks;
-	while (current)
-	{
-		tmp = current->next;
-		free_matrix(current->word);
-		current = tmp;
-	}
-	free(current);
-	toks = NULL;
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	//free(matrix);
-	return ;
-}
-
-void	free_all(t_mini *mini)
-{
-	if (mini->input != NULL)
-		free (mini->input);
-	if (mini->c_input != NULL)
-		free (mini->c_input);
-}
 
 int	only_space(char *str)
 {
@@ -55,6 +27,7 @@ int	only_space(char *str)
 	}
 	return (1);
 }
+
 //funzione da cancellare che printa i nodi
 void	ft_print_node(t_toks *toks)
 {
@@ -120,10 +93,11 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 		// printf("input pulito:%s\n", mini->c_input);
 		free_all(mini);
 	}
-	else
+	else if (mini->input != NULL)
 		free(mini->input);
-	free(mini->str_exit_status);// freeo la variabile str_exit_status per aggiornarla al prossimo giro senza sovrascriere
+	free(mini->str_exit_status);
 }
+// freeo str_exit_status per aggiornarla al prossimo giro senza sovrascriere
 
 int	main(int argc, char **argv, char **env)
 {
@@ -141,8 +115,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
+		// put_env(mini, env);
 		init_mini(mini, env);
-		while(1)
+		while (1)
 			mini_routine(mini, toks);
 		free_matrix(mini->env);
 		free(mini);

@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 20:01:09 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:19:38 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,13 @@
 int	question_mark(int *len, int *i, int *j, t_mini *mini)
 {
 	*len += 1;
+	if (g_exit_status > 255)
+	{
+		while (g_exit_status > 255)
+			g_exit_status -= 256;
+		free(mini->str_exit_status);
+		mini->str_exit_status = ft_itoa(g_exit_status);
+	}
 	*j += ft_strlen(mini->str_exit_status);
 	while (mini->input[*len] != ' ' && mini->input[*len] != '\0')
 	{
@@ -113,7 +120,6 @@ int	question_mark(int *len, int *i, int *j, t_mini *mini)
 void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len)
 {
 	char	*tmp;
-	char	*fine;
 
 	len++;
 	while (mini->input[len])
@@ -121,21 +127,19 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len)
 		if (mini->input[len] == '?')
 			if (question_mark(&len, i, j, mini) == 1)
 				return ;
-		if (ft_isalnum(mini->input[len]) || ft_isalpha(mini->input[len])
-			|| mini->input[len] == '_')
+		if (ft_isalnum(mini->input[len]) || mini->input[len] == '_')
 			len++;
 		else
 			break ;
 	}
-	tmp = ft_substr(mini->input, *i + 1, len - *i);
-	fine = get_env(tmp, mini);
-	if (fine == NULL)
+	tmp = get_env(ft_substr(mini->input, *i + 1, len - *i), mini);
+	if (tmp == NULL)
 	{
 		*i = len;
 		return ;
 	}
 	*i = len;
-	*j += ft_strlen(fine);
+	*j += ft_strlen(tmp);
 }
 
 void	clean_input(t_mini *mini, int len)
@@ -185,7 +189,7 @@ void	clean_input_len(t_mini *mini)
 		else if (mini->input[i] == '"' || mini->input[i] == '\'')
 			quotes_len(&i, &j, mini);
 		else if (mini->input[i] == '$')
-			find_dollar_env_len(&i, &j, mini, i); // find_dollar_env_len(&i, &j, mini);
+			find_dollar_env_len(&i, &j, mini, i);
 		else
 		{
 			j++;

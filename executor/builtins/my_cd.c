@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 20:13:22 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:13:12 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	my_cd(t_mini *mini, t_toks *toks)
 	else if (toks->word[1] && chdir(toks->word[1]) == -1)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", toks->word[1]);
-		g_exit_status = 1;
+		g_exit_status = 999;
 	}
 	else
 	{

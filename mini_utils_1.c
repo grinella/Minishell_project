@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:46:09 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 15:28:52 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:11:58 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,16 @@ static int	mini_len_word(char const *s, int i, char c)
 	return (i - len);
 }
 
-static int	mini_len_quotes(char const *s, int i, char c)
+// mini_len_quotes
+static int	m_len_q(char const *s, int i, char c)
 {
 	int		len;
 
 	len = i;
 	while (s[i] != c && s[i] != '\0')
-	{
-		printf("carattere visto: [%c]\n", s[i]);
 		i++;
-	}
-	printf("carattere visto dopo while: [%c]\n", s[i]);
 	if (s[i] == '\0')
 		return (0);
-	printf("return: %i\n", (i - len));
 	return (i - len);
 }
 
@@ -114,16 +110,6 @@ int	is_pipe_redir(char const *s, int i)
 	return (1);
 }
 
-static void	mini_free(char **str, int i)
-{
-	while (i >= 0)
-	{
-		free(str[i]);
-		i--;
-	}
-	free(str);
-}
-
 void	mini_fill_str(char **str, t_mini *mini, char c)
 {
 	int		i;
@@ -135,19 +121,19 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 	{
 		if (mini->c_input[i] == '"')
 		{
-			printf("carattere[%c] e posizione[%i]\n", mini->c_input[i], i);
 			i++;
 			if (mini->c_input[i] != '"')
 			{
-				printf("dentro al primo if: carattere[%c] e posizione[%i]\n", mini->c_input[i], i);
-				str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '"'));
-				if (mini_len_quotes(mini->c_input, i, '"') == 0)
+				str[j] = ft_substr(mini->c_input, i, m_len_q(mini->c_input, i, '"'));
+				if (m_len_q(mini->c_input, i, '"') == 0)
 				{
 					printf("Error: missing quote\n");
-					free_matrix(str);
+					g_exit_status = -1;
+					free(str[j]);
+					str[j] = NULL;
 					return ;
 				}
-				i += mini_len_quotes(mini->c_input, i, '"');
+				i += m_len_q(mini->c_input, i, '"');
 				if (!str[j])
 				{
 					mini_free(str, j);
@@ -161,14 +147,16 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 		else if (mini->c_input[i] == '\'')
 		{
 			i += 1;
-			str[j] = ft_substr(mini->c_input, i, mini_len_quotes(mini->c_input, i, '\''));
-			if (mini_len_quotes(mini->c_input, i, '\'') == 0)
+			str[j] = ft_substr(mini->c_input, i, m_len_q(mini->c_input, i, '\''));
+			if (m_len_q(mini->c_input, i, '\'') == 0)
 			{
 				printf("Error: missing quote\n");
-				free_matrix(str);
+				g_exit_status = -1;
+				free(str[j]);
+				str[j] = NULL;
 				return ;
 			}
-			i += mini_len_quotes(mini->c_input, i, '\'');
+			i += m_len_q(mini->c_input, i, '\'');
 			if (!str[j])
 			{
 				mini_free(str, j);
@@ -178,16 +166,21 @@ void	mini_fill_str(char **str, t_mini *mini, char c)
 				i++;
 			j++;
 		}
-		else if (mini->c_input[i] != c && mini->c_input[i] != '"' && mini->c_input[i] != '\'' && mini->c_input[i] != '\0')
+		else if (mini->c_input[i] != c && mini->c_input[i] != '"'
+			&& mini->c_input[i] != '\'' && mini->c_input[i] != '\0')
 		{
-			if (mini->c_input[i]!= '|' && mini->c_input[i] != '>' && mini->c_input[i] != '<')
+			if (mini->c_input[i] != '|' && mini->c_input[i] != '>'
+				&& mini->c_input[i] != '<')
 			{
-				str[j++] = ft_substr(mini->c_input, i, mini_len_word(mini->c_input, i, c));
+				str[j++] = ft_substr(mini->c_input, i,
+						mini_len_word(mini->c_input, i, c));
 				i += mini_len_word(mini->c_input, i, c);
 			}
-			if (mini->c_input[i] == '|' || mini->c_input[i] == '>' || mini->c_input[i] == '<')
+			if (mini->c_input[i] == '|' || mini->c_input[i] == '>'
+				|| mini->c_input[i] == '<')
 			{
-				str[j++] = ft_substr(mini->c_input, i, is_pipe_redir(mini->c_input, i));
+				str[j++] = ft_substr(mini->c_input, i,
+						is_pipe_redir(mini->c_input, i));
 				i += is_pipe_redir(mini->c_input, i);
 			}
 		}

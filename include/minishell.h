@@ -6,14 +6,12 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 20:40:54 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:03:27 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-extern int	g_exit_status;
 
 # include "libft/libft.h"
 # include <stdio.h>
@@ -31,6 +29,8 @@ extern int	g_exit_status;
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+extern int	g_exit_status;
 
 typedef struct s_toks
 {
@@ -64,6 +64,8 @@ void	alloc_double_quotes(int *i, int *j, t_mini *mini);
 void	alloc_single_quotes(int *i, int *j, t_mini *mini);
 void	alloc_dollar_env(int *i, int *j, t_mini *mini);
 
+void	mini_fill_str(char **str, t_mini *mini, char c);
+
 // PARSER FUNCTIONS
 void	append_node(char **tokens, t_toks **toks, int type, int *i);
 
@@ -93,5 +95,10 @@ void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
 // FREE FUNCTIONS
 void	free_matrix(char **matrix);
+void	free_node(t_toks *toks);
+void	mini_free(char **str, int i);
+void	free_all(t_mini *mini);
+
+// void	exit_free(t_mini *mini, char **mtr);
 
 #endif
