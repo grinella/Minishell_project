@@ -30,7 +30,9 @@ static int	mini_count_words(t_mini *mini, char c)
 					i++;
 			}
 			if (mini->c_input[i] != c && mini->c_input[i] != '\0'
-				&& mini->c_input[i] != '"' && mini->c_input[i] != '\'')
+				&& mini->c_input[i] != '"' && mini->c_input[i] != '\''
+				&& mini->c_input[i] != '|' && mini && mini->c_input[i] != '<'
+				&& mini->c_input[i] != '>')
 			{
 				count++;
 				while (mini->c_input[i] != c && mini->c_input[i] != '\0'
@@ -42,16 +44,26 @@ static int	mini_count_words(t_mini *mini, char c)
 					|| mini->c_input[i] == '>')
 				{
 					count++;
-					if (mini->c_input[i + 1] == '|' || mini->c_input[i + 1]
-						== '<' || mini->c_input[i + 1] == '>')
+					i++;
+					if (mini->c_input[i] == '|' || mini->c_input[i]
+						== '<' || mini->c_input[i] == '>')
 						i++;
 				}
+			}
+			else if (mini->c_input[i] == '|' || mini->c_input[i] == '<'
+					|| mini->c_input[i] == '>')
+			{
+				count++;
 				i++;
+				if (mini->c_input[i] == '|' || mini->c_input[i]
+					== '<' || mini->c_input[i] == '>')
+					i++;
 			}
 		}
 		else
 			i++;
 	}
+	printf("count %i\n", count);
 	return (count);
 }
 
