@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/21 15:41:29 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/21 15:41:30 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*find_path(char **cmd, char **env)
@@ -61,17 +73,16 @@ void	executor(t_mini *mini, t_toks *toks)
 	int		fdin;
 	int		fdout;
 
-
 	fdin = dup(0);
 	fdout = dup(1);
 	tmp = toks;
-	if(toks->type == 0 && toks->next == NULL && toks->prev == NULL)
+	if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
 		execute_commands(mini, toks->word);
 	else
 	{
-		while(tmp)
+		while (tmp)
 		{
-			while(toks && toks->type != 0)
+			while (toks && toks->type != 0)
 				toks = toks->next;
 			if (toks->cmd_pos == mini->cmd_count)
 				set_redir(mini, toks, &fdout);
