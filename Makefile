@@ -24,6 +24,7 @@ SRCS = 		minishell.c \
 			executor/builtins/my_cd.c \
 			executor/builtins/my_pwd.c \
 			executor/executor.c \
+			executor/redirections.c \
 			# builtins/*.c \
 			executor/builtins/builtin_utils.c \
 			executor/redirection.c \

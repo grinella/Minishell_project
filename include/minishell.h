@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 13:03:27 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:30:23 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ typedef struct s_toks
 {
 	int				type; //0 = cmd; 1 = | ; 2 = > ; 3 = >> ; 4 = < ; 5 = << .
 	char			**word;
+	int				cmd_pos;
 	struct s_toks	*prev;
 	struct s_toks	*next;
-	// int 			id; // 
 }	t_toks; // serve un current??
 
 typedef struct s_mini
@@ -46,7 +46,10 @@ typedef struct s_mini
 	char	**env; // allocata
 	char	*input;
 	char	*c_input; //allocata
-	char	*str_exit_status; //allocata
+	char 	*str_exit_status; //allocata
+	int		std_out;
+	int		std_in;
+	int		cmd_count;
 }	t_mini;
 
 // MINI FUNCTIONS
@@ -72,6 +75,11 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i);
 // EXECUTOR FUNCTIONS
 void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
+void	redir_out(char	**word, int type, t_mini *mini);
+void	redir_in(char **word, t_mini *mini);
+void	reset_redir(int fdin, int fdout);
+void	set_redir(t_mini *mini, t_toks *toks, int *fdout);
+void	create_pipes(t_mini *mini);
 
 // BUILTINS FUNCTIONS
 void	is_builtin(t_mini *mini, t_toks *toks);

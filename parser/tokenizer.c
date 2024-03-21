@@ -1,5 +1,20 @@
 #include "../include/minishell.h"
-#include <stdbool.h>
+
+void	cmd_count(t_mini *mini, t_toks *toks)
+{
+	t_toks	*tmp;
+
+	tmp = toks;
+	while (tmp != NULL)
+	{
+		if (tmp->type == 0)
+		{
+			mini->cmd_count++;
+			tmp->cmd_pos = mini->cmd_count;
+		}
+		tmp = tmp->next;
+	}
+}
 
 t_toks	*find_last_node(t_toks *head)
 {
@@ -30,8 +45,7 @@ int	toks_len(char **tokens, int *i)
 		j++;
 	}
 	x++;
-	printf("toks_len = %i\n", x);
-	return (x);
+	return(x);
 }
 
 void	fill_node(char **tokens, t_toks *node, int *i)
@@ -136,6 +150,7 @@ void	append_node(char **tokens, t_toks **toks, int type, int *i)
 	if (node == NULL)
 		return ;
 	node->next = NULL;
+	node->cmd_pos = 0;
 	node->type = type;
 	if (*toks == NULL)
 	{
@@ -193,6 +208,8 @@ void	splitter(t_mini *mini, t_toks *toks)
 		tokens = mini_split(mini, ' ');
 	}
 	tokenizer(tokens, &toks);
-	if (tokens) // aggiunto per errore double pipe
-		is_builtin(mini, toks);
+	cmd_count(mini, toks);
+	//is_builtin(toks); // per testare builtins, poi dovrà essere implementata probabilmente nell'executor
+	//ft_print_node(toks);
+	executor(mini, toks);
 }

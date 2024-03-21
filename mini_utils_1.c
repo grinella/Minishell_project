@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mini_utils_1.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 16:46:09 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 14:11:58 by grinella         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "include/minishell.h"
 
 static int	mini_count_words(t_mini *mini, char c)
@@ -63,7 +51,6 @@ static int	mini_count_words(t_mini *mini, char c)
 		else
 			i++;
 	}
-	printf("count: %d\n", count);
 	return (count);
 }
 
