@@ -46,6 +46,7 @@ static int	mini_count_words(t_mini *mini, char c)
 						== '<' || mini->c_input[i + 1] == '>')
 						i++;
 				}
+				i++;
 			}
 		}
 		else

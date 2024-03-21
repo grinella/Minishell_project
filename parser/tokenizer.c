@@ -1,11 +1,12 @@
 #include "../include/minishell.h"
+#include <stdbool.h>
 
 void	cmd_count(t_mini *mini, t_toks *toks)
 {
 	t_toks	*tmp;
 
 	tmp = toks;
-	while (tmp != NULL)
+	while(tmp != NULL)
 	{
 		if (tmp->type == 0)
 		{
@@ -34,12 +35,11 @@ int	toks_len(char **tokens, int *i)
 	x = 0;
 	if (tokens[j][0] == '|' || tokens[j][0] == '<' || tokens[j][0] == '>')
 	{
-		if (tokens[j][0] == '<' || tokens[j][0] == '>')
-			return (3);
-		return (2);
+		if(tokens[j][0] == '<' || tokens[j][0] == '>')
+			return(3);
+		return(2);
 	}
-	while (tokens[j] && tokens[j][0] != '|'
-		&& tokens[j][0] != '<' && tokens[j][0] != '>')
+	while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '<' && tokens[j][0] != '>')
 	{
 		x++;
 		j++;
@@ -53,7 +53,7 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 	int	j;
 
 	j = 0;
-	node->word = (char **)ft_calloc(sizeof(char *), (toks_len(tokens, i)));
+	node->word = (char **)ft_calloc(sizeof(char *) , (toks_len(tokens, i)));
 	if (tokens[*i][0] == '|' || tokens[*i][0] == '<' || tokens[*i][0] == '>')
 	{
 		node->word[j] = ft_strdup(tokens[*i]);
@@ -68,12 +68,11 @@ void	fill_node(char **tokens, t_toks *node, int *i)
 		node->word[j] = NULL;
 		return ;
 	}
-	while (tokens[*i] && tokens[*i][0] != '|'
-		&& tokens[*i][0] != '<' && tokens[*i][0] != '>')
+	while (tokens[*i] && tokens[*i][0] != '|'&& tokens[*i][0] != '<' && tokens[*i][0] != '>')
 	{
-		node->word[j] = ft_strdup(tokens[*i]);
-		(*i)++;
-		j++;
+			node->word[j] = ft_strdup(tokens[*i]);
+			(*i)++;
+			j++;
 	}
 	node->word[j] = NULL;
 }
@@ -85,7 +84,7 @@ int	complex_toks_len(char **tokens, int *i)
 
 	count = 0;
 	j = *i;
-	while (tokens[j] && tokens[j][0] != '|')
+	while(tokens[j] && tokens[j][0] != '|')
 	{
 		if (tokens[j][0] == '<' || tokens[j][0] == '>')
 			j += 2;
@@ -108,9 +107,8 @@ void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
 	x = *i;
 	j = 0;
 	flag = 0;
-	node->word = (char **)ft_calloc(sizeof(char *),
-			(complex_toks_len(tokens, i)));
-	while (tokens[*i] && tokens[*i][0] != '|')
+	node->word = (char **)ft_calloc(sizeof(char *) , (complex_toks_len(tokens, i)));
+	while(tokens[*i] && tokens[*i][0] != '|')
 	{
 		if (tokens[*i][0] == '<' || tokens[*i][0] == '>')
 		{
@@ -124,7 +122,7 @@ void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
 			(*i)++;
 		}
 	}
-	while (tokens[x] && tokens[x][0] != '|' && flag == 1)
+	while(tokens[x] && tokens[x][0] != '|' && flag == 1)
 	{
 		if (tokens[x][0] == '>' && tokens[x][1] == '>')
 			append_node(tokens, toks, 3, &x);
@@ -140,13 +138,12 @@ void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
 	if (x > *i)
 		*i = x;
 }
-
 void	append_node(char **tokens, t_toks **toks, int type, int *i)
 {
 	t_toks	*node;
 	t_toks	*last_node;
 
-	node = (t_toks *)ft_calloc(1, sizeof(t_toks));
+	node = (t_toks *)ft_calloc(1 ,sizeof(t_toks));
 	if (node == NULL)
 		return ;
 	node->next = NULL;
@@ -174,12 +171,12 @@ void	tokenizer(char **tokens, t_toks **toks)
 	int	i;
 
 	i = 0;
-	while (tokens[i])
+	while(tokens[i])
 	{
 		if (tokens[i][0] == '|' && tokens[i][1] == '|')
 		{
 			printf("Error: double pipe\n");
-			free_matrix(tokens); // freea tokens
+			//richiamo funzione free;
 			return ;
 		}
 		else if (tokens[i][0] == '|')
@@ -198,6 +195,7 @@ void	tokenizer(char **tokens, t_toks **toks)
 	free_matrix(tokens);//NON SO SE FUNZIONA
 }
 
+//QUALCOSINA FUNZIONA ED é PURE CORRETTO
 void	splitter(t_mini *mini, t_toks *toks)
 {
 	char	**tokens;
