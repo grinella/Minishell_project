@@ -3,96 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 16:01:19 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:39:06 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	find_dollar_env_len(int *i, int *j, t_mini *mini)
-// {
-// 	int	r;
-// 	int	c;
-// 	int	len;
-
-// 	r = 0;
-// 	c = 0;
-// 	len = *i;
-// 	if (mini->input[*i] == '$')
-// 	{
-// 		len++;
-// 		if (mini->input[len] == '?')
-// 		{
-// 			len++;
-// 			if (mini->input[len] == '\0' || mini->input[len] == ' ')
-// 			{
-// 				*i = len;
-// 				*j += ft_strlen(mini->str_exit_status);
-// 				return ;
-// 			}
-// 			while (mini->input[len] != ' ')
-// 			{
-// 				len++;
-// 				(*j)++;
-// 				if (mini->input[len] != ' ')
-// 				{
-// 					*i = len;
-// 					return ;
-// 				}
-// 			}
-// 		}
-// 		while (mini->env[r] != NULL)
-// 		{
-// 			while ((mini->input[len] == mini->env[r][c])
-// 				&& ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-// 				|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
-// 				|| (mini->input[len] >= '0' && mini->input[len] <= '9')
-// 				|| (mini->input[len] == '_')))
-// 			{
-// 				c++;
-// 				len++;
-// 			}
-// 			if (mini->env[r][c] == '='
-// 				&& ((mini->input[len] < 'a' || mini->input[len] > 'z')
-// 				&& (mini->input[len] < 'A' || mini->input[len] > 'Z')
-// 				&& (mini->input[len] < '0' || mini->input[len] > '9')
-// 				&& (mini->input[len] != '_')))
-// 			{
-// 				c++;
-// 				(*j)++;
-// 				while (mini->env[r][c] != '\0')
-// 				{
-// 					c++;
-// 					(*j)++;
-// 				}
-// 				if (mini->env[r][c] == '\0')
-// 				{
-// 					*i = len;
-// 					return ;
-// 				}
-// 			}
-// 			else
-// 			{
-// 				r++;
-// 				c = 0;
-// 				if (mini->env[r] == NULL)
-// 				{
-// 					while ((mini->input[len] >= 'a' && mini->input[len] <= 'z')
-// 						|| (mini->input[len] >= 'A' && mini->input[len] <= 'Z')
-// 						|| (mini->input[len] >= '0' && mini->input[len] <= '9')
-// 						|| (mini->input[len] == '_'))
-// 						len++;
-// 					*i = len;
-// 					return ;
-// 				}
-// 				len = *i + 1;
-// 			}
-// 		}
-// 	}
-// }
 int	question_mark(int *len, int *i, int *j, t_mini *mini)
 {
 	*len += 1;
@@ -200,7 +119,7 @@ void	clean_input_len(t_mini *mini)
 	clean_input(mini, j);
 }
 
-char	*lexer(t_mini *mini, t_toks *toks) //o t_mini o t_lexer
+char	*lexer(t_mini *mini, t_toks *toks)
 {
 	if (mini->input[0] == '\0')
 	{
