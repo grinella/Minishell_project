@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 15:59:51 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:52:14 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_print_matrix(char **matrix)
 	return ;
 }
 
-//funzione che inizializza le varie variabili quando le aggiungeremo, per adesso inizializza soltanto l'env
+// funzione che inizializza le varie variabili
+// quando le aggiungeremo, per adesso inizializza soltanto l'env
 void	init_mini(t_mini *mini, char **env)
 {
 	put_env(mini, env);
@@ -77,7 +78,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
 	mini->cmd_count = 0;
-	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
+	mini->str_exit_status = ft_itoa(g_exit_status);
 	mini->input = readline("shell>> ");
 	if (mini->input == NULL)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_utils_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/25 10:50:59 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/25 10:51:00 by grinella         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/minishell.h"
 
 static int	mini_count_words(t_mini *mini, char c)
@@ -51,7 +63,7 @@ static int	mini_count_words(t_mini *mini, char c)
 				}
 			}
 			else if (mini->c_input[i] == '|' || mini->c_input[i] == '<'
-					|| mini->c_input[i] == '>')
+				|| mini->c_input[i] == '>')
 			{
 				count++;
 				i++;

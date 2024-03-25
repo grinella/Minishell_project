@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 15:30:23 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:53:10 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_mini
 	char	**env; // allocata
 	char	*input;
 	char	*c_input; //allocata
-	char 	*str_exit_status; //allocata
+	char	*str_exit_status; //allocata, stringa exit status in routine
 	int		std_out;
 	int		std_in;
 	int		cmd_count;
