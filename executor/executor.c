@@ -44,7 +44,8 @@ void	execute_commands(t_mini *mini, char **cmd)
 	}
 	else if (pid == 0)
 	{
-		execve(path, cmd, mini->env);
+		if (access(path, F_OK) == 0)
+			execve(path, cmd, mini->env);
 		perror("Execve failed");
 		exit(EXIT_FAILURE);
 	}

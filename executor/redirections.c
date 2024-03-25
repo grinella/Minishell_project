@@ -42,6 +42,7 @@ void	set_redir(t_mini *mini, t_toks *toks, int *fdout)
 	{
 		dup2(mini->std_out, 1);
 		close(mini->std_out);
+		//close(mini->std_in);
 	}
 	else if (toks->cmd_pos > 1 && toks->cmd_pos < mini->cmd_count)
 	{
