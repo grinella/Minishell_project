@@ -52,6 +52,8 @@ void	execute_commands(t_mini *mini, char **cmd)
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_exit_status = status;
+	if (mini->here_doc_flag == 1)
+		unlink("./temp.txt");
 }
 
 void	executor(t_mini *mini, t_toks *toks)
@@ -59,7 +61,6 @@ void	executor(t_mini *mini, t_toks *toks)
 	t_toks	*tmp;
 	int		fdin;
 	int		fdout;
-
 
 	fdin = dup(0);
 	fdout = dup(1);
@@ -70,9 +71,10 @@ void	executor(t_mini *mini, t_toks *toks)
 	{
 		while(tmp)
 		{
+			mini->here_doc_flag = 0;
 			while(toks && toks->type != 0)
 				toks = toks->next;
-			if (toks->cmd_pos == mini->cmd_count)
+			if (toks->cmd_pos == mini->cmd_count && mini->cmd_count > 1)
 				set_redir(mini, toks, &fdout);
 			if (mini->cmd_count > 1)
 				create_pipes(mini);
@@ -81,6 +83,11 @@ void	executor(t_mini *mini, t_toks *toks)
 				if (tmp->type == 4)
 				{
 					redir_in(tmp->word, mini);
+				}
+				else if (tmp->type == 5)
+				{
+					here_doc(tmp->word, mini);
+					mini->here_doc_flag = 1;
 				}
 				else if (tmp->type == 2 || tmp->type == 3)
 				{

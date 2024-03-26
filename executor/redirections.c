@@ -36,6 +36,30 @@ void	redir_in(char **word, t_mini *mini)
 	close(mini->std_in);
 }
 
+void	here_doc(char **word, t_mini *mini)
+{
+	int		fd;
+	char	*str;
+
+	fd = open("temp.txt", O_RDWR | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+		perror("Input open error\n");
+	while (1)
+	{
+		str = readline("> ");
+		if (ft_strncmp(str, word[1], ft_strlen(word[1])) == 0)
+		{
+			free(str);
+			break ;
+		}
+		free(str);
+	}
+	close(fd);
+	mini->std_in = open("temp.txt", O_RDONLY);
+	dup2(mini->std_in, 0);
+	close(mini->std_in);
+}
+
 void	set_redir(t_mini *mini, t_toks *toks, int *fdout)
 {
 	if (toks->cmd_pos == 1 && mini->cmd_count > 1)
@@ -68,7 +92,7 @@ void	reset_redir(int fdin, int fdout)
 		dup2(fdin, 0);
 		close(fdin);
 	}
-	if (fdout != -1 || fdout > 1) //porcoddio funziona così nce credo lallero
+	if (fdout != -1 || fdout > 1)
 	{
 		dup2(fdout, 1);
 		close(fdout);
