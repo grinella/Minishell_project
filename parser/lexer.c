@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/23 16:39:06 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:50:15 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	clean_input(t_mini *mini, int len)
 			alloc_single_quotes(&i, &j, mini);
 		else if (mini->input[i] == '"')
 			alloc_double_quotes(&i, &j, mini);
-		else if (mini->input[i] == '$')
-			alloc_dollar_env(&i, &j, mini);
+		else if (mini->input[i] == '$' && i++)
+			alloc_dollar_env(&i, &j, i, mini);
 		else
 		{
 			mini->c_input[j] = mini->input[i++];

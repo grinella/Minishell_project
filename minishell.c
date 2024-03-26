@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/25 10:52:14 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/26 03:11:25 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_print_node(t_toks *toks)
 		printf("Cmd_pos: %i\n", toks->cmd_pos);
 		while (toks->word[i])
 		{
-			printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, toks->word[i]);
+			printf("posizione matrice:%i\n", i);
+			printf("contenuto matrice:%s\n", toks->word[i]);
 			i++;
 		}
 		toks = toks->next;
@@ -82,7 +83,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	mini->input = readline("shell>> ");
 	if (mini->input == NULL)
 	{
-		//free_node(toks);
+		/*free_node(toks);*/
 		ft_ctrld(mini);
 	}
 	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
@@ -92,8 +93,8 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 			add_history(mini->input);
 		}
 		lexer(mini, toks);
-		// printf("input:%s\n", mini->input);
-		// printf("input pulito:%s\n", mini->c_input);
+		printf("input:%s\n", mini->input);
+		printf("input pulito:%s\n", mini->c_input);
 		free_all(mini);
 	}
 	else if (mini->input != NULL)
@@ -118,7 +119,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
-		// put_env(mini, env);
 		init_mini(mini, env);
 		while (1)
 			mini_routine(mini, toks);

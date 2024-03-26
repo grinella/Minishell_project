@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/25 10:53:10 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/26 03:08:31 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,24 @@ char	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
 void	splitter(t_mini *mini, t_toks *toks);
 void	space_len(int *i, int *j, int *flag, char *input);
-void	quotes_len(int *i, int *j, t_mini *mini);//char* input)
+void	quotes_len(int *i, int *j, t_mini *mini);// char* input)
 void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len);
 void	alloc_spaces(int *i, int *j, t_mini *mini);
 void	alloc_double_quotes(int *i, int *j, t_mini *mini);
 void	alloc_single_quotes(int *i, int *j, t_mini *mini);
-void	alloc_dollar_env(int *i, int *j, t_mini *mini);
+void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini);
 
 void	mini_fill_str(char **str, t_mini *mini, char c);
+int		m_len_q(char const *s, int i, char c);
+int		mini_len_word(char const *s, int i, char c);
+int		is_pipe_redir(char const *s, int i);
+int		mini_count_words(t_mini *mini, char c, int i, int count);
 
 // PARSER FUNCTIONS
 void	append_node(char **tokens, t_toks **toks, int type, int *i);
+t_toks	*find_last_node(t_toks *head);
+void	fill_node(char **tokens, t_toks *node, int *i);
+void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i);
 
 // EXECUTOR FUNCTIONS
 void	executor(t_mini *mini, t_toks *toks);

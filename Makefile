@@ -11,10 +11,14 @@ RM				=	rm -f
 
 SRCS = 		minishell.c \
 			mini_utils.c \
-			mini_utils_1.c \
 			mini_free.c \
 			parser/lexer.c \
 			parser/lexer_utils.c \
+			parser/alloc_functions.c \
+			parser/mini_count_words.c \
+			parser/tokenizer_fill_str.c \
+			parser/tokenizer_fill_node.c \
+			parser/tokenizer_utils.c \
 			parser/tokenizer.c \
 			signals/signals.c \
 			executor/builtins/builtin.c \
