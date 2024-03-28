@@ -117,8 +117,8 @@ void	executor(t_mini *mini, t_toks *toks)
 				toks = toks->next;
 		}
 		reset_redir(std_in, std_out);
-		while (waitpid(-1, &status, 0) > 0)
+	}
+	while (waitpid(-1, &status, 0) > 0)
 			if (WIFEXITED(status))
 				g_exit_status = status;
-	}
 }
