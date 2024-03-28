@@ -107,10 +107,10 @@ void	executor(t_mini *mini, t_toks *toks)
 	std_out = dup(1);
 	mini->tmp_in = dup(std_in);
 	tmp = toks;
-	if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
-		execute_commands(mini, toks->word);
-	else
-	{
+	//if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
+	//	execute_commands(mini, toks->word);
+	//else
+	//{
 		while (tmp)
 		{
 			while (toks && toks->type != 0)
@@ -121,14 +121,15 @@ void	executor(t_mini *mini, t_toks *toks)
 				search_redir(mini, tmp);
 				tmp = tmp->next;
 			}
-			execute_commands(mini, toks->word);
+			if ((is_builtin(mini, toks)) == 0)
+				execute_commands(mini, toks->word);
 			if (tmp)
 				tmp = tmp->next;
 			if (toks)
 				toks = toks->next;
 		}
 		reset_redir(std_in, std_out);
-	}
+	//}
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_exit_status = status;

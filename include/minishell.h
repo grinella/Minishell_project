@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 16:46:33 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:49:23 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	reset_redir(int fdin, int fdout);
 void	create_pipes(t_mini *mini);
 
 // BUILTINS FUNCTIONS
-void	is_builtin(t_mini *mini, t_toks *toks);
+int		is_builtin(t_mini *mini, t_toks *toks);
 void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_toks *toks);
 void	my_echo(t_toks *toks, int n);
