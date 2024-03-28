@@ -48,6 +48,8 @@ void	here_doc(char **word, t_mini *mini)
 			free(str);
 			break ;
 		}
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
 		free(str);
 	}
 	close(fd);
