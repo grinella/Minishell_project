@@ -31,7 +31,6 @@ char	*find_path(char **cmd, char **env)
 
 void	execute_commands(t_mini *mini, char **cmd)
 {
-	//int		status;
 	char	*path;
 	pid_t	pid;
 
@@ -48,11 +47,42 @@ void	execute_commands(t_mini *mini, char **cmd)
 		if (access(path, F_OK) == 0)
 			execve(path, cmd, mini->env);
 		else
+		{
 			perror("Execve failed");
-		//exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (mini->here_doc_flag == 1)
 		unlink("./temp.txt");
+}
+
+void	search_redir(t_mini *mini, t_toks *tmp)
+{
+	if (tmp->type == 4 || tmp->type == 5)
+	{
+		close(mini->tmp_in);
+		if (tmp->type == 4)
+		{
+			redir_in(tmp->word, mini);
+		}
+		else if (tmp->type == 5)
+		{
+			here_doc(tmp->word, mini);
+			mini->here_doc_flag = 1;
+		}
+		if (mini->tmp_in > 0)
+		{
+			dup2(mini->tmp_in, 0);
+			close(mini->tmp_in);
+		}
+	}
+	else if (tmp->type == 2 || tmp->type == 3)
+	{
+		close(mini->tmp_out);
+		redir_out(tmp->word, tmp->type, mini);
+	}
+	dup2(mini->tmp_out, 1);
+	close(mini->tmp_out);
 }
 
 void	executor(t_mini *mini, t_toks *toks)
@@ -66,16 +96,16 @@ void	executor(t_mini *mini, t_toks *toks)
 	std_out = dup(1);
 	mini->tmp_in = dup(std_in);
 	tmp = toks;
-	if(toks->type == 0 && toks->next == NULL && toks->prev == NULL)
+	if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
 		execute_commands(mini, toks->word);
 	else
 	{
-		while(tmp)
+		while (tmp)
 		{
 			dup2(mini->tmp_in, 0);
 			close(mini->tmp_in);
 			mini->here_doc_flag = 0;
-			while(toks && toks->type != 0)
+			while (toks && toks->type != 0)
 				toks = toks->next;
 			if (mini->cmd_count > 1 && toks->cmd_pos != mini->cmd_count)
 				create_pipes(mini);
@@ -83,33 +113,9 @@ void	executor(t_mini *mini, t_toks *toks)
 				mini->tmp_out = dup(std_out);
 			while (tmp && tmp->type != 1)
 			{
-				if (tmp->type == 4 || tmp->type == 5)
-				{
-					close(mini->tmp_in);
-					if (tmp->type == 4)
-					{
-						redir_in(tmp->word, mini);
-					}
-					else if (tmp->type == 5)
-					{
-						here_doc(tmp->word, mini);
-						mini->here_doc_flag = 1;
-					}
-					if (mini->tmp_in > 0)
-					{
-						dup2(mini->tmp_in, 0);
-						close(mini->tmp_in);
-					}
-				}
-				else if (tmp->type == 2 || tmp->type == 3)
-				{
-					close(mini->tmp_out);
-					redir_out(tmp->word, tmp->type, mini);
-				}
+				search_redir(mini, tmp);
 				tmp = tmp->next;
 			}
-			dup2(mini->tmp_out, 1);
-			close(mini->tmp_out);
 			execute_commands(mini, toks->word);
 			if (tmp)
 				tmp = tmp->next;
@@ -119,6 +125,6 @@ void	executor(t_mini *mini, t_toks *toks)
 		reset_redir(std_in, std_out);
 	}
 	while (waitpid(-1, &status, 0) > 0)
-			if (WIFEXITED(status))
-				g_exit_status = status;
+		if (WIFEXITED(status))
+			g_exit_status = status;
 }
