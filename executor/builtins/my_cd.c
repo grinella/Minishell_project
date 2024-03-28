@@ -6,27 +6,11 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 15:13:12 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:21:09 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*get_env(char *search, t_mini *mini)
-{
-	int	i;
-	int	search_len;
-
-	search_len = ft_strlen(search);
-	i = 0;
-	while (mini->env[i])
-	{
-		if (ft_strncmp(mini->env[i], search, search_len) == 0)
-			return (mini->env[i] + search_len + 1);
-		i++;
-	}
-	return (NULL);
-}
 
 char	**ft_realloc(char **mtr_old, char *str, int size)
 {
@@ -39,12 +23,9 @@ char	**ft_realloc(char **mtr_old, char *str, int size)
 	{
 		printf("realloc\n");
 		if (mtr_old[i])
-		{
-			mtr_new[i] = mtr_old[i];
-			free(mtr_old[i]);
-		}
+			mtr_new[i] = ft_strdup(mtr_old[i]);
 		else
-			mtr_new[i] = str;
+			mtr_new[i] = ft_strdup(str);
 		i++;
 	}
 	free_matrix(mtr_old);

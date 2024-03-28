@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:44:16 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 02:36:16 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:19:22 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	alloc_double_quotes(int *i, int *j, t_mini *mini)
 		(*i)++;
 		while (mini->input[*i] != '"' && mini->input[*i] != '\0')
 		{
-			if (mini->input[*i] == '$' && ++(*i))
-				alloc_dollar_env(i, j, *i + 1, mini);
+			if (mini->input[*i] == '$')
+				alloc_dollar_env(i, j, *i, mini);
 			else
 			{
 				mini->c_input[*j] = mini->input[*i];
@@ -84,12 +84,21 @@ int	question_alloc(int *i, int *j, int *len, t_mini *mini)
 	return (0);
 }
 
-void	alloc_quotes(int *i, int *j, int len, t_mini *mini)
+// alloc per quotes oppure calcolo lunghezza subito prima di alloc tmp
+void	alloc_quotes_or_tmp(int *i, int *j, int *len, t_mini *mini)
 {
-	if (mini->input[len] == '"')
+	if (mini->input[*len] == '"')
 		alloc_double_quotes(i, j, mini);
-	else if (mini->input[len] == '\'')
+	else if (mini->input[*len] == '\'')
 		alloc_single_quotes(i, j, mini);
+	else
+	{
+		while (mini->input[*len] && (ft_isalnum(mini->input[*len])
+				|| mini->input[*len] == '_'))
+			(*len)++;
+	}
+	if (mini->input[*i] == '$')
+		(*i)++;
 	return ;
 }
 
@@ -97,12 +106,12 @@ void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 {
 	char	*tmp;
 
+	if (mini->input[len] == '$')
+		len++;
 	if (mini->input[len] == '?')
 		if (question_alloc(i, j, &len, mini) == 1)
 			return ;
-	while (mini->input[len] && (ft_isalnum(mini->input[len])
-			|| mini->input[len] == '_'))
-		len++;
+	alloc_quotes_or_tmp(i, j, &len, mini);
 	tmp = get_env(ft_substr(mini->input, *i, len - *i), mini);
 	if (tmp == NULL)
 	{
@@ -117,7 +126,7 @@ void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 			mini->c_input[(*j)++] = *tmp++;
 		*i = len;
 		if (mini->input[len] == '"' || mini->input[len] == '\'')
-			alloc_quotes(i, j, len, mini);
+			alloc_quotes_or_tmp(i, j, &len, mini);
 		return ;
 	}
 }

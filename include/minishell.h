@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 03:08:31 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:56:36 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_mini
 
 // MINI FUNCTIONS
 void	put_env(t_mini *mini, char **env);
+int		ft_count_matrix(char **matrix);
 
 // LEXER FUNCTIONS
 char	*lexer(t_mini *mini, t_toks *toks);
@@ -95,9 +96,11 @@ void	my_exit(t_toks *toks);
 void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
 void	my_pwd(t_mini *mini);
+void	my_export(t_mini *mini, t_toks *toks, int i);
 
 // BUILTINS UTILS FUNCTIONS
 char	*get_env(char *search, t_mini *mini);
+char	**ft_realloc(char **mtr_old, char *str, int size);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

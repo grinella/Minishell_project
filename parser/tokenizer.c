@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 03:12:20 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:58:19 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ void	cmd_count(t_mini *mini, t_toks *toks)
 		}
 		tmp = tmp->next;
 	}
+}
+
+t_toks	*find_last_node(t_toks *head)
+{
+	if (head == NULL)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
 }
 
 void	append_node(char **tokens, t_toks **toks, int type, int *i)
@@ -96,7 +105,11 @@ void	splitter(t_mini *mini, t_toks *toks)
 		tokens = mini_split(mini, ' ');
 	tokenizer(tokens, &toks);
 	cmd_count(mini, toks);
-	//is_builtin(toks); // per testare builtins, poi dovrà essere implementata probabilmente nell'executor
-	//ft_print_node(toks);
-	executor(mini, toks);
+	is_builtin(mini, toks);
+	//executor(mini, toks);
 }
+
+// subito sotto cmd_count
+// is_builtin(toks); // per testare builtins,
+// poi dovrà essere implementata probabilmente nell'executor
+// ft_print_node(toks);

@@ -6,20 +6,11 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 02:57:47 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 02:59:28 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:49:24 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-t_toks	*find_last_node(t_toks *head)
-{
-	if (head == NULL)
-		return (NULL);
-	while (head->next)
-		head = head->next;
-	return (head);
-}
 
 int	toks_len(char **tokens, int *i)
 {
@@ -94,22 +85,16 @@ int	complex_toks_len(char **tokens, int *i)
 	return (count);
 }
 
-void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
+void	fill_cmplx_nd(char **tokens, t_toks *node, int *i, int *flag)
 {
-	int	flag;
 	int	j;
-	int	x;
 
-	x = *i;
 	j = 0;
-	flag = 0;
-	node->word = (char **)ft_calloc(sizeof(char *),
-			(complex_toks_len(tokens, i)));
 	while (tokens[*i] && tokens[*i][0] != '|')
 	{
 		if (tokens[*i][0] == '<' || tokens[*i][0] == '>')
 		{
-			flag = 1;
+			*flag = 1;
 			*i += 2;
 		}
 		else
@@ -119,6 +104,18 @@ void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
 			(*i)++;
 		}
 	}
+}
+
+void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i)
+{
+	int	flag;
+	int	x;
+
+	x = *i;
+	flag = 0;
+	node->word = (char **)ft_calloc(sizeof(char *),
+			(complex_toks_len(tokens, i)));
+	fill_cmplx_nd(tokens, node, i, &flag);
 	while (tokens[x] && tokens[x][0] != '|' && flag == 1)
 	{
 		if (tokens[x][0] == '>' && tokens[x][1] == '>')

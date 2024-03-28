@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 02:11:25 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 02:55:03 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:33:04 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,13 @@ void	mini_fill_s_quote(t_mini *mini, char **str, int *i, int *j)
 
 void	mini_fill_other(t_mini *mini, char **str, int *i, int *j)
 {
-	printf("mini->c_input[*i] = %c\n", mini->c_input[*i]);
 	if (mini->c_input[*i] != '|' && mini->c_input[*i] != '>'
 		&& mini->c_input[*i] != '<')
 	{
-		printf("la j prima = %i\n", *j);
 		str[*j] = ft_substr(mini->c_input, *i,
 				mini_len_word(mini->c_input, *i, ' '));
 		(*j)++;
-		printf("la j dopo = %i\n", *j);
-		printf("str[*j] = %s\n", str[*j - 1]);
-		printf("la i prima = %i\n", *i);
 		(*i) += mini_len_word(mini->c_input, *i, ' ');
-		printf("la i dopo = %i\n", *i);
-		printf("incremento *i = %i\n", *i);
 	}
 	if (mini->c_input[*i] == '|' || mini->c_input[*i] == '>'
 		|| mini->c_input[*i] == '<')

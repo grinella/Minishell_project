@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:40 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/25 17:14:37 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:31:26 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 // Rimuove variabili d'ambiente.
 int	my_unset(t_mini *p)
 {
-    int g_status = 0;
+	int g_status = 0;
 
-    // Rimuove le variabili d'ambiente specificate come argomenti.
-    while (p->cmds->next)
-    {
-        char **var = ((t_mini *)p->cmds->content)->toks;
-        if (var && *var)
-            p->mini_prompt->envp = unset_env(*var, p->mini_prompt->envp);
-        p->cmds = p->cmds->next;
-    }
+	// Rimuove le variabili d'ambiente specificate come argomenti.
+	while (p->cmds->next)
+	{
+		char **var = ((t_mini *)p->cmds->content)->toks;
+		if (var && *var)
+			p->mini_prompt->envp = unset_env(*var, p->mini_prompt->envp);
+		p->cmds = p->cmds->next;
+	}
 
-    return g_status;
+	return g_status;
 }
 */
 
@@ -112,4 +112,7 @@ int	my_unset(t_mini *p)
 // 	}
 // }
 
-unset
+void	unset()
+{
+	
+}
