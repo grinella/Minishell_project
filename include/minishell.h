@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/27 16:56:36 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:46:33 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ typedef struct s_mini
 	char	*input;
 	char	*c_input; //allocata
 	char	*str_exit_status; //allocata, stringa exit status in routine
-	int		std_out;
-	int		std_in;
+	int		tmp_out;
+	int		tmp_in;
 	int		cmd_count;
+	int		here_doc_flag;
 }	t_mini;
 
 // MINI FUNCTIONS
@@ -85,8 +86,8 @@ void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
 void	redir_out(char	**word, int type, t_mini *mini);
 void	redir_in(char **word, t_mini *mini);
+void	here_doc(char **word, t_mini *mini);
 void	reset_redir(int fdin, int fdout);
-void	set_redir(t_mini *mini, t_toks *toks, int *fdout);
 void	create_pipes(t_mini *mini);
 
 // BUILTINS FUNCTIONS
