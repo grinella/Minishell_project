@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 16:28:51 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:40:29 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 	if (!tmp)
 	{
 		printf("Syntax error: '=' not found\n");
-		return ;
+		return ;// va fatto senza uguale 
 	}
 	else
 		set_export(mini, toks, tmp);
 }
+// SERVE GESTIRE L'ENV IN MODO TALE CHE STAMPI SOLO QUELLI CHE HANNO L'UGUALE
+// SE CHIAMO EXPORT DEVE PRINTARLI TUTTI ANCHE QUELLI SENZA UGUALE
