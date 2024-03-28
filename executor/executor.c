@@ -85,6 +85,17 @@ void	search_redir(t_mini *mini, t_toks *tmp)
 	close(mini->tmp_out);
 }
 
+void	setup(t_mini *mini, t_toks *toks, int std_out)
+{
+	dup2(mini->tmp_in, 0);
+	close(mini->tmp_in);
+	mini->here_doc_flag = 0;
+	if (mini->cmd_count > 1 && toks->cmd_pos != mini->cmd_count)
+		create_pipes(mini);
+	if (toks->cmd_pos == mini->cmd_count)
+		mini->tmp_out = dup(std_out);
+}
+
 void	executor(t_mini *mini, t_toks *toks)
 {
 	int		status;
@@ -102,15 +113,9 @@ void	executor(t_mini *mini, t_toks *toks)
 	{
 		while (tmp)
 		{
-			dup2(mini->tmp_in, 0);
-			close(mini->tmp_in);
-			mini->here_doc_flag = 0;
 			while (toks && toks->type != 0)
 				toks = toks->next;
-			if (mini->cmd_count > 1 && toks->cmd_pos != mini->cmd_count)
-				create_pipes(mini);
-			if (toks->cmd_pos == mini->cmd_count)
-				mini->tmp_out = dup(std_out);
+			setup(mini, toks, std_out);
 			while (tmp && tmp->type != 1)
 			{
 				search_redir(mini, tmp);
