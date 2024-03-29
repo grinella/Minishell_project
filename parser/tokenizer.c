@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 16:50:03 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:06:18 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	splitter(t_mini *mini, t_toks *toks)
 		tokens = mini_split(mini, ' ');
 	tokenizer(tokens, &toks);
 	cmd_count(mini, toks);
-	//is_builtin(mini, toks);
-	executor(mini, toks);
+	is_builtin(mini, toks);
+	//executor(mini, toks);
 }
 
 // subito sotto cmd_count

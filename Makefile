@@ -22,12 +22,14 @@ SRCS = 		minishell.c \
 			parser/tokenizer.c \
 			signals/signals.c \
 			executor/builtins/builtin.c \
+			executor/builtins/builtin_utils.c \
 			executor/builtins/my_exit.c \
 			executor/builtins/my_echo.c \
 			executor/builtins/my_env.c \
 			executor/builtins/my_cd.c \
 			executor/builtins/my_pwd.c \
 			executor/builtins/my_export.c \
+			executor/builtins/my_unset.c \
 			executor/executor.c \
 			executor/redirections.c \
 			# builtins/*.c \

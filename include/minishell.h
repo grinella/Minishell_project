@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 16:46:33 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 03:01:29 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,15 @@ void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
 void	my_pwd(t_mini *mini);
 void	my_export(t_mini *mini, t_toks *toks, int i);
+void	my_unset(t_mini *mini, t_toks *toks);
 
 // BUILTINS UTILS FUNCTIONS
 char	*get_env(char *search, t_mini *mini);
 char	**ft_realloc(char **mtr_old, char *str, int size);
+int		ft_search_char(char *str, char c);
+char	*ft_substrchr(const char *s, char c, int pre_or_post);
+void	ft_print_env_export(t_mini *mini);
+int		ft_check_export(char *str);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);

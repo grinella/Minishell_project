@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 02:04:58 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 03:27:35 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
-	// da controllare
 	return ;
 }
+	// il free(matrix) qui sopra è da controllare
 
 void	mini_free(char **str, int i)
 {
