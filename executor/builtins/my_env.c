@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:47:06 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 01:26:24 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:33:58 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,25 @@ char	*get_env(char *search, t_mini *mini)
 	return (NULL);
 }
 
+void	error_status(t_toks *toks)
+{
+	if (errno == EACCES)
+	{
+		printf("env: %s: Permission denied\n", toks->word[1]);
+		g_exit_status = 126;
+	}
+	else if (errno == ENOENT)
+	{
+		printf("env: %s: No such file or directory\n", toks->word[1]);
+		g_exit_status = 127;
+	}
+	else
+	{
+		printf("env: Error executing command: %s\n", strerror(errno));
+		g_exit_status = 1;
+	}
+}
+
 void	my_env(t_mini *mini, t_toks *toks)
 {
 	int	i;
@@ -60,11 +79,8 @@ void	my_env(t_mini *mini, t_toks *toks)
 				printf("%s\n", mini->env[i]);
 			i++;
 		}
+		g_exit_status = 0;
 	}
 	else
-	{
-		printf("env: %s: No such file or directory\n", toks->word[1]);
-		printf("env: too many arguments\n");
-		g_exit_status = 127;
-	}
+		error_status(toks);
 }

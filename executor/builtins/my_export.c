@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 02:26:02 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:18:42 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,5 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 			set_export_env(mini, toks, &i, 2);
 		i++;
 	}
+	g_exit_status = 0;
 }

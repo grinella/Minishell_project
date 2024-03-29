@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:40 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 03:26:32 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:48:20 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ char	**remove_variable_env(t_mini *mini, char **mtr_old, char *str, int i)
 				i++;
 			}
 		}
-		printf("AAAAAAA\n");
 		mtr_new[i] = NULL;
-		free_matrix(mtr_old); // stampa errore quando NON viene commentato
+		free_matrix(mtr_old);
 		return (mtr_new);
 	}
 	return (mtr_old);
 }
+// stampa errore quando NON viene commentato
 
 void	my_unset(t_mini *mini, t_toks *toks)
 {
@@ -68,5 +68,5 @@ void	my_unset(t_mini *mini, t_toks *toks)
 		mini->env = remove_variable_env(mini, mini->env, toks->word[i], 0);
 		i++;
 	}
-	return ;
+	g_exit_status = 0;
 }
