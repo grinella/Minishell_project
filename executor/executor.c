@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 03:28:29 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:04:17 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,28 +119,29 @@ void	executor(t_mini *mini, t_toks *toks)
 	std_out = dup(1);
 	mini->tmp_in = dup(std_in);
 	tmp = toks;
-	if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
-		execute_commands(mini, toks->word);
-	else
+	//if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
+	//	execute_commands(mini, toks->word);
+	//else
+	//{
+	while (tmp)
 	{
-		while (tmp)
+		while (toks && toks->type != 0)
+			toks = toks->next;
+		setup(mini, toks, std_out);
+		while (tmp && tmp->type != 1)
 		{
-			while (toks && toks->type != 0)
-				toks = toks->next;
-			setup(mini, toks, std_out);
-			while (tmp && tmp->type != 1)
-			{
-				search_redir(mini, tmp);
-				tmp = tmp->next;
-			}
-			execute_commands(mini, toks->word);
-			if (tmp)
-				tmp = tmp->next;
-			if (toks)
-				toks = toks->next;
+			search_redir(mini, tmp);
+			tmp = tmp->next;
 		}
-		reset_redir(std_in, std_out);
+		if ((is_builtin(mini, toks)) == 0)
+			execute_commands(mini, toks->word);
+		if (tmp)
+			tmp = tmp->next;
+		if (toks)
+			toks = toks->next;
 	}
+	reset_redir(std_in, std_out);
+	//}
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_exit_status = status;

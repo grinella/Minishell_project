@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 03:01:29 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:59:05 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	reset_redir(int fdin, int fdout);
 void	create_pipes(t_mini *mini);
 
 // BUILTINS FUNCTIONS
-void	is_builtin(t_mini *mini, t_toks *toks);
+int		is_builtin(t_mini *mini, t_toks *toks);
 void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_toks *toks);
 void	my_echo(t_toks *toks, int n);
