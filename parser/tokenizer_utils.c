@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:50:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 10:54:01 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:49:15 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	mini_len_word(char const *s, int i, char c)
 	while (s[i] != c && s[i] != '\0' && s[i]
 		!= '|' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != '\'')
 	{
-		printf("s[i] = %c\n", s[i]);
 		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 			return (i - len);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 03:11:25 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:30:46 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	only_space(char *str)
 	return (1);
 }
 
-//funzione da cancellare che printa i nodi
+//DA CANCELLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 void	ft_print_node(t_toks *toks)
 {
 	int	pos;
