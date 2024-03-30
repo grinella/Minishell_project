@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_count_words.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 01:55:54 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 02:00:43 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:41:08 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ int	mini_count_words(t_mini *mini, char c, int i, int count)
 		else
 			i++;
 	}
-	printf("count %i\n", count);
 	return (count);
 }

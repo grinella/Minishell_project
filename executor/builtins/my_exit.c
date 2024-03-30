@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:58:46 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 20:58:47 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:05:15 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	my_exit(t_toks *toks)
 	if (toks->word[1] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
+		//free_all();
 		exit (g_exit_status);
 	}
 	else if (ft_isdigit_mini(toks->word[1]) == 0 && toks->word[2] == NULL)
@@ -65,6 +66,7 @@ void	my_exit(t_toks *toks)
 		&& toks->word[2] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
+		//free_all();
 		exit (ft_atoi(toks->word[1]));
 	}
 	else

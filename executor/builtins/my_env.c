@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:47:06 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 13:33:58 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:24:21 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_env(char *search, t_mini *mini)
 	while (mini->env[i])
 	{
 		if (ft_strncmp(mini->env[i], search, search_len) == 0)
-			return (mini->env[i] + search_len + 1);
+			return (mini->env[i] );//+ search_len + 1);
 		i++;
 	}
 	return (NULL);

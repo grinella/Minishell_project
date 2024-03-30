@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 14:04:17 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:34:33 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,25 @@ char	*find_path(char **cmd, char **env)
 	char		*path;
 
 	i = 0;
+	if (cmd[0][0] == '/')
+		search_ap(cmd, buff);
 	while (ft_strncmp(env[i], "PATH=", 5))
-	{
 		i++;
-	}
 	base = ft_split((env[i] + 5), ':');
 	i = -1;
 	while (base && base[++i])
 	{
 		temp = ft_strjoin(base[i], "/");
-		if (!lstat(ft_strjoin(temp, cmd[0]), &buff))
+		path = ft_strjoin(temp, cmd[0]);
+		if (!lstat(path, &buff))
 		{
-			path = ft_strjoin(temp, cmd[0]);
 			free(temp);
+			free_matrix(base);
 			return (path);
 		}
+		free(temp);
+		free(path);
 	}
-	free(temp);
 	return (NULL);
 }
 
@@ -66,6 +68,7 @@ void	execute_commands(t_mini *mini, char **cmd)
 	}
 	if (mini->here_doc_flag == 1)
 		unlink("./temp.txt");
+	free(path);
 }
 
 void	search_redir(t_mini *mini, t_toks *tmp)
@@ -112,17 +115,15 @@ void	executor(t_mini *mini, t_toks *toks)
 {
 	int		status;
 	t_toks	*tmp;
+	t_toks	*head;
 	int		std_in;
 	int		std_out;
 
 	std_in = dup(0);
 	std_out = dup(1);
 	mini->tmp_in = dup(std_in);
+	head = toks;
 	tmp = toks;
-	//if (toks->type == 0 && toks->next == NULL && toks->prev == NULL)
-	//	execute_commands(mini, toks->word);
-	//else
-	//{
 	while (tmp)
 	{
 		while (toks && toks->type != 0)
@@ -141,8 +142,8 @@ void	executor(t_mini *mini, t_toks *toks)
 			toks = toks->next;
 	}
 	reset_redir(std_in, std_out);
-	//}
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_exit_status = status;
+	toks = head;
 }

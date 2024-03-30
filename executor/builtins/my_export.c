@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 13:18:42 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:17:59 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**ft_realloc_export(char **mtr_old, char *name, char *str, int size)
+char	**ft_realloc_export(t_mini *mini, char *name, char *str, int size)
 {
 	char	**mtr_new;
 	int		i;
@@ -21,16 +21,16 @@ char	**ft_realloc_export(char **mtr_old, char *name, char *str, int size)
 	i = 0;
 	while (i < size)
 	{
-		if (mtr_old[i] && ft_strncmp(mtr_old[i], name, ft_strlen(name)) != 0)
-			mtr_new[i] = ft_strdup(mtr_old[i]);
-		else if (mtr_old[i] && ft_strncmp(mtr_old[i],
+		if (mini->env[i] && ft_strncmp(mini->env[i], name, ft_strlen(name)) != 0)
+			mtr_new[i] = ft_strdup(mini->env[i]);
+		else if (mini->env[i] && ft_strncmp(mini->env[i],
 				name, ft_strlen(name)) == 0)
 			mtr_new[i] = ft_strdup(str);
-		else if (!mtr_old[i])
+		else if (!mini->env[i])
 			mtr_new[i] = ft_strdup(str);
 		i++;
 	}
-	free_matrix(mtr_old);
+	free_matrix(mini->env);
 	mtr_new[i] = NULL;
 	return (mtr_new);
 }
@@ -41,21 +41,23 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 	{
 		tmp = ft_substrchr(toks->word[*i], '=', -1);
 		if (get_env(tmp, mini) == NULL)
-			mini->env = ft_realloc_export(mini->env, tmp, toks->word[*i],
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					ft_count_matrix(mini->env) + 1);
 		else if (get_env(tmp, mini) != NULL)
-			mini->env = ft_realloc_export(mini->env, tmp, toks->word[*i],
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					(ft_count_matrix(mini->env)));
 	}
 	else
 	{
 		tmp = ft_strdup(toks->word[*i]);
 		if (get_env(tmp, mini) == NULL)
-			mini->env = ft_realloc_export(mini->env, tmp, toks->word[*i],
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					ft_count_matrix(mini->env) + 1);
-		else if (get_env(tmp, mini) != NULL)
-			return ;
+		// else if (get_env(tmp, mini) != NULL)
+		// 	return ;
 	}
+	free(tmp);
+	free(mini->str_exit_status);
 }
 
 void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
@@ -64,21 +66,21 @@ void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
 	if (get_env(tmp, mini) == NULL)
 	{
 		if (toks->word[*i + 1] != NULL)
-			mini->env = ft_realloc_export(mini->env, tmp,
+			mini->env = ft_realloc_export(mini, tmp,
 					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
 					ft_count_matrix(mini->env) + 1);
 		else if (toks->word[*i + 1] == NULL)
-			mini->env = ft_realloc_export(mini->env, tmp, toks->word[*i],
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					ft_count_matrix(mini->env) + 1);
 	}
 	else if (get_env(tmp, mini) != NULL)
 	{
 		if (toks->word[*i + 1] != NULL)
-			mini->env = ft_realloc_export(mini->env, tmp,
+			mini->env = ft_realloc_export(mini, tmp,
 					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
 					(ft_count_matrix(mini->env)));
 		else if (toks->word[*i + 1] == NULL)
-			mini->env = ft_realloc_export(mini->env, tmp, toks->word[*i],
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					(ft_count_matrix(mini->env)));
 	}
 	(*i) += 1;
@@ -121,6 +123,7 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 		else if (ft_search_char(toks->word[i], '=') == 1)
 			set_export_env(mini, toks, &i, 2);
 		i++;
+		free(check);
 	}
 	g_exit_status = 0;
 }

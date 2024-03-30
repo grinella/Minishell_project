@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:09:31 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/25 17:09:32 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:01:57 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	redir_out(char	**word, int type, t_mini *mini)
 		mini->tmp_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (mini->tmp_out < 0)
 		perror("minishell: error while opening the file\n");
+	free(file_name);
 }
 
 void	redir_in(char **word, t_mini *mini)
@@ -42,6 +43,7 @@ void	redir_in(char **word, t_mini *mini)
 	mini->tmp_in = open(file_name, O_RDONLY);
 	if (mini->tmp_in < 0)
 		perror("minishell: error while opening the file\n");
+	free(file_name);
 }
 
 void	here_doc(char **word, t_mini *mini)

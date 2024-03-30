@@ -31,6 +31,7 @@ SRCS = 		minishell.c \
 			executor/builtins/my_export.c \
 			executor/builtins/my_unset.c \
 			executor/executor.c \
+			executor/executor_utils.c \
 			executor/redirections.c \
 			# builtins/*.c \
 			executor/builtins/builtin_utils.c \

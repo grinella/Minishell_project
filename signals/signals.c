@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:34 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/27 18:17:15 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:11:43 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,23 @@ void	ft_ctrlc(int sign)
 {
 	(void)sign;
 	write(1, "\n", 1);
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 	g_exit_status = 1;
 }
 
-void	ft_ctrld(t_mini *mini)
+void	ft_ctrld(t_mini *mini, t_toks *toks)
 {
 	g_exit_status = 0;
-	// rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 	free_matrix(mini->env);
-	if (mini->input != NULL)
-		free(mini->input);
+	if (toks)
+		free_all(mini, toks);
+	if (mini->str_exit_status)
+		free(mini->str_exit_status);
 	exit(g_exit_status);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 14:30:46 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:15:25 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	mini->input = readline("shell>> ");
 	if (mini->input == NULL)
 	{
-		/*free_node(toks);*/
-		ft_ctrld(mini);
+		//free_node(toks);
+		ft_ctrld(mini, toks);
 	}
 	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
@@ -92,13 +92,11 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 		{
 			add_history(mini->input);
 		}
-		lexer(mini, toks);
-		printf("input:%s\n", mini->input);
-		printf("input pulito:%s\n", mini->c_input);
-		free_all(mini);
+		toks = lexer(mini, toks);
+		free_all(mini, toks);
 	}
-	else if (mini->input != NULL)
-		free(mini->input);
+	//else if (mini->input != NULL)
+	//	free(mini->input);
 	free(mini->str_exit_status);
 }
 // freeo str_exit_status per aggiornarla al prossimo giro senza sovrascriere
@@ -119,10 +117,15 @@ int	main(int argc, char **argv, char **env)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
-		init_mini(mini, env);
+		//init_mini(mini, env);
 		while (1)
+		{
+			put_env(mini, env);
 			mini_routine(mini, toks);
-		free_matrix(mini->env);
+			free_matrix(mini->env);
+		}
+		if (mini->env)
+			free_matrix(mini->env);
 		free(mini);
 	}
 	return (0);
