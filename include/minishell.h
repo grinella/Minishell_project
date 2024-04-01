@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 21:12:50 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/01 21:57:16 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	here_doc(char **word, t_mini *mini);
 void	reset_redir(int fdin, int fdout);
 void	create_pipes(t_mini *mini);
 void	search_ap(char **cmd, struct stat buff);
+void	reset_and_wait(int std_in, int std_out);
 
 // BUILTINS FUNCTIONS
 int		is_builtin(t_mini *mini, t_toks *toks);

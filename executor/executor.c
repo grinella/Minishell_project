@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 21:21:13 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:09:48 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	search_redir(t_mini *mini, t_toks *tmp)
 		close(mini->tmp_in);
 		if (tmp->type == 4)
 		{
-			if(redir_in(tmp->word, mini) == -1)
+			if (redir_in(tmp->word, mini) == -1)
 				return (-1);
 		}
 		else if (tmp->type == 5)
@@ -84,11 +84,8 @@ int	search_redir(t_mini *mini, t_toks *tmp)
 			here_doc(tmp->word, mini);
 			mini->here_doc_flag = 1;
 		}
-		if (mini->tmp_in > 0)
-		{
-			dup2(mini->tmp_in, 0);
-			close(mini->tmp_in);
-		}
+		dup2(mini->tmp_in, 0);
+		close(mini->tmp_in);
 	}
 	else if (tmp->type == 2 || tmp->type == 3)
 	{
@@ -113,7 +110,6 @@ void	setup(t_mini *mini, t_toks *toks, int std_out)
 
 void	executor(t_mini *mini, t_toks *toks)
 {
-	int		status;
 	t_toks	*tmp;
 	int		std_in;
 	int		std_out;
@@ -133,15 +129,12 @@ void	executor(t_mini *mini, t_toks *toks)
 			is_error = search_redir(mini, tmp);
 			tmp = tmp->next;
 		}
-		if ((is_builtin(mini, toks)) == 0 && is_error == 0)
+		if ((is_builtin(mini, toks)) == 0 || is_error == 0)
 			execute_commands(mini, toks->word);
 		if (tmp)
 			tmp = tmp->next;
 		if (toks)
 			toks = toks->next;
 	}
-	reset_redir(std_in, std_out);
-	while (waitpid(-1, &status, 0) > 0)
-		if (WIFEXITED(status))
-			g_exit_status = status;
+	reset_and_wait(std_in, std_out);
 }

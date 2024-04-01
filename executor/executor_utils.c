@@ -1,4 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/01 22:13:48 by ecaruso           #+#    #+#             */
+/*   Updated: 2024/04/01 22:14:10 by ecaruso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
+
+void	reset_and_wait(int std_in, int std_out)
+{
+	int		status;
+
+	reset_redir(std_in, std_out);
+	while (waitpid(-1, &status, 0) > 0)
+		if (WIFEXITED(status))
+			g_exit_status = status;
+}
 
 char	*trim_path(char *str, char c)
 {
