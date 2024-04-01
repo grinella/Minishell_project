@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:09:31 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 16:59:56 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:04:50 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	redir_out(char	**word, int type, t_mini *mini)
 	free(file_name);
 	if (mini->tmp_out < 0)
 		perror("minishell: error while opening the file\n");
-	free(file_name);
 }
 
 void	redir_in(char **word, t_mini *mini)
@@ -45,7 +44,6 @@ void	redir_in(char **word, t_mini *mini)
 	free(file_name);
 	if (mini->tmp_in < 0)
 		perror("minishell: error while opening the file\n");
-	free(file_name);
 }
 
 void	here_doc(char **word, t_mini *mini)
