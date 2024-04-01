@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:09:31 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 21:12:32 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/01 21:41:30 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void	here_doc(char **word, t_mini *mini)
 	fd = open("temp.txt", O_RDWR | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd == -1)
 		perror("Input open error\n");
-	while (1)
+	while ((str = readline("> ")) != NULL)
 	{
-		str = readline("> ");
 		if (ft_strncmp(str, word[1], ft_strlen(word[1])) == 0)
 		{
 			free(str);
