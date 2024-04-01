@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 19:22:18 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/03/29 21:42:55 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	tokenizer(char **tokens, t_toks **toks)
 //l'ultimo free matrix nella funzione sopra NON SO SE FUNZIONA
 
 //QUALCOSINA FUNZIONA ED é PURE CORRETTO
-void	splitter(t_mini *mini, t_toks *toks)
+t_toks	*splitter(t_mini *mini, t_toks *toks)
 {
 	char	**tokens;
 
@@ -108,6 +108,7 @@ void	splitter(t_mini *mini, t_toks *toks)
 	//ft_print_node(toks);
 	//is_builtin(mini, toks);
 	executor(mini, toks);
+	return (toks);
 }
 
 // subito sotto cmd_count

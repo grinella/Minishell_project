@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 19:49:23 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/03/29 21:45:45 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	put_env(t_mini *mini, char **env);
 int		ft_count_matrix(char **matrix);
 
 // LEXER FUNCTIONS
-char	*lexer(t_mini *mini, t_toks *toks);
+t_toks	*lexer(t_mini *mini, t_toks *toks);
 void	clean_input_len(t_mini *mini);
-void	splitter(t_mini *mini, t_toks *toks);
+t_toks	*splitter(t_mini *mini, t_toks *toks);
 void	space_len(int *i, int *j, int *flag, char *input);
 void	quotes_len(int *i, int *j, t_mini *mini);// char* input)
 void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len);
@@ -89,6 +89,7 @@ void	redir_in(char **word, t_mini *mini);
 void	here_doc(char **word, t_mini *mini);
 void	reset_redir(int fdin, int fdout);
 void	create_pipes(t_mini *mini);
+void	search_ap(char **cmd, struct stat buff);
 
 // BUILTINS FUNCTIONS
 int		is_builtin(t_mini *mini, t_toks *toks);
@@ -98,14 +99,19 @@ void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
 void	my_pwd(t_mini *mini);
 void	my_export(t_mini *mini, t_toks *toks, int i);
+void	my_unset(t_mini *mini, t_toks *toks);
 
 // BUILTINS UTILS FUNCTIONS
 char	*get_env(char *search, t_mini *mini);
 char	**ft_realloc(char **mtr_old, char *str, int size);
+int		ft_search_char(char *str, char c);
+char	*ft_substrchr(const char *s, char c, int pre_or_post);
+void	ft_print_env_export(t_mini *mini);
+int		ft_check_export(char *str);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);
-void	ft_ctrld(t_mini *mini);
+void	ft_ctrld(t_mini *mini, t_toks *toks);
 
 // UTILS FUNCTIONS
 char	**mini_split(t_mini *mini, char c);
@@ -116,7 +122,7 @@ void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 void	free_matrix(char **matrix);
 void	free_node(t_toks *toks);
 void	mini_free(char **str, int i);
-void	free_all(t_mini *mini);
+void	free_all(t_mini *mini, t_toks *toks);
 
 // void	exit_free(t_mini *mini, char **mtr);
 

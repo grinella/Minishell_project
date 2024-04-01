@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:48:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 19:53:34 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/03/29 19:52:37 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	is_builtin(t_mini *mini, t_toks *toks)
 		my_cd(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "export", 7))
 		my_export(mini, toks, 0);
-	// else if (!ft_strncmp(toks->word[0], "unset", 6))
-	// 	my_unset(mini);
+	else if (!ft_strncmp(toks->word[0], "unset", 6))
+		my_unset(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "pwd", 4))
 		my_pwd(mini);
 	else if (!ft_strncmp(toks->word[0], "env", 4))

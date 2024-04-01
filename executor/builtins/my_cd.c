@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/28 14:21:09 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:36:21 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**ft_realloc(char **mtr_old, char *str, int size)
 			mtr_new[i] = ft_strdup(str);
 		i++;
 	}
-	free_matrix(mtr_old);
+	// free_matrix(mtr_old);
 	mtr_new[i] = NULL;
 	return (mtr_new);
 }
@@ -64,6 +64,7 @@ void	set_pwd(char *old, char *new, t_mini *mini, int i)
 void	my_cd(t_mini *mini, t_toks *toks)
 {
 	char	*oldpwd;
+	char	*get;
 
 	oldpwd = getcwd(0, 0);
 	if (toks->word[1] == NULL)
@@ -74,14 +75,21 @@ void	my_cd(t_mini *mini, t_toks *toks)
 	}
 	else if (toks->word[1] && chdir(toks->word[1]) == -1)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", toks->word[1]);
-		g_exit_status = 999;
+		printf("minishell: cd: ");
+		if (errno == EACCES)
+			printf("%s: Permission denied\n", toks->word[1]);
+		else
+			printf("%s: No such file or directory\n", toks->word[1]);
+		g_exit_status = 1;
 	}
 	else
 	{
-		chdir(getcwd(0, 0));
-		set_pwd(oldpwd, getcwd(0, 0), mini, 0);
+		get = getcwd(0, 0);
+		chdir(get);
+		set_pwd(oldpwd, get, mini, 0);
 		g_exit_status = 0;
-		return ;
 	}
+	if (oldpwd != NULL)
+		free(oldpwd);
+	free(get);
 }

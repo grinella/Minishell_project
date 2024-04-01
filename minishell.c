@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 16:23:20 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:59:32 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	only_space(char *str)
 	return (1);
 }
 
-//funzione da cancellare che printa i nodi
+//DA CANCELLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 void	ft_print_node(t_toks *toks)
 {
 	int	pos;
@@ -83,8 +83,8 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	mini->input = readline("shell>> ");
 	if (mini->input == NULL)
 	{
-		/*free_node(toks);*/
-		ft_ctrld(mini);
+		//free_node(toks);
+		ft_ctrld(mini, toks);
 	}
 	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
@@ -92,11 +92,11 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 		{
 			add_history(mini->input);
 		}
-		lexer(mini, toks);
-		free_all(mini);
+		toks = lexer(mini, toks);
+		free_all(mini, toks);
 	}
-	else if (mini->input != NULL)
-		free(mini->input);
+	//else if (mini->input != NULL)
+	//	free(mini->input);
 	free(mini->str_exit_status);
 }
 // freeo str_exit_status per aggiornarla al prossimo giro senza sovrascriere
@@ -117,10 +117,15 @@ int	main(int argc, char **argv, char **env)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
-		init_mini(mini, env);
+		//init_mini(mini, env);
 		while (1)
+		{
+			put_env(mini, env);
 			mini_routine(mini, toks);
-		free_matrix(mini->env);
+			free_matrix(mini->env);
+		}
+		if (mini->env)
+			free_matrix(mini->env);
 		free(mini);
 	}
 	return (0);

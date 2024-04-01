@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:14:14 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/19 20:19:24 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:39:17 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	my_pwd(t_mini *mini)
 	(void)mini;
 	printf("%s\n", pwd);
 	g_exit_status = 0;
+	free(pwd);
 }

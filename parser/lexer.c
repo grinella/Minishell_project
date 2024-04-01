@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/25 22:50:15 by grinella         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:40:35 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	clean_input_len(t_mini *mini)
 	clean_input(mini, j);
 }
 
-char	*lexer(t_mini *mini, t_toks *toks)
+t_toks	*lexer(t_mini *mini, t_toks *toks)
 {
 	if (mini->input[0] == '\0')
 	{
@@ -128,7 +128,7 @@ char	*lexer(t_mini *mini, t_toks *toks)
 	if (mini->input)
 	{
 		clean_input_len(mini);
-		splitter(mini, toks);
+		toks = splitter(mini, toks);
 	}
-	return (mini->input);
+	return (toks);
 }
