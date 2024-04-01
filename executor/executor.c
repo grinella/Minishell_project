@@ -6,7 +6,7 @@
 /*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 21:34:33 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 18:46:30 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ char	*find_path(char **cmd, char **env)
 	char		*path;
 
 	i = 0;
-	if (cmd[0][0] == '/')
-		search_ap(cmd, buff);
+	search_ap(cmd, buff);
 	while (ft_strncmp(env[i], "PATH=", 5))
 		i++;
 	base = ft_split((env[i] + 5), ':');
@@ -31,13 +30,12 @@ char	*find_path(char **cmd, char **env)
 	{
 		temp = ft_strjoin(base[i], "/");
 		path = ft_strjoin(temp, cmd[0]);
+		free(temp);
 		if (!lstat(path, &buff))
 		{
-			free(temp);
 			free_matrix(base);
 			return (path);
 		}
-		free(temp);
 		free(path);
 	}
 	return (NULL);
@@ -58,7 +56,7 @@ void	execute_commands(t_mini *mini, char **cmd)
 	else if (pid == 0)
 	{
 		close(mini->tmp_in);
-		if (access(path, F_OK) == 0)
+		if (path != NULL)
 			execve(path, cmd, mini->env);
 		else
 		{
