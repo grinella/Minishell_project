@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:09:31 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 17:04:50 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 21:12:32 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,24 @@ void	create_pipes(t_mini *mini)
 
 void	redir_out(char	**word, int type, t_mini *mini)
 {
-	char	*file_name;
-
-	file_name = ft_strdup(word[1]);
 	if (type == 2)
-		mini->tmp_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		mini->tmp_out = open(word[1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (type == 3)
-		mini->tmp_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
-	free(file_name);
+		mini->tmp_out = open(word[1], O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (mini->tmp_out < 0)
-		perror("minishell: error while opening the file\n");
+		perror(word[1]);
 }
 
-void	redir_in(char **word, t_mini *mini)
+int	redir_in(char **word, t_mini *mini)
 {
-	char	*file_name;
-
-	file_name = ft_strdup(word[1]);
-	mini->tmp_in = open(file_name, O_RDONLY);
-	free(file_name);
+	mini->tmp_in = open(word[1], O_RDONLY);
 	if (mini->tmp_in < 0)
-		perror("minishell: error while opening the file\n");
+	{
+		g_exit_status = 1;
+		perror(word[1]);
+		return(-1);
+	}
+	return(0);
 }
 
 void	here_doc(char **word, t_mini *mini)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 21:42:55 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 20:51:12 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	tokenizer(char **tokens, t_toks **toks)
 }
 //l'ultimo free matrix nella funzione sopra NON SO SE FUNZIONA
 
-//QUALCOSINA FUNZIONA ED é PURE CORRETTO
 t_toks	*splitter(t_mini *mini, t_toks *toks)
 {
 	char	**tokens;
@@ -106,12 +105,6 @@ t_toks	*splitter(t_mini *mini, t_toks *toks)
 	tokenizer(tokens, &toks);
 	cmd_count(mini, toks);
 	//ft_print_node(toks);
-	//is_builtin(mini, toks);
 	executor(mini, toks);
 	return (toks);
 }
-
-// subito sotto cmd_count
-// is_builtin(toks); // per testare builtins,
-// poi dovrà essere implementata probabilmente nell'executor
-// ft_print_node(toks);

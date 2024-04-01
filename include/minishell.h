@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 21:45:45 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 21:12:50 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i);
 void	executor(t_mini *mini, t_toks *toks);
 void	execute_commands(t_mini *mini, char **cmd);
 void	redir_out(char	**word, int type, t_mini *mini);
-void	redir_in(char **word, t_mini *mini);
+int		redir_in(char **word, t_mini *mini);
 void	here_doc(char **word, t_mini *mini);
 void	reset_redir(int fdin, int fdout);
 void	create_pipes(t_mini *mini);

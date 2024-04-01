@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 18:46:30 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/01 21:21:13 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ void	execute_commands(t_mini *mini, char **cmd)
 	free(path);
 }
 
-void	search_redir(t_mini *mini, t_toks *tmp)
+int	search_redir(t_mini *mini, t_toks *tmp)
 {
 	if (tmp->type == 4 || tmp->type == 5)
 	{
 		close(mini->tmp_in);
 		if (tmp->type == 4)
 		{
-			redir_in(tmp->word, mini);
+			if(redir_in(tmp->word, mini) == -1)
+				return (-1);
 		}
 		else if (tmp->type == 5)
 		{
@@ -96,6 +97,7 @@ void	search_redir(t_mini *mini, t_toks *tmp)
 	}
 	dup2(mini->tmp_out, 1);
 	close(mini->tmp_out);
+	return (0);
 }
 
 void	setup(t_mini *mini, t_toks *toks, int std_out)
@@ -113,14 +115,13 @@ void	executor(t_mini *mini, t_toks *toks)
 {
 	int		status;
 	t_toks	*tmp;
-	t_toks	*head;
 	int		std_in;
 	int		std_out;
+	int		is_error;
 
 	std_in = dup(0);
 	std_out = dup(1);
 	mini->tmp_in = dup(std_in);
-	head = toks;
 	tmp = toks;
 	while (tmp)
 	{
@@ -129,10 +130,10 @@ void	executor(t_mini *mini, t_toks *toks)
 		setup(mini, toks, std_out);
 		while (tmp && tmp->type != 1)
 		{
-			search_redir(mini, tmp);
+			is_error = search_redir(mini, tmp);
 			tmp = tmp->next;
 		}
-		if ((is_builtin(mini, toks)) == 0)
+		if ((is_builtin(mini, toks)) == 0 && is_error == 0)
 			execute_commands(mini, toks->word);
 		if (tmp)
 			tmp = tmp->next;
@@ -143,5 +144,4 @@ void	executor(t_mini *mini, t_toks *toks)
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_exit_status = status;
-	toks = head;
 }
