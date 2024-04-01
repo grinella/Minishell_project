@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:50:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 10:54:01 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:25:38 by eugenio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	mini_len_word(char const *s, int i, char c)
 	while (s[i] != c && s[i] != '\0' && s[i]
 		!= '|' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != '\'')
 	{
-		printf("s[i] = %c\n", s[i]);
 		if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 			return (i - len);
 		i++;
@@ -69,6 +68,5 @@ char	**mini_split(t_mini *mini, char c)
 	if (!mtr)
 		return (NULL);
 	mini_fill_str(mtr, mini, c);
-	ft_print_matrix(mtr);
 	return (mtr);
 }
