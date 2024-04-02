@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 13:28:34 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 18:39:56 by grinella         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/02 19:59:47 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -31,6 +32,9 @@ void	ft_ctrld(t_mini *mini, t_toks *toks)
 	free_matrix(mini->env);
 	if (toks)
 		free_all(mini, toks);
+	if (mini->str_exit_status)
+		free(mini->str_exit_status);
+	free(mini);
 	exit(g_exit_status);
 }
 
