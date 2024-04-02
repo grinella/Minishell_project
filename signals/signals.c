@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:34 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/30 01:11:43 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:01:37 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_ctrld(t_mini *mini, t_toks *toks)
 		free_all(mini, toks);
 	if (mini->str_exit_status)
 		free(mini->str_exit_status);
+	free(mini);
 	exit(g_exit_status);
 }
 
