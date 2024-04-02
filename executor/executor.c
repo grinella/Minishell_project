@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 22:09:48 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:53:04 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	executor(t_mini *mini, t_toks *toks)
 			is_error = search_redir(mini, tmp);
 			tmp = tmp->next;
 		}
-		if ((is_builtin(mini, toks)) == 0 || is_error == 0)
+		if ((is_builtin(mini, toks)) == 0 && is_error == 0)
 			execute_commands(mini, toks->word);
 		if (tmp)
 			tmp = tmp->next;
