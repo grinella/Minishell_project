@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 19:06:45 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/02 20:15:00 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	executor(t_mini *mini, t_toks *toks)
 		setup(mini, toks, std_out);
 		while (tmp && tmp->type != 1)
 		{
-			if(search_redir(mini, tmp) == -1)
+			if (search_redir(mini, tmp) == -1)
 			{
 				reset_and_wait(std_in, std_out);
 				return ;
