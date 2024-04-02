@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 17:11:31 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:34:28 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,6 @@ void	ft_print_matrix(char **matrix)
 	return ;
 }
 
-// funzione che inizializza le varie variabili
-// quando le aggiungeremo, per adesso inizializza soltanto l'env
-void	init_mini(t_mini *mini, char **env)
-{
-	put_env(mini, env);
-}
-
 void	mini_routine(t_mini *mini, t_toks *toks)
 {
 	signal(SIGINT, ft_ctrlc);
@@ -83,7 +76,6 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 	mini->input = readline("shell>> ");
 	if (mini->input == NULL)
 	{
-		//free_node(toks);
 		ft_ctrld(mini, toks);
 	}
 	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
@@ -95,11 +87,12 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 		toks = lexer(mini, toks);
 		free_all(mini, toks);
 	}
-	//else if (mini->input != NULL)
-	//	free(mini->input);
-	free(mini->str_exit_status);
+	if (mini->str_exit_status)
+	{
+		free(mini->str_exit_status);
+		mini->str_exit_status = NULL;
+	}
 }
-// freeo str_exit_status per aggiornarla al prossimo giro senza sovrascriere
 
 int	main(int argc, char **argv, char **env)
 {
@@ -123,9 +116,6 @@ int	main(int argc, char **argv, char **env)
 		{
 			mini_routine(mini, toks);
 		}
-		if (mini->env)
-			free_matrix(mini->env);
-		free(mini);
 	}
 	return (0);
 }

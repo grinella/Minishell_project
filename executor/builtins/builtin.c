@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:48:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 19:52:37 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:36:14 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_builtin(t_mini *mini, t_toks *toks)
 {
 	if (!ft_strncmp(toks->word[0], "exit", 5))
-		my_exit(toks);
+		my_exit(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "cd", 3))
 		my_cd(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "export", 7))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:34 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/30 01:11:43 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:39:56 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	ft_ctrld(t_mini *mini, t_toks *toks)
 	free_matrix(mini->env);
 	if (toks)
 		free_all(mini, toks);
-	if (mini->str_exit_status)
-		free(mini->str_exit_status);
 	exit(g_exit_status);
 }
 

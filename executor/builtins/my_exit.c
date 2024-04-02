@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:58:46 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 21:05:15 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:35:27 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_isdigit_mini(char *str)
 }
 
 // se l'argomento non è numerico stampa l'errore
-void	error_numeric(t_toks *toks)
+void	error_numeric(t_mini *mini, t_toks *toks)
 {
 	if (toks->next == NULL)
 	{
@@ -36,6 +36,7 @@ void	error_numeric(t_toks *toks)
 		printf("minishell: exit %s: ", toks->word[1]);
 		printf("numeric argument required\n");
 		g_exit_status = 255;
+		free_all(mini, toks);
 		exit (g_exit_status);
 	}
 	else if (toks->next != NULL)
@@ -47,16 +48,16 @@ void	error_numeric(t_toks *toks)
 	}
 }
 
-void	my_exit(t_toks *toks)
+void	my_exit(t_mini *mini, t_toks *toks)
 {
 	if (toks->word[1] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
-		//free_all();
+		free_all(mini, toks);
 		exit (g_exit_status);
 	}
 	else if (ft_isdigit_mini(toks->word[1]) == 0 && toks->word[2] == NULL)
-		error_numeric(toks);
+		error_numeric(mini, toks);
 	else if (toks->word[1] == NULL && toks->next != NULL)
 	{
 		printf("exit\n");
@@ -66,13 +67,12 @@ void	my_exit(t_toks *toks)
 		&& toks->word[2] == NULL && toks->next == NULL)
 	{
 		printf("exit\n");
-		//free_all();
+		free_all(mini, toks);
 		exit (ft_atoi(toks->word[1]));
 	}
 	else
 	{
 		printf("exit\nminishell: exit: too many arguments\n");
 		g_exit_status = 1;
-		return ;
 	}
 }

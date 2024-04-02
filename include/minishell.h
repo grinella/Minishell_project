@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 21:57:16 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:35:54 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	reset_and_wait(int std_in, int std_out);
 // BUILTINS FUNCTIONS
 int		is_builtin(t_mini *mini, t_toks *toks);
 void	my_env(t_mini *mini, t_toks *toks);
-void	my_exit(t_toks *toks);
+void	my_exit(t_mini *mini, t_toks *toks);
 void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
 void	my_pwd(t_mini *mini);

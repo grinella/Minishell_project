@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 17:00:57 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:39:17 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+	matrix = NULL;
 	return ;
 }
 	// il free(matrix) qui sopra è da controllare
@@ -67,14 +68,19 @@ void	free_all(t_mini *mini, t_toks *toks)
 		free (mini->input);
 	if (mini->c_input != NULL)
 		free (mini->c_input);
+	if (mini->str_exit_status)
+	{
+		free(mini->str_exit_status);
+		mini->str_exit_status = NULL;
+	}
 	if (toks != NULL)
 		free_node(toks);
-	// exit(0);
-	//find_head(toks);
-	//if (toks)
-	//{
-		//printf("boh = %s\n", toks->word[0]);
-	//}
+	free_matrix(mini->env);
+	if (mini != NULL)
+	{
+		free(mini);
+		mini = NULL;
+	}
 }
 
 // void	exit_free(t_mini *mini, char **mtr)
