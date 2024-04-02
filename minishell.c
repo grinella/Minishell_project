@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 16:59:32 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:11:31 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,10 @@ int	main(int argc, char **argv, char **env)
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
 		//init_mini(mini, env);
+		put_env(mini, env);
 		while (1)
 		{
-			put_env(mini, env);
 			mini_routine(mini, toks);
-			free_matrix(mini->env);
 		}
 		if (mini->env)
 			free_matrix(mini->env);

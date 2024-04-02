@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 23:36:21 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:31:51 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void	my_cd(t_mini *mini, t_toks *toks)
 		chdir(get);
 		set_pwd(oldpwd, get, mini, 0);
 		g_exit_status = 0;
+		free(get);
+		get = NULL;
 	}
-	if (oldpwd != NULL)
-		free(oldpwd);
-	free(get);
 }

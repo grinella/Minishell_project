@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 21:49:09 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:00:57 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	mini_free(char **str, int i)
 	free(str);
 }
 
-void	find_head(t_toks *toks)
-{
-	while(toks->prev != NULL)
-		toks = toks->prev;
-}
+// void	find_head(t_toks *toks)
+// {
+// 	while (toks->prev != NULL)
+// 		toks = toks->prev;
+// }
 
 void	free_all(t_mini *mini, t_toks *toks)
 {
