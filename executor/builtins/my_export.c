@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/30 01:17:59 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/03 21:17:32 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**ft_realloc_export(t_mini *mini, char *name, char *str, int size)
 	char	**mtr_new;
 	int		i;
 
-	mtr_new = malloc(sizeof(char *) * (size));
+	mtr_new = malloc(sizeof(char *) * (size + 1));
 	i = 0;
 	while (i < size)
 	{
@@ -57,7 +57,6 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 		// 	return ;
 	}
 	free(tmp);
-	free(mini->str_exit_status);
 }
 
 void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
@@ -86,6 +85,9 @@ void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
 	(*i) += 1;
 }
 
+// if (toks->word[*i + 1] == NULL)
+// 			type_one(mini, toks, i, tmp);
+
 void	set_export_env(t_mini *mini, t_toks *toks, int *i, int type)
 {
 	char	*tmp;
@@ -107,9 +109,8 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 		ft_print_env_export(mini);
 		return ;
 	}
-	i = 1;
 	check = NULL;
-	while (toks->word[i] != NULL)
+	while (i <= (ft_count_matrix(toks->word) - 1))
 	{
 		if (ft_search_char(toks->word[i], '=') == 0)
 			check = ft_strdup(toks->word[i]);

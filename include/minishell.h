@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 17:53:24 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 22:01:51 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_toks
 	int				cmd_pos;
 	struct s_toks	*prev;
 	struct s_toks	*next;
-}	t_toks; // serve un current??
+}	t_toks;
 
 typedef struct s_mini
 {
@@ -74,12 +74,14 @@ int		m_len_q(char const *s, int i, char c);
 int		mini_len_word(char const *s, int i, char c);
 int		is_pipe_redir(char const *s, int i);
 int		mini_count_words(t_mini *mini, char c, int i, int count);
+void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini);
 
 // PARSER FUNCTIONS
 void	append_node(char **tokens, t_toks **toks, int type, int *i);
 t_toks	*find_last_node(t_toks *head);
 void	fill_node(char **tokens, t_toks *node, int *i);
 void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i);
+void	append_node(char **tokens, t_toks **toks, int type, int *i);
 
 // EXECUTOR FUNCTIONS
 void	executor(t_mini *mini, t_toks *toks, int *std_in, int *std_out);
@@ -98,17 +100,18 @@ void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_mini *mini, t_toks *toks);
 void	my_echo(t_toks *toks, int n);
 void	my_cd(t_mini *mini, t_toks *toks);
-void	my_pwd(t_mini *mini);
+void	my_pwd(int i);
 void	my_export(t_mini *mini, t_toks *toks, int i);
 void	my_unset(t_mini *mini, t_toks *toks);
 
 // BUILTINS UTILS FUNCTIONS
 char	*get_env(char *search, t_mini *mini);
-char	**ft_realloc(char **mtr_old, char *str, int size);
+char	**ft_realloc(t_mini *mini, char *str, int size);
 int		ft_search_char(char *str, char c);
 char	*ft_substrchr(const char *s, char c, int pre_or_post);
 void	ft_print_env_export(t_mini *mini);
 int		ft_check_export(char *str);
+int		is_builtin(t_mini *mini, t_toks *toks);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);
@@ -126,7 +129,5 @@ void	free_node(t_toks *toks);
 void	mini_free(char **str, int i);
 void	free_routine(t_mini *mini, t_toks *toks);
 void	free_all(t_mini *mini, t_toks *toks);
-
-// void	exit_free(t_mini *mini, char **mtr);
 
 #endif

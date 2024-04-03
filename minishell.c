@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 15:21:19 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 21:08:14 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
-		//init_mini(mini, env);
 		put_env(mini, env);
 		while (1)
 		{

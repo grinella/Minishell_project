@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 15:22:13 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 21:43:50 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,3 @@ void	free_all(t_mini *mini, t_toks *toks)
 		mini = NULL;
 	}
 }
-
-// void	exit_free(t_mini *mini, char **mtr)
-// {
-// 	free_all(mini);
-// 	// free_node(toks);
-// 	if (mtr)
-// 		free_matrix(mtr);
-// }
