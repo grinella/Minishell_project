@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/01 20:51:12 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 01:18:50 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,19 @@ void	tokenizer(char **tokens, t_toks **toks)
 
 t_toks	*splitter(t_mini *mini, t_toks *toks)
 {
+	int		std_in;
+	int		std_out;
 	char	**tokens;
 
+	std_in = 0;
+	std_out = 0;
 	tokens = NULL;
 	if (mini->c_input)
 		tokens = mini_split(mini, ' ');
 	tokenizer(tokens, &toks);
 	cmd_count(mini, toks);
 	//ft_print_node(toks);
-	executor(mini, toks);
+	executor(mini, toks, &std_in, &std_out);
+	reset_and_wait(std_in, std_out);
 	return (toks);
 }

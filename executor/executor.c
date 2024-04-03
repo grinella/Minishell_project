@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 20:15:00 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 01:20:27 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,28 +108,23 @@ void	setup(t_mini *mini, t_toks *toks, int std_out)
 		mini->tmp_out = dup(std_out);
 }
 
-void	executor(t_mini *mini, t_toks *toks)
+void	executor(t_mini *mini, t_toks *toks, int *std_in, int *std_out)
 {
 	t_toks	*tmp;
-	int		std_in;
-	int		std_out;
 
-	std_in = dup(0);
-	std_out = dup(1);
-	mini->tmp_in = dup(std_in);
+	*std_in = dup(0);
+	*std_out = dup(1);
+	mini->tmp_in = dup(*std_in);
 	tmp = toks;
 	while (tmp)
 	{
 		while (toks && toks->type != 0)
 			toks = toks->next;
-		setup(mini, toks, std_out);
+		setup(mini, toks, *std_out);
 		while (tmp && tmp->type != 1)
 		{
 			if (search_redir(mini, tmp) == -1)
-			{
-				reset_and_wait(std_in, std_out);
 				return ;
-			}
 			tmp = tmp->next;
 		}
 		if ((is_builtin(mini, toks)) == 0)
@@ -139,5 +134,4 @@ void	executor(t_mini *mini, t_toks *toks)
 		if (toks)
 			toks = toks->next;
 	}
-	reset_and_wait(std_in, std_out);
 }

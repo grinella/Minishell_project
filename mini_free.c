@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 19:39:17 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 00:59:33 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ void	free_all(t_mini *mini, t_toks *toks)
 	}
 	if (toks != NULL)
 		free_node(toks);
-	free_matrix(mini->env);
-	if (mini != NULL)
-	{
-		free(mini);
-		mini = NULL;
-	}
+//	free_matrix(mini->env);
+//	if (mini != NULL)
+	//{
+		//free(mini);
+		//mini = NULL;
+	//}
 }
 
 // void	exit_free(t_mini *mini, char **mtr)

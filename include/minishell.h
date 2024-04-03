@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 18:35:54 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 01:19:08 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	fill_node(char **tokens, t_toks *node, int *i);
 void	fill_complex_node(char **tokens, t_toks **toks, t_toks *node, int *i);
 
 // EXECUTOR FUNCTIONS
-void	executor(t_mini *mini, t_toks *toks);
+void	executor(t_mini *mini, t_toks *toks, int *std_in, int *std_out);
 void	execute_commands(t_mini *mini, char **cmd);
 void	redir_out(char	**word, int type, t_mini *mini);
 int		redir_in(char **word, t_mini *mini);
