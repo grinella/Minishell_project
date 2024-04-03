@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:48:07 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 18:36:14 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:49:54 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	is_builtin(t_mini *mini, t_toks *toks)
 	else if (!ft_strncmp(toks->word[0], "cd", 3))
 		my_cd(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "export", 7))
-		my_export(mini, toks, 0);
+	{
+		//printf("toks->word[%i] = [%s]\n", 1, toks->word[1]);
+		my_export(mini, toks, 1);
+	}
 	else if (!ft_strncmp(toks->word[0], "unset", 6))
 		my_unset(mini, toks);
 	else if (!ft_strncmp(toks->word[0], "pwd", 4))

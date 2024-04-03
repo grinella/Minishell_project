@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 17:06:58 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 20:10:29 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
 	(*i) += 1;
 }
 
+// if (toks->word[*i + 1] == NULL)
+// 			type_one(mini, toks, i, tmp);
+
 void	set_export_env(t_mini *mini, t_toks *toks, int *i, int type)
 {
 	char	*tmp;
@@ -93,12 +96,7 @@ void	set_export_env(t_mini *mini, t_toks *toks, int *i, int type)
 	if (type == 1)
 		type_one(mini, toks, i, tmp);
 	else if (type == 2)
-	{
-		if (toks->word[*i + 1] == NULL)
-			type_one(mini, toks, i, tmp);
-		else
-			type_tow(mini, toks, i, tmp);
-	}
+		type_tow(mini, toks, i, tmp);
 	free(tmp);
 }
 
@@ -111,9 +109,8 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 		ft_print_env_export(mini);
 		return ;
 	}
-	i = 1;
 	check = NULL;
-	while (toks->word[i] != NULL)
+	while (i <= (ft_count_matrix(toks->word) - 1))
 	{
 		if (ft_search_char(toks->word[i], '=') == 0)
 			check = ft_strdup(toks->word[i]);
