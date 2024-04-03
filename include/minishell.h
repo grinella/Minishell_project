@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 01:19:08 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 15:22:54 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 void	free_matrix(char **matrix);
 void	free_node(t_toks *toks);
 void	mini_free(char **str, int i);
+void	free_routine(t_mini *mini, t_toks *toks);
 void	free_all(t_mini *mini, t_toks *toks);
 
 // void	exit_free(t_mini *mini, char **mtr);

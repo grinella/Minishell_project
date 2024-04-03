@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 00:59:33 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 15:22:13 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ void	mini_free(char **str, int i)
 // 		toks = toks->prev;
 // }
 
+void	free_routine(t_mini *mini, t_toks *toks)
+{
+	if (mini->input != NULL)
+		free (mini->input);
+	if (mini->c_input != NULL)
+		free (mini->c_input);
+	if (mini->str_exit_status)
+	{
+		free(mini->str_exit_status);
+		mini->str_exit_status = NULL;
+	}
+	if (toks != NULL)
+		free_node(toks);
+}
+
 void	free_all(t_mini *mini, t_toks *toks)
 {
 	if (mini->input != NULL)
@@ -75,12 +90,12 @@ void	free_all(t_mini *mini, t_toks *toks)
 	}
 	if (toks != NULL)
 		free_node(toks);
-//	free_matrix(mini->env);
-//	if (mini != NULL)
-	//{
-		//free(mini);
-		//mini = NULL;
-	//}
+	free_matrix(mini->env);
+	if (mini != NULL)
+	{
+		free(mini);
+		mini = NULL;
+	}
 }
 
 // void	exit_free(t_mini *mini, char **mtr)

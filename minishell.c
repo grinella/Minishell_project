@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 19:34:28 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:21:19 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	mini_routine(t_mini *mini, t_toks *toks)
 			add_history(mini->input);
 		}
 		toks = lexer(mini, toks);
-		free_all(mini, toks);
+		free_routine(mini, toks);
 	}
 	if (mini->str_exit_status)
 	{
