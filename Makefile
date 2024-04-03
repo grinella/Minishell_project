@@ -11,15 +11,31 @@ RM				=	rm -f
 
 SRCS = 		minishell.c \
 			mini_utils.c \
-			mini_utils_1.c \
+			mini_free.c \
 			parser/lexer.c \
 			parser/lexer_utils.c \
+			parser/alloc_functions.c \
+			parser/mini_count_words.c \
+			parser/tokenizer_fill_str.c \
+			parser/tokenizer_fill_node.c \
+			parser/tokenizer_utils.c \
 			parser/tokenizer.c \
 			signals/signals.c \
 			executor/builtins/builtin.c \
-			executor/builtins/my_exit.c \
-			# executor/*.c \
 			executor/builtins/builtin_utils.c \
+			executor/builtins/my_exit.c \
+			executor/builtins/my_echo.c \
+			executor/builtins/my_env.c \
+			executor/builtins/my_cd.c \
+			executor/builtins/my_pwd.c \
+			executor/builtins/my_export.c \
+			executor/builtins/my_unset.c \
+			executor/executor.c \
+			executor/executor_utils.c \
+			executor/redirections.c \
+			# builtins/*.c \
+			executor/builtins/builtin_utils.c \
+			executor/redirection.c \
 
 OBJS		=	$(SRCS:%.c=%.o)
 

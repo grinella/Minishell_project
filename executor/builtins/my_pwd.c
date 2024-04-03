@@ -1,17 +1,24 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 20:14:14 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/29 23:39:17 by eugenio          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// Stampa il percorso corrente (current working directory) sulla console.
-void	my_pwd(t_mini *p)
+#include "../../include/minishell.h"
+
+void	my_pwd(t_mini *mini)
 {
-	char	*cwd;
-	(void)p;
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		cont_error(NDIR, "", 1);
-	}
-	ft_putendl_fd(cwd, 1);
-	// p->mini_prompt->envp = set_env("OLDPWD", cwd, p->mini_prompt->envp, 6);
-	// p->mini_prompt->envp = set_env("PWD", cwd, p->mini_prompt->envp, 3);
-	free(cwd);
+	char	*pwd;
+
+	pwd = getcwd(0, 0);
+	(void)mini;
+	printf("%s\n", pwd);
+	g_exit_status = 0;
+	free(pwd);
 }

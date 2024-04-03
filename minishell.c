@@ -1,61 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
+/*   Updated: 2024/04/03 15:21:19 by ecaruso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/minishell.h"
 
 int	g_exit_status;
 
-void	free_node(t_toks *toks)
-{
-	t_toks	*tmp;
-	t_toks	*current;
-
-	if (toks == NULL)
-		return ;
-	current = toks;
-	while (current)
-	{
-		tmp = current->next;
-		free_matrix(current->word);
-		current = tmp;
-	}
-	free(current);
-	toks = NULL;
-}
-
-void	free_matrix(char **matrix)
+int	only_space(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	//free(matrix);
-	return ;
-}
-
-void	free_all(t_mini *mini)
-{
-	if(mini->input != NULL)
-		free (mini->input);
-	if(mini->c_input != NULL)
-		free (mini->c_input);
-}
-
-int	only_space(char* str)
-{
-	int	i;
-
-	i = 0;
-	while(str[i] == ' ')
+	while (str[i] == ' ')
 	{
 		i++;
-		if(str[i] == '\0')
+		if (str[i] == '\0')
 			return (0);
 	}
-	return(1);
+	return (1);
 }
-//funzione da cancellare che printa i nodi
+
+//DA CANCELLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 void	ft_print_node(t_toks *toks)
 {
 	int	pos;
@@ -68,9 +41,11 @@ void	ft_print_node(t_toks *toks)
 		i = 0;
 		printf("\nPosizione nodo: %i\n", pos);
 		printf("Tipo di token: %i\n", toks->type);
+		printf("Cmd_pos: %i\n", toks->cmd_pos);
 		while (toks->word[i])
 		{
-			printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, toks->word[i]);
+			printf("posizione matrice:%i\n", i);
+			printf("contenuto matrice:%s\n", toks->word[i]);
 			i++;
 		}
 		toks = toks->next;
@@ -92,44 +67,38 @@ void	ft_print_matrix(char **matrix)
 	return ;
 }
 
-//funzione che inizializza le varie variabili quando le aggiungeremo, per adesso inizializza soltanto l'env
-void	init_mini(t_mini *mini, char **env)
-{
-	put_env(mini, env);
-}
-
 void	mini_routine(t_mini *mini, t_toks *toks)
 {
 	signal(SIGINT, ft_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
-	mini->str_exit_status = ft_itoa(g_exit_status);// stringa con l'exit status aggiornato
+	mini->cmd_count = 0;
+	mini->str_exit_status = ft_itoa(g_exit_status);
 	mini->input = readline("shell>> ");
-	if(mini->input == NULL)
+	if (mini->input == NULL)
 	{
-		//free_node(toks);
-		ft_ctrld(mini);
+		ft_ctrld(mini, toks);
 	}
-	if(mini->input[0] != '\0' && only_space(mini->input) == 1)
+	if (mini->input[0] != '\0' && only_space(mini->input) == 1)
 	{
 		if (mini->input && mini->input[0])
 		{
 			add_history(mini->input);
 		}
-		lexer(mini, toks);
-		printf("input:%s\n", mini->input);
-		printf("input pulito:%s\n", mini->c_input);
-		free_all(mini);
+		toks = lexer(mini, toks);
+		free_routine(mini, toks);
 	}
-	else
-		free(mini->input);
-	free(mini->str_exit_status);// freeo la variabile str_exit_status per aggiornarla al prossimo giro senza sovrascriere
+	if (mini->str_exit_status)
+	{
+		free(mini->str_exit_status);
+		mini->str_exit_status = NULL;
+	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
 	t_toks	*toks;
-	
+
 	(void)argv;
 	g_exit_status = 0;
 	if (argc != 1)
@@ -137,15 +106,16 @@ int	main(int argc, char **argv, char **env)
 		printf("Error: too many arguments\n");
 		return (1);
 	}
-	if(argc == 1)
+	if (argc == 1)
 	{
 		mini = (t_mini *)ft_calloc(1, sizeof(t_mini));
 		toks = NULL;
-		init_mini(mini, env);
-		while(1)
+		//init_mini(mini, env);
+		put_env(mini, env);
+		while (1)
+		{
 			mini_routine(mini, toks);
-		free_matrix(mini->env);
-		free(mini);
+		}
 	}
 	return (0);
 }

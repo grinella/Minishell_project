@@ -1,26 +1,129 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
+/*   Updated: 2024/03/30 01:17:59 by eugenio          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// Stampa le variabili d'ambiente o imposta nuove variabili d'ambiente.
-void	my_export(t_mini *p)
+#include "../../include/minishell.h"
+
+char	**ft_realloc_export(t_mini *mini, char *name, char *str, int size)
 {
-	char	**env;
-	char	**pair;
+	char	**mtr_new;
+	int		i;
 
-	// Se il comando export è chiamato senza argomenti, stampa tutte
-	// le variabili d'ambiente.
-	if (!p->cmds->next)
+	mtr_new = malloc(sizeof(char *) * (size));
+	i = 0;
+	while (i < size)
 	{
-		env = p->env;
-		while (env && *env)
-			ft_putendl_fd(*env++, 1);
+		if (mini->env[i] && ft_strncmp(mini->env[i], name, ft_strlen(name)) != 0)
+			mtr_new[i] = ft_strdup(mini->env[i]);
+		else if (mini->env[i] && ft_strncmp(mini->env[i],
+				name, ft_strlen(name)) == 0)
+			mtr_new[i] = ft_strdup(str);
+		else if (!mini->env[i])
+			mtr_new[i] = ft_strdup(str);
+		i++;
 	}
-	// Se il comando export è chiamato con argomenti, imposta nuove
-	// variabili d'ambiente.
-	while (p->cmds->next)
+	free_matrix(mini->env);
+	mtr_new[i] = NULL;
+	return (mtr_new);
+}
+
+void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
+{
+	if (ft_search_char(toks->word[*i], '=') == 2)
 	{
-		pair = ((t_mini *)p->cmds->content)->toks;
-		if (pair && *pair)
-			p->env = set_env(pair[0], pair[1], p->env, -1);
-		p->cmds = p->cmds->next;
+		tmp = ft_substrchr(toks->word[*i], '=', -1);
+		if (get_env(tmp, mini) == NULL)
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
+					ft_count_matrix(mini->env) + 1);
+		else if (get_env(tmp, mini) != NULL)
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
+					(ft_count_matrix(mini->env)));
 	}
+	else
+	{
+		tmp = ft_strdup(toks->word[*i]);
+		if (get_env(tmp, mini) == NULL)
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
+					ft_count_matrix(mini->env) + 1);
+		// else if (get_env(tmp, mini) != NULL)
+		// 	return ;
+	}
+	free(tmp);
+	free(mini->str_exit_status);
+}
+
+void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
+{
+	tmp = ft_substrchr(toks->word[*i], '=', -1);
+	if (get_env(tmp, mini) == NULL)
+	{
+		if (toks->word[*i + 1] != NULL)
+			mini->env = ft_realloc_export(mini, tmp,
+					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
+					ft_count_matrix(mini->env) + 1);
+		else if (toks->word[*i + 1] == NULL)
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
+					ft_count_matrix(mini->env) + 1);
+	}
+	else if (get_env(tmp, mini) != NULL)
+	{
+		if (toks->word[*i + 1] != NULL)
+			mini->env = ft_realloc_export(mini, tmp,
+					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
+					(ft_count_matrix(mini->env)));
+		else if (toks->word[*i + 1] == NULL)
+			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
+					(ft_count_matrix(mini->env)));
+	}
+	(*i) += 1;
+}
+
+void	set_export_env(t_mini *mini, t_toks *toks, int *i, int type)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (type == 1)
+		type_one(mini, toks, i, tmp);
+	else if (type == 2)
+		type_tow(mini, toks, i, tmp);
+	free(tmp);
+}
+
+void	my_export(t_mini *mini, t_toks *toks, int i)
+{
+	char	*check;
+
+	if (toks->word[1] == NULL)
+	{
+		ft_print_env_export(mini);
+		return ;
+	}
+	i = 1;
+	check = NULL;
+	while (toks->word[i] != NULL)
+	{
+		if (ft_search_char(toks->word[i], '=') == 0)
+			check = ft_strdup(toks->word[i]);
+		else
+			check = ft_substrchr(toks->word[i], '=', -1);
+		if (ft_check_export(check) == 0)
+			return ;
+		if ((ft_search_char(toks->word[i], '=') == 0)
+			|| (ft_search_char(toks->word[i], '=') == 2))
+			set_export_env(mini, toks, &i, 1);
+		else if (ft_search_char(toks->word[i], '=') == 1)
+			set_export_env(mini, toks, &i, 2);
+		i++;
+		free(check);
+	}
+	g_exit_status = 0;
 }
