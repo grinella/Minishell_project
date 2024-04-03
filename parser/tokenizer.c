@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 15:30:13 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:22:03 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,20 @@ t_toks	*splitter(t_mini *mini, t_toks *toks)
 	tokens = NULL;
 	if (mini->c_input)
 		tokens = mini_split(mini, ' ');
-	tokenizer(tokens, &toks);
-	cmd_count(mini, toks);
-	//ft_print_node(toks);
-	executor(mini, toks, &std_in, &std_out);
-	reset_and_wait(std_in, std_out);
+	if (check_errors(tokens) == 0)
+	{
+		tokenizer(tokens, &toks);
+		cmd_count(mini, toks);
+		//ft_print_node(toks);
+		if (toks->type != 0 && toks->next == NULL)
+			printf("ERROR: parse error1\n");
+		else
+		{
+			executor(mini, toks, &std_in, &std_out);
+			reset_and_wait(std_in, std_out);
+		}
+	}
+	else
+		free_matrix(tokens);
 	return (toks);
 }

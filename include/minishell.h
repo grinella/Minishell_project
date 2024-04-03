@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 15:22:54 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 17:53:24 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	ft_ctrlc(int sign);
 void	ft_ctrld(t_mini *mini, t_toks *toks);
 
 // UTILS FUNCTIONS
+int		check_errors(char **matrix);
 char	**mini_split(t_mini *mini, char c);
 void	ft_print_node(t_toks *toks); // TESTING (DA CANCELLARE)
 void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
