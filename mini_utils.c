@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:06:26 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 18:47:29 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 20:00:21 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	check_errors(char **matrix)
 	{
 		if (matrix[i][0] == '>' || matrix[i][0] == '<')
 		{
-			if (matrix[i + 1] == NULL || matrix[i + 1][0] == '|')
+			if ((matrix[i + 1] == NULL && i == 0) || matrix[i + 1] == NULL || \
+				matrix[i + 1][0] == '|')
 			{
 				printf("ERROR: parse error\n");
 				return (-1);

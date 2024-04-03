@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 18:47:14 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 19:57:23 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,15 @@ t_toks	*splitter(t_mini *mini, t_toks *toks)
 		tokenizer(tokens, &toks);
 		cmd_count(mini, toks);
 		//ft_print_node(toks);
-		if (toks->type != 0 && toks->next != NULL)
+		if (toks->type != 0 && toks->next == NULL)
+			printf("ERROR: parse error1\n");
+		else
 		{
 			executor(mini, toks, &std_in, &std_out);
 			reset_and_wait(std_in, std_out);
 		}
-		else
-			printf("ERROR: parse error\n");
 	}
+	else
+		free_matrix(tokens);
 	return (toks);
 }
