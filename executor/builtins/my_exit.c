@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:58:46 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/02 18:35:27 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:02:28 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_isdigit_mini(char *str)
 	i = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		printf("str[%i] = %c\n", i, str[i]);
 		i++;
 		if (str[i] == '\0')
 			return (1);

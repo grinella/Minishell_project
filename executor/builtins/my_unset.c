@@ -3,70 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   my_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:40 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/29 13:48:20 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:59:39 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**remove_variable_env(t_mini *mini, char **mtr_old, char *str, int i)
+static void	remove_variable_env(t_mini *mini, char *str)
 {
-	char	**mtr_new;
+	int	i;
 
-	if (get_env(str, mini) == NULL)
-		return (mtr_old);
-	else if (get_env(str, mini) != NULL)
+	i = 0;
+	while (mini->env[i])
 	{
-		mtr_new = malloc(sizeof(char *) * (ft_count_matrix(mtr_old) - 1));
-		while (ft_strncmp(mini->env[i], str, ft_strlen(str)) != 0)
+		if (ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0
+			&& ((mini->env[i][ft_strlen(str)] == '=')
+			|| (mini->env[i][ft_strlen(str)]== '\0')))
 		{
-			mtr_new[i] = ft_strdup(mtr_old[i]);
-			i++;
-		}
-		if (ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0)
-		{
-			while (mtr_old[i + 1] != NULL)
+			free(mini->env[i]);
+			while (mini->env[i])
 			{
-				mtr_new[i] = ft_strdup(mtr_old[i + 1]);
+				mini->env[i] = mini->env[i + 1];
 				i++;
 			}
+			break ;
 		}
-		mtr_new[i] = NULL;
-		free_matrix(mtr_old);
-		return (mtr_new);
+		i++;
 	}
-	return (mtr_old);
 }
-// stampa errore quando NON viene commentato
+
+static int	valid_str(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || !str[0])
+		return (0);
+	while (str[i])
+	{
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	my_unset(t_mini *mini, t_toks *toks)
 {
 	int	i;
-	int	c;
 
 	i = 1;
-	c = 0;
-	if (toks->word[1] == NULL)
-		return ;
-	while (toks->word[i] != NULL)
+	while (toks->word[i])
 	{
-		while (toks->word[i][c])
+		if (!valid_str(toks->word[i]))
 		{
-			if (ft_isalnum(toks->word[i][c]) == 1 || toks->word[i][c] == '_')
-				c++;
-			else
-			{
-				printf("minishell: unset: `%s': not a valid identifier\n",
-					toks->word[i]);
-				g_exit_status = 1;
-				return ;
-			}
+			printf("minishell: unset: `%s': not a valid identifier\n",
+				toks->word[i]);
+			g_exit_status = 1;
+			return ;
 		}
-		mini->env = remove_variable_env(mini, mini->env, toks->word[i], 0);
+		else
+		{
+			remove_variable_env(mini, toks->word[i]);
+		}
 		i++;
 	}
-	g_exit_status = 0;
 }

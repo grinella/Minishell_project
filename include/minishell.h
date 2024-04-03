@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 15:22:54 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/03 17:23:09 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	my_unset(t_mini *mini, t_toks *toks);
 
 // BUILTINS UTILS FUNCTIONS
 char	*get_env(char *search, t_mini *mini);
-char	**ft_realloc(char **mtr_old, char *str, int size);
+char	**ft_realloc(t_mini *mini, char *str, int size);
 int		ft_search_char(char *str, char c);
 char	*ft_substrchr(const char *s, char c, int pre_or_post);
 void	ft_print_env_export(t_mini *mini);

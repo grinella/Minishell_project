@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eugenio <eugenio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/30 01:17:59 by eugenio          ###   ########.fr       */
+/*   Updated: 2024/04/03 17:06:58 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**ft_realloc_export(t_mini *mini, char *name, char *str, int size)
 	char	**mtr_new;
 	int		i;
 
-	mtr_new = malloc(sizeof(char *) * (size));
+	mtr_new = malloc(sizeof(char *) * (size + 1));
 	i = 0;
 	while (i < size)
 	{
@@ -57,7 +57,6 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 		// 	return ;
 	}
 	free(tmp);
-	free(mini->str_exit_status);
 }
 
 void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
@@ -94,7 +93,12 @@ void	set_export_env(t_mini *mini, t_toks *toks, int *i, int type)
 	if (type == 1)
 		type_one(mini, toks, i, tmp);
 	else if (type == 2)
-		type_tow(mini, toks, i, tmp);
+	{
+		if (toks->word[*i + 1] == NULL)
+			type_one(mini, toks, i, tmp);
+		else
+			type_tow(mini, toks, i, tmp);
+	}
 	free(tmp);
 }
 
