@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 12:33:46 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 15:04:37 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:35:59 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*ft_substrchr(const char *s, char c, int pre_or_post)
 	char	*tmp;
 
 	i = 0;
-	s_len = ft_strlen(s);
 	if (!s)
 		return (NULL);
+	s_len = ft_strlen(s);
 	while (s[i] != '\0')
 	{
 		if (s[i] == c)
@@ -56,26 +56,51 @@ char	*ft_substrchr(const char *s, char c, int pre_or_post)
 	return (NULL);
 }
 
+static char	**env_export_alpha(char **mt, int i, int i2, int len)
+{
+	char	*temp;
+
+	while (i < len - 1)
+	{
+		i2 = 0;
+		while (i2 < len - i - 1)
+		{
+			if (ft_strncmp(mt[i2], mt[i2 + 1], ft_strlen(mt[i2 + 1])) > 0)
+			{
+				temp = mt[i2];
+				mt[i2] = mt[i2 + 1];
+				mt[i2 + 1] = temp;
+			}
+			i2++;
+		}
+		i++;
+	}
+	return (mt);
+}
+
 void	ft_print_env_export(t_mini *mini)
 {
 	int		i;
 	char	*tmp0;
 	char	*tmp1;
-
+	char	**mtr;
+	
 	i = 0;
-	while (mini->env[i] != NULL)
+	mtr = env_export_alpha(ft_mtr_copy(mini), 0, 0, ft_count_mtr(mini->env));
+	while (mtr[i] != NULL)
 	{
-		tmp0 = ft_substrchr(mini->env[i], '=', 0);
-		tmp1 = ft_substrchr(mini->env[i], '=', 1);
-		if (ft_search_char(mini->env[i], '=') == 1
-			|| ft_search_char(mini->env[i], '=') == 2)
+		tmp0 = ft_substrchr(mtr[i], '=', 0);
+		tmp1 = ft_substrchr(mtr[i], '=', 1);
+		if (ft_search_char(mtr[i], '=') == 1
+			|| ft_search_char(mtr[i], '=') == 2)
 			printf("declare -x %s\"%s\"\n", tmp0, tmp1);
 		else
-			printf("declare -x %s\n", mini->env[i]);
+			printf("declare -x %s\n", mtr[i]);
 		i++;
 		free(tmp0);
 		free(tmp1);
 	}
+	free_matrix(mtr);
 	return ;
 }
 

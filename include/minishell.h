@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 22:01:51 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 20:56:25 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define CD1 "minishell: cd: "
 
 extern int	g_exit_status;
 
@@ -55,7 +57,7 @@ typedef struct s_mini
 
 // MINI FUNCTIONS
 void	put_env(t_mini *mini, char **env);
-int		ft_count_matrix(char **matrix);
+int		ft_count_mtr(char **matrix);
 
 // LEXER FUNCTIONS
 t_toks	*lexer(t_mini *mini, t_toks *toks);
@@ -99,7 +101,7 @@ int		is_builtin(t_mini *mini, t_toks *toks);
 void	my_env(t_mini *mini, t_toks *toks);
 void	my_exit(t_mini *mini, t_toks *toks);
 void	my_echo(t_toks *toks, int n);
-void	my_cd(t_mini *mini, t_toks *toks);
+void	my_cd(t_mini *mini, t_toks *toks, char *tmp);
 void	my_pwd(int i);
 void	my_export(t_mini *mini, t_toks *toks, int i);
 void	my_unset(t_mini *mini, t_toks *toks);
@@ -110,18 +112,18 @@ char	**ft_realloc(t_mini *mini, char *str, int size);
 int		ft_search_char(char *str, char c);
 char	*ft_substrchr(const char *s, char c, int pre_or_post);
 void	ft_print_env_export(t_mini *mini);
+char	**ft_mtr_copy(t_mini *mini);
 int		ft_check_export(char *str);
 int		is_builtin(t_mini *mini, t_toks *toks);
 
 // SIGNALS FUNCTIONS
 void	ft_ctrlc(int sign);
 void	ft_ctrld(t_mini *mini, t_toks *toks);
+void	handleback(int sig);
 
 // UTILS FUNCTIONS
 int		check_errors(char **matrix);
 char	**mini_split(t_mini *mini, char c);
-void	ft_print_node(t_toks *toks); // TESTING (DA CANCELLARE)
-void	ft_print_matrix(char **matrix); // TESTING (DA CANCELLARE)
 
 // FREE FUNCTIONS
 void	free_matrix(char **matrix);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 00:11:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/21 11:43:02 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:38:13 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	my_echo(t_toks *toks, int n)
 	if (toks->word[i] == NULL)
 	{
 		printf("\n");
+		g_exit_status = 0;
 		return ;
 	}
 	else if (!ft_strncmp(toks->word[i], "-n", 3))

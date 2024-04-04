@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 16:43:34 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 19:56:57 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,12 @@ void	execute_commands(t_mini *mini, char **cmd)
 	}
 	else if (pid == 0)
 	{
+		signal(SIGQUIT, handleback);
 		close(mini->tmp_in);
 		if (path != NULL && access(cmd[0], F_OK))
 			execve(path, cmd, mini->env);
 		else
-		{
-			perror("Execve failed");
-			exit(EXIT_FAILURE);
-		}
+			return (printf("%s: command not found\n", cmd[0]), exit(127));
 	}
 	if (mini->here_doc_flag == 1)
 		unlink("./temp.txt");

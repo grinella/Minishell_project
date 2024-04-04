@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:44:16 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 12:19:22 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:35:10 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	alloc_double_quotes(int *i, int *j, t_mini *mini)
 				(*i)++;
 			}
 		}
-		mini->c_input[*j] = mini->input[*i];
-		(*j)++;
-		(*i)++;
+		if (!mini->input[*i])
+		{
+			mini->c_input[*j] = mini->input[*i];
+			(*j)++;
+			(*i)++;
+		}
 	}
 }
 
@@ -97,6 +100,7 @@ void	alloc_quotes_or_tmp(int *i, int *j, int *len, t_mini *mini)
 				|| mini->input[*len] == '_'))
 			(*len)++;
 	}
+	(*i)--;
 	if (mini->input[*i] == '$')
 		(*i)++;
 	return ;
@@ -105,6 +109,7 @@ void	alloc_quotes_or_tmp(int *i, int *j, int *len, t_mini *mini)
 void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 {
 	char	*tmp;
+	char	*tmp1;
 
 	if (mini->input[len] == '$')
 		len++;
@@ -112,7 +117,10 @@ void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 		if (question_alloc(i, j, &len, mini) == 1)
 			return ;
 	alloc_quotes_or_tmp(i, j, &len, mini);
-	tmp = get_env(ft_substr(mini->input, *i, len - *i), mini);
+	tmp1 = get_env(ft_substr(mini->input, *i, len - *i), mini);
+	printf("tmp1 = [%s]\n", tmp1);
+	tmp = ft_substrchr(tmp1, '=', 1);
+	free(tmp1);
 	if (tmp == NULL)
 	{
 		while (ft_isalnum(mini->input[len]) || mini->input[len] == '_')

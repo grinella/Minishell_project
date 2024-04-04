@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 16:04:08 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 18:31:11 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_toks	*splitter(t_mini *mini, t_toks *toks)
 		tokenizer(tokens, &toks);
 		cmd_count(mini, toks);
 		if (toks->type != 0 && toks->next == NULL)
-			printf("ERROR: parse error1\n");
+			printf("ERROR: parse error\n");
 		else
 		{
 			executor(mini, toks, &std_in, &std_out);

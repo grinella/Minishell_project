@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:53 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 21:08:14 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 19:55:29 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,45 +26,6 @@ int	only_space(char *str)
 			return (0);
 	}
 	return (1);
-}
-
-//DA CANCELLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-void	ft_print_node(t_toks *toks)
-{
-	int	pos;
-	int	i;
-
-	i = 0;
-	pos = 0;
-	while (toks)
-	{
-		i = 0;
-		printf("\nPosizione nodo: %i\n", pos);
-		printf("Tipo di token: %i\n", toks->type);
-		printf("Cmd_pos: %i\n", toks->cmd_pos);
-		while (toks->word[i])
-		{
-			printf("posizione matrice:%i\n", i);
-			printf("contenuto matrice:%s\n", toks->word[i]);
-			i++;
-		}
-		toks = toks->next;
-		pos++;
-	}
-}
-
-//funzione da cancellare che printa la matrici
-void	ft_print_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		printf("posizione matrice:%i\ncontenuto matrice:%s\n", i, matrix[i]);
-		i++;
-	}
-	return ;
 }
 
 void	mini_routine(t_mini *mini, t_toks *toks)

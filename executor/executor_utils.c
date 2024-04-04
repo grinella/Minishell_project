@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 22:13:48 by ecaruso           #+#    #+#             */
-/*   Updated: 2024/04/04 16:41:08 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 19:50:23 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	reset_and_wait(int std_in, int std_out)
 
 	reset_redir(std_in, std_out);
 	while (waitpid(-1, &status, 0) > 0)
+	{
 		if (WIFEXITED(status))
-			g_exit_status = status;
+			g_exit_status = (WEXITSTATUS(status));
+	}
 }
 
 char	*trim_path(char *str, char c)
@@ -46,8 +48,12 @@ void	search_ap(char **cmd, struct stat buff)
 	{
 		str = trim_path(cmd[0], '/');
 		if (!str)
+		{
+			free (str);
 			return ;
+		}
 		free(cmd[0]);
 		cmd[0] = ft_strdup(str);
+		free(str);
 	}
 }

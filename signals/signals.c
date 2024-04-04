@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:13:26 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 13:41:07 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:41:53 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ void	ft_ctrld(t_mini *mini, t_toks *toks)
 	exit(g_exit_status);
 }
 
-// void	ft_ctrl_bs()
-// {
-// far leggere i segnali al figlio per il (Ctrl+"\")
-// }
-
-void	sig_ignore(void)
+void	handleback(int sig)
 {
-	signal(SIGINT, ft_ctrlc);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	(void)sig;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	g_exit_status = 131;
+	exit(g_exit_status);
 }

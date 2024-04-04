@@ -6,14 +6,31 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:06:26 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 21:04:16 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 23:08:19 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
+//crea la copia di una matrice
+char	**ft_mtr_copy(t_mini *mini)
+{
+	int		i;
+	char	**mtr_copy;
+	
+	i = 0;
+	mtr_copy = ft_calloc((ft_count_mtr(mini->env) + 1), sizeof (char **));
+	while (mini->env[i] != NULL)
+	{
+		mtr_copy[i] = ft_strdup(mini->env[i]);
+		i++;
+	}
+	mtr_copy[i] = NULL;
+	return (mtr_copy);
+}
+
 //numero di stringhe in una matrice
-int	ft_count_matrix(char **matrix)
+int	ft_count_mtr(char **matrix)
 {
 	int	i;
 
@@ -32,7 +49,7 @@ void	put_env(t_mini *mini, char **env)
 	int	m_len;
 
 	i = 0;
-	m_len = ft_count_matrix(env);
+	m_len = ft_count_mtr(env);
 	mini->env = ft_calloc(m_len + 1, sizeof(char **));
 	while (env[i] != NULL)
 	{
@@ -61,6 +78,8 @@ int	check_errors(char **matrix)
 		i++;
 	}
 	i--;
+	if (i < 0)
+		return (-1);
 	if (matrix[i][0] == '|')
 	{
 		printf("ERROR: parse error\n");

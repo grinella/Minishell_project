@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 15:22:02 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:19:23 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,39 +59,42 @@ void	set_pwd(char *old, char *new, t_mini *mini, int i)
 		mini->env = ft_realloc(mini, ft_strjoin("OLDPWD=", old),
 				sizeof(char *) * (i + 1));
 }
+static void	esecuzione_cd(char *oldpwd, t_mini *mini)
+{
+	char	*get;
 
-void	my_cd(t_mini *mini, t_toks *toks)
+	get = getcwd(0, 0);
+	chdir(get);
+	set_pwd(oldpwd, get, mini, 0);
+	g_exit_status = 0;
+	free(get);
+	get = NULL;
+}
+
+void	my_cd(t_mini *mini, t_toks *toks, char	*tmp)
 {
 	char	*oldpwd;
-	char	*get;
-	char	*tmp;
 
+	if (get_env(ft_strdup("HOME"), mini) == NULL)
+		return ;
 	oldpwd = getcwd(0, 0);
 	if (toks->word[1] == NULL)
 	{
-		tmp = (ft_substrchr(get_env("HOME", mini), '=', 1));
+		tmp = (ft_substrchr(get_env(ft_strdup("HOME"), mini), '=', 1));
 		chdir(tmp);
 		set_pwd(oldpwd, tmp, mini, 0);
 		g_exit_status = 0;
 	}
 	else if (toks->word[1] && chdir(toks->word[1]) == -1)
 	{
-		printf("minishell: cd: ");
 		if (errno == EACCES)
-			printf("%s: Permission denied\n", toks->word[1]);
+			printf("%s %s: Permission denied\n", CD1, toks->word[1]);
 		else
-			printf("%s: No such file or directory\n", toks->word[1]);
+			printf("%s %s: No such file or directory\n", CD1, toks->word[1]);
 		g_exit_status = 1;
 	}
 	else
-	{
-		get = getcwd(0, 0);
-		chdir(get);
-		set_pwd(oldpwd, get, mini, 0);
-		g_exit_status = 0;
-		free(get);
-		get = NULL;
-	}
+		esecuzione_cd(oldpwd, mini);
 	free(oldpwd);
 	free(tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 15:10:00 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:20:58 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 	if (ft_search_char(toks->word[*i], '=') == 2)
 	{
 		tmp = ft_substrchr(toks->word[*i], '=', -1);
-		if (get_env(tmp, mini) == NULL)
+		if (get_env(ft_strdup(tmp), mini) == NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
-					ft_count_matrix(mini->env) + 1);
-		else if (get_env(tmp, mini) != NULL)
+					ft_count_mtr(mini->env) + 1);
+		else if (get_env(ft_strdup(tmp), mini) != NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
-					(ft_count_matrix(mini->env)));
+					(ft_count_mtr(mini->env)));
 	}
 	else
 	{
 		tmp = ft_strdup(toks->word[*i]);
-		get = get_env(tmp, mini);
+		get = get_env(ft_strdup(tmp), mini);
 		if (get == NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
-					ft_count_matrix(mini->env) + 1);
+					ft_count_mtr(mini->env) + 1);
 		// else if (get_env(tmp, mini) != NULL)
 		// 	return ;
 		free(get);
@@ -67,25 +67,25 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 void	type_tow(t_mini *mini, t_toks *toks, int *i, char *tmp)
 {
 	tmp = ft_substrchr(toks->word[*i], '=', -1);
-	if (get_env(tmp, mini) == NULL)
+	if (get_env(ft_strdup(tmp), mini) == NULL)
 	{
 		if (toks->word[*i + 1] != NULL)
 			mini->env = ft_realloc_export(mini, tmp,
 					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
-					ft_count_matrix(mini->env) + 1);
+					ft_count_mtr(mini->env) + 1);
 		else if (toks->word[*i + 1] == NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
-					ft_count_matrix(mini->env) + 1);
+					ft_count_mtr(mini->env) + 1);
 	}
-	else if (get_env(tmp, mini) != NULL)
+	else if (get_env(ft_strdup(tmp), mini) != NULL)
 	{
 		if (toks->word[*i + 1] != NULL)
 			mini->env = ft_realloc_export(mini, tmp,
 					ft_strjoin(toks->word[*i], toks->word[*i + 1]),
-					(ft_count_matrix(mini->env)));
+					(ft_count_mtr(mini->env)));
 		else if (toks->word[*i + 1] == NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
-					(ft_count_matrix(mini->env)));
+					(ft_count_mtr(mini->env)));
 	}
 	(*i) += 1;
 	free(tmp);
@@ -113,7 +113,7 @@ void	my_export(t_mini *mini, t_toks *toks, int i)
 		return ;
 	}
 	check = NULL;
-	while (i <= (ft_count_matrix(toks->word) - 1))
+	while (i <= (ft_count_mtr(toks->word) - 1))
 	{
 		if (ft_search_char(toks->word[i], '=') == 0)
 			check = ft_strdup(toks->word[i]);
