@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 22:41:10 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 02:21:05 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	my_cd(t_mini *mini, t_toks *toks)
 	oldpwd = getcwd(0, 0);
 	if (toks->word[1] == NULL)
 	{
-		
 		// chdir(get_env("HOME", mini));
 		chdir(ft_substrchr(get_env("HOME", mini), '=', 1));
 		set_pwd(oldpwd, ft_substrchr(get_env("HOME", mini), '=', 1), mini, 0);

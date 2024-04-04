@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 21:27:27 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 02:18:45 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	tokenizer(char **tokens, t_toks **toks)
 	}
 	free_matrix(tokens);
 }
-//l'ultimo free matrix nella funzione sopra NON SO SE FUNZIONA
 
 t_toks	*splitter(t_mini *mini, t_toks *toks)
 {
@@ -110,7 +109,6 @@ t_toks	*splitter(t_mini *mini, t_toks *toks)
 	{
 		tokenizer(tokens, &toks);
 		cmd_count(mini, toks);
-		//ft_print_node(toks);
 		if (toks->type != 0 && toks->next == NULL)
 			printf("ERROR: parse error1\n");
 		else

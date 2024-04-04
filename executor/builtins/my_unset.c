@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:40 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 21:19:58 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 02:20:52 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	remove_variable_env(t_mini *mini, char *str)
 	{
 		if (ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0
 			&& ((mini->env[i][ft_strlen(str)] == '=')
-			|| (mini->env[i][ft_strlen(str)]== '\0')))
+			|| (mini->env[i][ft_strlen(str)] == '\0')))
 		{
 			free(mini->env[i]);
 			while (mini->env[i])

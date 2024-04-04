@@ -32,10 +32,7 @@ SRCS = 		minishell.c \
 			executor/builtins/my_unset.c \
 			executor/executor.c \
 			executor/executor_utils.c \
-			executor/redirections.c \
-			# builtins/*.c \
-			executor/builtins/builtin_utils.c \
-			executor/redirection.c \
+			executor/redirections.c
 
 OBJS		=	$(SRCS:%.c=%.o)
 
@@ -44,10 +41,16 @@ all:		$(NAME)
 $(NAME):	$(LIBFT) $(OBJS)
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L/usr/local/opt/readline/lib -lreadline -ltermcap
 			@echo "\nLinked into executable \033[0;32mminishell\033[0m."
+			@echo "\033[0;31m"
+			@echo "        :::   :::   ::::::::::: ::::    ::: ::::::::::: ::::::::  :::    ::: :::        :::::::: "
+			@echo "      :+:+: :+:+:      :+:     :+:+:   :+:     :+:    :+:    :+: :+:    :+: :+:       :+:    :+: "
+			@echo "    +:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    +:+        +:+    +:+ +:+       +:+    +:+  "
+			@echo "   +#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    +#+        +#+    +:+ +#+       +#+    +:+   "
+			@echo "  +#+       +#+     +#+     +#+  +#+#+#     +#+    +#+        +#+    +#+ +#+       +#+    +#+    "
+			@echo " #+#       #+#     #+#     #+#   #+#+#     #+#    #+#    #+# #+#    #+# #+#       #+#    #+#     "
+			@echo "###       ### ########### ###    #### ########### ########   ########  ########## ########       "
+			@echo "\033[0m"
 
-# $(NAME):	$(LIBFT) $(OBJS)
-# 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L/Users/$(USER)/.brew/opt/readline/lib -lreadline -ltermcap
-# 			@echo "\nLinked into executable \033[0;32mminishell\033[0m."
 
 $(LIBFT):
 			@echo "Compiling libft.a"
