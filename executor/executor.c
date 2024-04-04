@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 15:36:43 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:43:34 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	execute_commands(t_mini *mini, char **cmd)
 	else if (pid == 0)
 	{
 		close(mini->tmp_in);
-		if (path != NULL)
+		if (path != NULL && access(cmd[0], F_OK))
 			execve(path, cmd, mini->env);
 		else
 		{

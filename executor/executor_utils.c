@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 22:13:48 by ecaruso           #+#    #+#             */
-/*   Updated: 2024/04/01 22:14:10 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:41:08 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	search_ap(char **cmd, struct stat buff)
 	if (!lstat(cmd[0], &buff))
 	{
 		str = trim_path(cmd[0], '/');
+		if (!str)
+			return ;
 		free(cmd[0]);
 		cmd[0] = ft_strdup(str);
 	}

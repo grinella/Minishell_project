@@ -6,7 +6,7 @@
 /*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:39:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 02:18:45 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:04:08 by ecaruso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	tokenizer(char **tokens, t_toks **toks)
 		if (tokens[i][0] == '|' && tokens[i][1] == '|')
 		{
 			printf("Error: double pipe\n");
-			//richiamo funzione free;
 			return ;
 		}
 		else if (tokens[i][0] == '|')
