@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 03:28:28 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 21:09:41 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:36:43 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	*find_path(char **cmd, char **env)
 
 	i = 0;
 	search_ap(cmd, buff);
-	while (ft_strncmp(env[i], "PATH=", 5))
+	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
+	if (env[i] == NULL)
+		return (printf("Execve failed: Bad Address\n"), NULL);
 	base = ft_split((env[i] + 5), ':');
 	i = -1;
 	while (base && base[++i])
@@ -32,12 +34,10 @@ char	*find_path(char **cmd, char **env)
 		path = ft_strjoin(temp, cmd[0]);
 		free(temp);
 		if (!lstat(path, &buff))
-		{
-			free_matrix(base);
-			return (path);
-		}
+			return (free_matrix(base), path);
 		free(path);
 	}
+	free_matrix(base);
 	return (NULL);
 }
 

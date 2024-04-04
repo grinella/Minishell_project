@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/03 21:38:07 by ecaruso          ###   ########.fr       */
+/*   Created: 2024/04/04 13:13:26 by grinella          #+#    #+#             */
+/*   Updated: 2024/04/04 13:41:07 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -37,6 +36,11 @@ void	ft_ctrld(t_mini *mini, t_toks *toks)
 	free(mini);
 	exit(g_exit_status);
 }
+
+// void	ft_ctrl_bs()
+// {
+// far leggere i segnali al figlio per il (Ctrl+"\")
+// }
 
 void	sig_ignore(void)
 {

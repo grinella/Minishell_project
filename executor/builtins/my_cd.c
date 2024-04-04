@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 02:21:05 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:22:02 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ void	my_cd(t_mini *mini, t_toks *toks)
 {
 	char	*oldpwd;
 	char	*get;
+	char	*tmp;
 
 	oldpwd = getcwd(0, 0);
 	if (toks->word[1] == NULL)
 	{
-		// chdir(get_env("HOME", mini));
-		chdir(ft_substrchr(get_env("HOME", mini), '=', 1));
-		set_pwd(oldpwd, ft_substrchr(get_env("HOME", mini), '=', 1), mini, 0);
+		tmp = (ft_substrchr(get_env("HOME", mini), '=', 1));
+		chdir(tmp);
+		set_pwd(oldpwd, tmp, mini, 0);
 		g_exit_status = 0;
 	}
 	else if (toks->word[1] && chdir(toks->word[1]) == -1)
@@ -92,4 +93,5 @@ void	my_cd(t_mini *mini, t_toks *toks)
 		get = NULL;
 	}
 	free(oldpwd);
+	free(tmp);
 }

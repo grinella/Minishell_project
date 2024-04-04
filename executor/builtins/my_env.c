@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:47:06 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/03 22:35:57 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:34:41 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,23 @@ int	ft_search_char(char *str, char c)
 
 char	*get_env(char *search, t_mini *mini)
 {
-	int	i;
-	int	search_len;
+	int		i;
+	int		search_len;
+	char	*tmp;
 
 	search_len = ft_strlen(search);
 	i = 0;
+	tmp = ft_strjoin(search, "=");
 	while (mini->env[i])
 	{
-		if (ft_strncmp(mini->env[i], ft_strjoin(search, "="), search_len + 1) == 0)
+		if (ft_strncmp(mini->env[i], tmp, search_len + 1) == 0)
+		{
+			free(tmp);
 			return (mini->env[i]);
+		}
 		i++;
 	}
+	free(tmp);
 	return (NULL);
 }
 
