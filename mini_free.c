@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:21:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 18:20:48 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:30:12 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	free_matrix(char **matrix)
 	matrix = NULL;
 	return ;
 }
-	// il free(matrix) qui sopra è da controllare
 
 void	mini_free(char **str, int i)
 {
@@ -57,12 +56,6 @@ void	mini_free(char **str, int i)
 	}
 	free(str);
 }
-
-// void	find_head(t_toks *toks)
-// {
-// 	while (toks->prev != NULL)
-// 		toks = toks->prev;
-// }
 
 void	free_routine(t_mini *mini, t_toks *toks)
 {

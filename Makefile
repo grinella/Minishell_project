@@ -66,22 +66,22 @@ $(LIBFT):
 			@$(MAKE) all -s -C $(LIBFT_DIR)
 
 .c.o:
-			@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
+			@printf "\033[0;32mGenerating minishell objects... %-33.33s\r" $@
 			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 localclean:
 			@$(RM) $(OBJS)
-			@echo "Removed object files."
+			@echo "\033[0;31m""Removed object files."
 
 clean:		localclean
 			@$(MAKE) clean -s -C $(LIBFT_DIR)
-			@echo "Clean libft."
+			@echo "\033[0;31m""Clean libft."
 
 fclean:		localclean
 			@$(MAKE) fclean -s -C $(LIBFT_DIR)
 			@echo "Full clean libft."
 			@$(RM) $(NAME)
-			@echo "Removed executable."
+			@echo "\033[0;31m""Removed executable."
 
 re:			fclean all
 

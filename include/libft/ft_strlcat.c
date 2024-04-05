@@ -6,7 +6,7 @@
 /*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 17:06:30 by grinella          #+#    #+#             */
-/*   Updated: 2023/02/02 13:26:41 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:52:15 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,3 @@ size_t	ft_strlcat(char *dest, char *src, size_t size)
 	dest[i] = 0;
 	return (i + ft_strlen(&str[j]));
 }
-
-/*
-
-#include <stdio.h>
-
-int main()
-{
-	static char	dest[15];
-	int	i;
-	i = 0;
-	while(i < 6)
-	{
-		dest[i] = 'r';
-		i++;
-	}
-	dest[11] = 'a';
-	printf("%u,%s,\n", ft_strlcat(dest, "lorem", 15), dest);
-}
-*/

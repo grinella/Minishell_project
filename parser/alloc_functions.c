@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 23:44:16 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 22:35:10 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:31:20 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ void	alloc_quotes_or_tmp(int *i, int *j, int *len, t_mini *mini)
 				|| mini->input[*len] == '_'))
 			(*len)++;
 	}
-	(*i)--;
+	if (*i < 0)
+		*i = 0;
+	if ((size_t)(*i) > ft_strlen(mini->input))
+		(*i)--;
 	if (mini->input[*i] == '$')
 		(*i)++;
 	return ;
@@ -110,7 +113,9 @@ void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 {
 	char	*tmp;
 	char	*tmp1;
+	int		x;
 
+	x = 0;
 	if (mini->input[len] == '$')
 		len++;
 	if (mini->input[len] == '?')
@@ -118,23 +123,15 @@ void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini)
 			return ;
 	alloc_quotes_or_tmp(i, j, &len, mini);
 	tmp1 = get_env(ft_substr(mini->input, *i, len - *i), mini);
-	printf("tmp1 = [%s]\n", tmp1);
 	tmp = ft_substrchr(tmp1, '=', 1);
-	free(tmp1);
-	if (tmp == NULL)
-	{
-		while (ft_isalnum(mini->input[len]) || mini->input[len] == '_')
-			len++;
-		*i = len;
+	if (tmp1 != NULL)
+		free(tmp1);
+	if (free_tmp_env(tmp, i, len, mini) == 1)
 		return ;
-	}
-	else
-	{
-		while (*tmp)
-			mini->c_input[(*j)++] = *tmp++;
-		*i = len;
-		if (mini->input[len] == '"' || mini->input[len] == '\'')
-			alloc_quotes_or_tmp(i, j, &len, mini);
-		return ;
-	}
+	while (tmp[x])
+		mini->c_input[(*j)++] = tmp[x++];
+	*i = len;
+	if (mini->input[len] == '"' || mini->input[len] == '\'')
+		alloc_quotes_or_tmp(i, j, &len, mini);
+	return (free(tmp));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:38:59 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 20:56:25 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:41:40 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	alloc_spaces(int *i, int *j, t_mini *mini);
 void	alloc_double_quotes(int *i, int *j, t_mini *mini);
 void	alloc_single_quotes(int *i, int *j, t_mini *mini);
 void	alloc_dollar_env(int *i, int *j, int len, t_mini *mini);
+int		free_tmp_env(char *tmp, int *i, int len, t_mini *mini);
 
 void	mini_fill_str(char **str, t_mini *mini, char c);
 int		m_len_q(char const *s, int i, char c);

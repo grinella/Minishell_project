@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grinella <grinella@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:42:43 by grinella          #+#    #+#             */
-/*   Updated: 2024/03/26 00:35:34 by grinella         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:31:20 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	free_tmp_env(char *tmp, int *i, int len, t_mini *mini)
+{
+	if (tmp == NULL)
+	{
+		while (ft_isalnum(mini->input[len]) || mini->input[len] == '_')
+			len++;
+		*i = len;
+		return (1);
+	}
+	return (0);
+}
 
 void	space_len(int *i, int *j, int *flag, char *input)
 {

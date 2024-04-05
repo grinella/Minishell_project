@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:08:19 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 22:20:58 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:46:32 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	type_one(t_mini *mini, t_toks *toks, int *i, char *tmp)
 		if (get == NULL)
 			mini->env = ft_realloc_export(mini, tmp, toks->word[*i],
 					ft_count_mtr(mini->env) + 1);
-		// else if (get_env(tmp, mini) != NULL)
-		// 	return ;
 		free(get);
 	}
 	free(tmp);

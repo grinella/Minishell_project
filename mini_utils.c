@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:06:26 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 23:08:19 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:46:50 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**ft_mtr_copy(t_mini *mini)
 {
 	int		i;
 	char	**mtr_copy;
-	
+
 	i = 0;
 	mtr_copy = ft_calloc((ft_count_mtr(mini->env) + 1), sizeof (char **));
 	while (mini->env[i] != NULL)

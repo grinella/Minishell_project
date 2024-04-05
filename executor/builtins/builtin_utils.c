@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 12:33:46 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 22:35:59 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:50:31 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_print_env_export(t_mini *mini)
 	char	*tmp0;
 	char	*tmp1;
 	char	**mtr;
-	
+
 	i = 0;
 	mtr = env_export_alpha(ft_mtr_copy(mini), 0, 0, ft_count_mtr(mini->env));
 	while (mtr[i] != NULL)

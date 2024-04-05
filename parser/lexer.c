@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:23:20 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 23:28:04 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:52:28 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,18 @@ void	find_dollar_env_len(int *i, int *j, t_mini *mini, int len)
 	}
 	*i = len;
 	*j += ft_strlen(tmp);
+	free(tmp);
 }
 
-void	clean_input(t_mini *mini, int len)
+void	clean_input(t_mini *mini, int len, int i)
 {
-	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	mini->c_input = ft_calloc(sizeof(char *), (len + 1));
 	while (mini->input[i] == ' ')
 		i++;
-	printf("TEST: %c in pos %i\n", mini->input[i], i);
-	while (mini->input[i] != '\0')
+	while ((size_t)i < ft_strlen(mini->input) && mini->input[i] != '\0')
 	{
 		if (mini->input[i] == ' ')
 			alloc_spaces(&i, &j, mini);
@@ -80,13 +78,14 @@ void	clean_input(t_mini *mini, int len)
 			alloc_single_quotes(&i, &j, mini);
 		else if (mini->input[i] == '"')
 			alloc_double_quotes(&i, &j, mini);
-		else if (mini->input[i] == '$' && i++)
-			alloc_dollar_env(&i, &j, i, mini);
-		else
+		else if (mini->input[i] == '$')
 		{
-			mini->c_input[j] = mini->input[i++];
-			j++;
+			if (i != 0)
+				i++;
+			alloc_dollar_env(&i, &j, i, mini);
 		}
+		else
+			mini->c_input[j++] = mini->input[i++];
 	}
 	mini->c_input[j] = '\0';
 }
@@ -117,7 +116,7 @@ void	clean_input_len(t_mini *mini)
 		}
 		flag = 0;
 	}
-	clean_input(mini, j);
+	clean_input(mini, j, 0);
 }
 
 t_toks	*lexer(t_mini *mini, t_toks *toks)
@@ -129,8 +128,6 @@ t_toks	*lexer(t_mini *mini, t_toks *toks)
 	if (mini->input)
 	{
 		clean_input_len(mini);
-		printf("input = %s\n", mini->input);
-		printf("c_input = %s\n", mini->c_input);
 		toks = splitter(mini, toks);
 	}
 	return (toks);

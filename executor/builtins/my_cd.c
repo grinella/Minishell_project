@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:15:38 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 22:19:23 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:41:59 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	set_pwd(char *old, char *new, t_mini *mini, int i)
 		mini->env = ft_realloc(mini, ft_strjoin("OLDPWD=", old),
 				sizeof(char *) * (i + 1));
 }
+
 static void	esecuzione_cd(char *oldpwd, t_mini *mini)
 {
 	char	*get;

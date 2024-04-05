@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecaruso <ecaruso@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: grinella <grinella@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:47:06 by grinella          #+#    #+#             */
-/*   Updated: 2024/04/04 22:24:34 by ecaruso          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:01:46 by grinella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_env(char *search, t_mini *mini)
 		{
 			free(tmp);
 			free(search);
-			return (mini->env[i]);
+			return (ft_strdup(mini->env[i]));
 		}
 		i++;
 	}
